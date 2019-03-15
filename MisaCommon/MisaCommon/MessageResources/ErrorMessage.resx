@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChromeSpeechRecognitionChromePathIsWrong" xml:space="preserve">
+    <value>指定したChromeのEXEのパスが間違っておりChromeの起動ができません。</value>
+    <comment>Chromeでの音声認識を開始時にChromeのEXEのファイルパスが取得できなかった場合のメッセージ_パスの誤り</comment>
+  </data>
+  <data name="ChromeSpeechRecognitionNoInstall" xml:space="preserve">
+    <value>当機能を使用するにはChromeのインストールが必要です。</value>
+    <comment>Chromeでの音声認識を開始時にChromeのEXEのファイルパスが取得できなかった場合のメッセージ_Chrome未インストール</comment>
+  </data>
+  <data name="DoubleStartupImpossibleMessage" xml:space="preserve">
+    <value>既にアプリケーションは起動しています。
+二重起動はできません。</value>
+    <comment>二重起動が不可の旨のメッセージ</comment>
+  </data>
+  <data name="ErrorMessageFormat" xml:space="preserve">
+    <value>{0}
+
+【エラー内容】
+{1}</value>
+    <comment>出力するエラーメッセージのフォーマット　{0}：メッセージ、{1}：Exceptionオブジェクトに設定されたメッセージ</comment>
+  </data>
+  <data name="ErrorMessageFormatCommon" xml:space="preserve">
+    <value>エラーが発生しました。</value>
+    <comment>出力するエラーメッセージのフォーマット（主にスタックトレースを出力する場合に使用する）</comment>
+  </data>
+  <data name="ErrorMessageFormatCommonWithProcessName" xml:space="preserve">
+    <value>処理[{0}]にてエラーが発生しました。</value>
+    <comment>出力する共通のエラーメッセージのフォーマット　{0}：処理名</comment>
+  </data>
+  <data name="ErrorMessageFormatWithStackTrace" xml:space="preserve">
+    <value>
+
+--- 【エラー内容】--------------------------------
+{0}
+-- 【スタックトレース】 --------------------------
+{1}</value>
+    <comment>出力するスタックトレース付きエラーメッセージのフォーマット（繰り返し結合するフォーマット）　{0}：エラーメッセージ、{1}：スタックトレース</comment>
+  </data>
+  <data name="GifEncoderErrorBadBlock" xml:space="preserve">
+    <value>この引数はGifの単一のフレームデータとして不正なデータです。（不正なブロックーデータ）</value>
+    <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ（不正なブロックーデータ）</comment>
+  </data>
+  <data name="GifEncoderErrorBadData" xml:space="preserve">
+    <value>この引数はGifの単一のフレームデータとして不正なデータです。</value>
+    <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ</comment>
+  </data>
+  <data name="GifEncoderErrorBadHeader" xml:space="preserve">
+    <value>この引数はGifの単一のフレームデータとして不正なデータです。（不正なヘッダーデータ）</value>
+    <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ（不正なヘッダーデータ）</comment>
+  </data>
+  <data name="GifEncoderErrorBadLast" xml:space="preserve">
+    <value>この引数はGifの単一のフレームデータとして不正なデータです。（不正な末端データ）</value>
+    <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ（不正な末端データ）</comment>
+  </data>
+  <data name="GifEncoderErrorDataBroken" xml:space="preserve">
+    <value>Gifのデータが破損しています。</value>
+    <comment>Gifエンコーダの処理にて、Gifデータが不正な値になっている場合のメッセージ</comment>
+  </data>
+  <data name="GifEncoderErrorEncodingFailed" xml:space="preserve">
+    <value>Gifのエンコードに失敗しました。</value>
+    <comment>Gifエンコーダの処理にて、Gifのエンコードに失敗した場合のメッセージ</comment>
+  </data>
+  <data name="GifEncoderErrorNoBlock" xml:space="preserve">
+    <value>この引数はGifの単一のフレームデータとして不正なデータです。（ブロックーデータ無）</value>
+    <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ（不正なブロックーデータ）</comment>
+  </data>
+  <data name="GifEncoderErrorNotSingleFrame" xml:space="preserve">
+    <value>この引数にはGifの複数フレームのデータが指定されています。単一のフレームデータである必要があります。</value>
+    <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータが必要な引数に複数フレームのデータを設定した場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerError" xml:space="preserve">
+    <value>ローカルHTTPサーバでエラーが発生しました。処理を終了します。</value>
+    <comment>ローカルHTTPサーバの受信送信処理でエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerErrorResponseHtml" xml:space="preserve">
+    <value>&lt;!DOCTYPE html&gt;&lt;html&gt;
+&lt;head&gt;&lt;meta charset = \"UTF-8\"&gt;&lt;/head&gt;
+&lt;body&gt;&lt;pre&gt;
+{0}
+&lt;/pre&gt;&lt;/body&gt;
+&lt;/html&gt;</value>
+    <comment>レスポンスデータの生成処理中にエラーが発生した場合に返却するエラーレスポンスのHTML</comment>
+  </data>
+  <data name="LocalHttpServerNotSupported" xml:space="preserve">
+    <value>このOSではローカルHTTPサーバを使用することはできません。</value>
+    <comment>ローカルHTTPサーバ処理にて当該OSにおいてHttpListenerの使用が不可の場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerNoUnusedPort" xml:space="preserve">
+    <value>使用可能なポートが存在しないため、ローカルHTTPサーバを使用することはできません。</value>
+    <comment>ローカルHTTPサーバ処理にて使用するTCPポートが取得できない場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerStartError" xml:space="preserve">
+    <value>ローカルHTTPサーバの起動に失敗しました。</value>
+    <comment>ローカルHTTPサーバの開始処理にて想定外のエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerStartHttpListenerError" xml:space="preserve">
+    <value>ローカルHTTPサーバの起動に失敗しました。（エラーコード：{0}）</value>
+    <comment>ローカルHTTPサーバの開始処理にてHttpListenerExceptionが発生した場合のメッセージ　{0}：HttpListenerExceptionのエラーコード</comment>
+  </data>
+  <data name="TitleAttention" xml:space="preserve">
+    <value>注意</value>
+    <comment>メッセージボックスのタイトル_Attention</comment>
+  </data>
+  <data name="TitleConfirm" xml:space="preserve">
+    <value>確認</value>
+    <comment>メッセージボックスのタイトル_Confirmation</comment>
+  </data>
+  <data name="TitleCriticalError" xml:space="preserve">
+    <value>致命的なエラー発生！？</value>
+    <comment>メッセージボックスのタイトル_CriticalError</comment>
+  </data>
+  <data name="TitleError" xml:space="preserve">
+    <value>エラー発生！</value>
+    <comment>メッセージボックスのタイトル_Error</comment>
+  </data>
+  <data name="TitleInfo" xml:space="preserve">
+    <value>情報</value>
+    <comment>メッセージボックスのタイトル_Information</comment>
+  </data>
+  <data name="TitleWarning" xml:space="preserve">
+    <value>ワーニング！</value>
+    <comment>メッセージボックスのタイトル_Warning</comment>
+  </data>
+  <data name="UserSettingsProviderErrorGetProperty" xml:space="preserve">
+    <value>コンフィグの読み込みに失敗しました。アプリケーションを終了します。</value>
+    <comment>コンフィグの値取得処理でエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="UserSettingsProviderErrorInitialize" xml:space="preserve">
+    <value>コンフィグの読み込み（初期化）に失敗しました。アプリケーションを終了します。</value>
+    <comment>コンフィグの初期化処理でエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="UserSettingsProviderErrorReset" xml:space="preserve">
+    <value>コンフィグのリセットに失敗しました。</value>
+    <comment>コンフィグのリセット処理でエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="UserSettingsProviderErrorSetProperty" xml:space="preserve">
+    <value>コンフィグの書き込みに失敗しました。設定した内容は破棄されます。</value>
+    <comment>コンフィグの値設定処理でエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="Win32OperateFailDllImportMessageFormat" xml:space="preserve">
+    <value>「{0}、{1}」が読み込みでエラーが発生しました。</value>
+    <comment>Win32APIを使用した処理で対象のDLL、メソッドの読み込みに失敗した場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称</comment>
+  </data>
+  <data name="Win32OperateFailMessageFormat" xml:space="preserve">
+    <value>「{0}、{1}」の処理に失敗しました。</value>
+    <comment>Win32APIを使用した処理で実行したメソッドが処理を失敗した場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称</comment>
+  </data>
+  <data name="Win32OperateFailMessageFormatWithErrorCode" xml:space="preserve">
+    <value>「{0}、{1}」の処理に失敗しました。
+{2}</value>
+    <comment>Win32APIを使用した処理で実行したメソッドが処理を失敗した場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称、{2}：エラーコードに紐づくメッセージ</comment>
+  </data>
+  <data name="Win32OperateRuntimeWrappedExceptionMessageFormat" xml:space="preserve">
+    <value>「{0}、{1}」の処理において例外「RuntimeWrappedException」が発生しました。</value>
+    <comment>Win32APIを使用した処理で実行したメソッドが例外を発生させた場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称</comment>
+  </data>
+  <data name="Win32OperateTimeoutMessage" xml:space="preserve">
+    <value>タイムアウトが発生しました。</value>
+    <comment>Win32APIを使用した処理で実行したメソッドがタイムアウトした場合のメッセージ</comment>
+  </data>
+</root>

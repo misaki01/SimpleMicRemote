@@ -1,0 +1,126 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimpleMicRemote.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ChromeSpeechRecognitionHtmlFilePath" Description="音声認識に使用する既定の「音声認識用.html」ファイルのパス" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Html\音声認識用.html</Value>
+    </Setting>
+    <Setting Name="ChromeSpeechRecognitionPostRegex" Description="「音声認識用.html」において、音声認識認識した文字列をPOSTする際に使用するURLの正規表現（「音声認識用.html」と整合性をとる必要があるパラメータ）" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.RunProcess</Value>
+    </Setting>
+    <Setting Name="ChromeSpeechRecognitionPostParamName" Description="「音声認識用.html」において、音声認識認識した文字列をPOSTする際に使用するPOSTデータのパラメータ名（「音声認識用.html」と整合性をとる必要があるパラメータ）" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">txt</Value>
+    </Setting>
+    <Setting Name="ChromeSpeechRecognitionPort" Description="音声認識用において使用するポート番号" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">49152</Value>
+    </Setting>
+    <Setting Name="ClientSize" Description="クライアントのサイズ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">460, 336</Value>
+    </Setting>
+    <Setting Name="ClientPoint" Description="クライアントの位置" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">100, 100</Value>
+    </Setting>
+    <Setting Name="StartStartupMode" Description="アプリケーション起動の際の起動モード" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Setting</Value>
+    </Setting>
+    <Setting Name="StartInputMode" Description="アプリケーション起動の際の入力モード" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Off</Value>
+    </Setting>
+    <Setting Name="ChromeSizePoint" Description="音声認識で使用するChromeウィンドウのサイズ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">300, 250, 200, 200</Value>
+    </Setting>
+    <Setting Name="InputKey1" Description="キー入力1の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x0D:Enter</Value>
+    </Setting>
+    <Setting Name="InputKey2" Description="キー入力2の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x20:Space</Value>
+    </Setting>
+    <Setting Name="InputKey3" Description="キー入力3の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey4" Description="キー入力4の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey5" Description="キー入力5の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey6" Description="キー入力6の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey7" Description="キー入力7の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="StartTargetPath1" Description="起動する対象のパス1の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\WINDOWS\system32\notepad.exe</Value>
+    </Setting>
+    <Setting Name="StartTargetPath2" Description="起動する対象のパス2の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath3" Description="起動する対象のパス3の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath4" Description="起動する対象のパス4の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath5" Description="起動する対象のパス5の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath6" Description="起動する対象のパス6の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageInputModeOn" Description="入力モードON：Enter無 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">入力モード</Value>
+    </Setting>
+    <Setting Name="MatchMessageInputModeOnEnter" Description="入力モードON：Enter無 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">入力モードエンター</Value>
+    </Setting>
+    <Setting Name="MatchMessageInputModeOff" Description="入力モードOFF のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">モード解除</Value>
+    </Setting>
+    <Setting Name="MatchMessageActiveWindowClose" Description="アクティブウィンドウを閉じる のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">これを閉じて</Value>
+    </Setting>
+    <Setting Name="MatchMessageKeyInput1" Description="キー入力1 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">エンター</Value>
+    </Setting>
+    <Setting Name="MatchMessageKeyInput2" Description="キー入力2 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">スペース</Value>
+    </Setting>
+    <Setting Name="MatchMessageKeyInput3" Description="キー入力3 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageKeyInput4" Description="キー入力4 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageKeyInput5" Description="キー入力5 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageKeyInput6" Description="キー入力6 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageKeyInput7" Description="キー入力7 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageReleaseKey" Description="押しっぱなし解除のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">キー解除</Value>
+    </Setting>
+    <Setting Name="MatchMessageExeStart1" Description="アプリ起動1 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">メモ帳起動</Value>
+    </Setting>
+    <Setting Name="MatchMessageExeStart2" Description="アプリ起動2 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageExeStart3" Description="アプリ起動3 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageExeStart4" Description="アプリ起動4 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageExeStart5" Description="アプリ起動5 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MatchMessageExeStart6" Description="アプリ起動6 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

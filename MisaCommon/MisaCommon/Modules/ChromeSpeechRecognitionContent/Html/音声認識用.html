@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="jp">
+<head>
+	<meta charset="UTF-8">
+	<!-- Chromeの音声認識機能を使用するためCSSはChromeに対応したものを使用すること -->
+	<title>音声認識用（Clrome専用）</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+		body {
+			width:					95%;
+			margin:					8px auto;
+		}
+		.txt_area {
+			height:					3.8em;
+			line-height:			1.3em;
+			letter-spacing:			0.15em;
+			padding:				8px;
+			margin-bottom:			8px;
+			border:					2px solid #c0c0c0;
+			border-radius:			4px;
+		}
+		.txt_area .txt {
+			height:					inherit;
+			padding:				1px 1px 0 1px;
+			overflow:				hidden;
+		}
+		.txt_area.interim {
+			border:					2px solid #ffa500;
+		}
+		.txt_area.confirm {
+			border:					2px solid #00ff00;
+		}
+		.txt_area.error {
+			border:					2px solid #ff0000;
+		}
+
+		.response_area pre {
+			margin-top:				16px;
+			overflow:				auto;
+			white-space:			pre-wrap;
+			word-wrap:				break-word;
+		}
+
+		#btn {
+			color:					#ffffff;
+			font-size:				24px;
+			font-weight:			700;
+			text-shadow: 			0 1px 1px rgba(0, 0, 0, .5);
+			padding:				16px 32px;
+			background:				-webkit-linear-gradient(top, #87ceeb, #1e90ff);
+			background:				linear-gradient(to bottom, #87ceeb, #1e90ff);
+			border:					1px solid #00008b;
+			border-radius: 			4px;
+			-webkit-transition:		none;
+			transition:				none;
+		}
+		#btn.off {
+			background:				-webkit-linear-gradient(top, #87ceeb, #1e90ff);
+			background:				linear-gradient(to bottom, #87ceeb, #1e90ff);
+			border:					1px solid #00008b;
+		}
+		#btn.off:hover {
+			color:					#00008b;
+			text-shadow: 			0 1px 1px rgba(255, 255, 255, .5);
+		}
+		#btn.off:active {
+			text-shadow: 			0 1px 1px rgba(0, 0, 0, .5);
+			box-shadow:				inset 0 3px 5px rgba(0, 0, 0, .2);
+		}
+		#btn.on {
+			background:				-webkit-linear-gradient(top, #ff00ff, #c71585);
+			background:				linear-gradient(to bottom, #ff00ff, #c71585);
+			border:					1px solid #800000;
+		}
+		#btn.on:hover {
+			color:					#800000;
+			text-shadow: 			0 1px 1px rgba(255, 255, 255, .5);
+		}
+		#btn.on:active {
+			text-shadow: 			0 1px 1px rgba(0, 0, 0, .5);
+			box-shadow:				inset 0 3px 5px rgba(0, 0, 0, .2);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="area_recognition" class="txt_area">
+		<span id="span_recognition" class="txt"></span>
+	</div>
+	<input id="btn" class="off" type="button" value="音声認識開始"/>
+	<div class="response_area">
+		<pre id="pre_response"></pre>
+	</div>
+
+	<script>
+		(function () {
+			var flgSpeech = false;
+			var recognition;
+			var $areaRecognition = document.querySelector('#area_recognition');
+			var $spanRecognition = document.querySelector('#span_recognition');
+			var $preResponse = document.querySelector('#pre_response');
+			var $button = document.querySelector('#btn');
+
+			function start() {
+				recognition = new webkitSpeechRecognition();
+				recognition.lang = 'ja-JP';
+				recognition.continuous = true;
+				recognition.interimResults = true;
+
+				recognition.onstart = function () {
+					console.debug('[onstart]');
+				};
+				recognition.onaudiostart = function () {
+					console.debug('[onaudiostart]');
+				};
+				recognition.onsoundstart = function () {
+					console.debug('[onsoundstart]');
+				};
+				recognition.onspeechstart = function () {
+					console.debug('[onspeechstart]');
+				};
+
+				recognition.onresult = function (e) {
+					var txtInterim = '';
+					var txtConfirm = '';
+					if (e.results.length > 0) {
+						var resultIndex = e.results.length - 1
+						if (e.results[resultIndex].isFinal) {
+							txtConfirm = e.results[resultIndex][0].transcript;
+						} else {
+							txtInterim = e.results[resultIndex][0].transcript;
+						}
+					}
+
+					if (txtInterim.length > 0) {
+						$areaRecognition.className = 'txt_area interim';
+						$spanRecognition.textContent = txtInterim;
+					} else if (txtConfirm.length > 0) {
+						$areaRecognition.className = 'txt_area confirm';
+						$spanRecognition.textContent = txtConfirm;
+						postTxt(txtConfirm);
+					} else {
+						$areaConfirm.className = 'txt_area';
+						$spanRecognition.textContent = '';
+					}
+				};
+				recognition.onnomatch = function () {
+					console.debug('★[onnomatch]');
+				};
+				recognition.onerror = function () {
+					console.debug('★★[onerror]');
+				};
+
+				recognition.onspeechend = function () {
+					console.debug('[onspeechend]');
+				};
+				recognition.onsoundend = function () {
+					console.debug('[onsoundend]');
+				};
+				recognition.onaudioend = function () {
+					console.debug('[audioend]');
+				};
+				recognition.onend = function () {
+					console.debug('[onend]');
+					if (flgSpeech) {
+						recognition.start();
+					}
+				};
+				flgSpeech = true;
+				recognition.start();
+			};
+
+			function stop() {
+				flgSpeech = false;
+				recognition.stop();
+			};
+
+			function postTxt(txt) {
+				$.ajax({
+					url: 'RunProcess',
+					type: 'POST',
+					dataType: 'text',
+					data: { txt },
+				})
+				.then(
+					function (response) {
+						// Success
+						$preResponse.textContent = response;
+					},
+					function (xmlHttpRequest, textStatus, errorThrown) {
+						// Error
+						var message;
+						if (typeof xmlHttpRequest.responseText === "undefined") {
+							message = textStatus;
+						}
+						else {
+							message = xmlHttpRequest.responseText;
+						}
+						
+						$areaRecognition.className = 'txt_area error';
+						$preResponse.textContent = message;
+					}
+				);
+			}
+
+			function buttonOn () {
+				$button.value = '音声認識開始';
+				$button.className = 'off';
+			}
+			function buttonOff () {
+				$button.value = '音声認識停止';
+				$button.className = 'on';
+			}
+			
+			$button.onclick = function () {
+				if (flgSpeech) {
+					stop();
+					buttonOn();
+				} else {
+					start();
+					buttonOff();
+				}
+			}
+
+			window.onbeforeunload = function(){
+				stop();
+			}
+
+			start();
+			buttonOff();
+		})();
+	</script>
+</body>
+</html>

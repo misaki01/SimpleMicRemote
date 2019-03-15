@@ -1,0 +1,844 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Key0x0000FFFF_KeyCode" xml:space="preserve">
+    <value />
+    <comment>●キー値からキーコードを抽出するビットマスク</comment>
+  </data>
+  <data name="Key0x00010000_Shift" xml:space="preserve">
+    <value>Shift修飾子</value>
+    <comment>{Shift}修飾キー</comment>
+  </data>
+  <data name="Key0x00020000_Control" xml:space="preserve">
+    <value>Ctrl修飾子</value>
+    <comment>{Ctrl}修飾キー</comment>
+  </data>
+  <data name="Key0x00040000_Alt" xml:space="preserve">
+    <value>Alt修飾子</value>
+    <comment>{Alt}修飾キー</comment>
+  </data>
+  <data name="Key0x000F0000_Modifiers" xml:space="preserve">
+    <value />
+    <comment>●キー値から修飾子を抽出するビットマスク</comment>
+  </data>
+  <data name="Key0x00_None" xml:space="preserve">
+    <value>- なし -</value>
+    <comment>この設定は使用しない</comment>
+  </data>
+  <data name="Key0x01_LButton" xml:space="preserve">
+    <value>左クリック</value>
+    <comment>マウスの左ボタン</comment>
+  </data>
+  <data name="Key0x02_RButton" xml:space="preserve">
+    <value>右クリック</value>
+    <comment>マウスの右ボタン</comment>
+  </data>
+  <data name="Key0x03_Cancel" xml:space="preserve">
+    <value>Break</value>
+    <comment>●{Break}（ブレイク処理）キー（{Ctrl}+{Pause} 又は {Ctrl}+{ScrollLock}）</comment>
+  </data>
+  <data name="Key0x04_MButton" xml:space="preserve">
+    <value>中央クリック</value>
+    <comment>マウスの中央ボタン（3ボタンマウス）</comment>
+  </data>
+  <data name="Key0x05_XButton1" xml:space="preserve">
+    <value>第１拡張ボタンクリック</value>
+    <comment>マウスの第1拡張ボタン（5ボタンマウス）</comment>
+  </data>
+  <data name="Key0x06_XButton2" xml:space="preserve">
+    <value>第２拡張ボタンクリック</value>
+    <comment>マウスの第2拡張ボタン（5ボタンマウス）</comment>
+  </data>
+  <data name="Key0x08_Back" xml:space="preserve">
+    <value>BackSpace</value>
+    <comment>{BackSpace}キー</comment>
+  </data>
+  <data name="Key0x09_Tab" xml:space="preserve">
+    <value>Tab</value>
+    <comment>{Tab}キー</comment>
+  </data>
+  <data name="Key0x0A_LineFeed" xml:space="preserve">
+    <value>LF：ラインフィード</value>
+    <comment>●改行（LF：ラインフィード）</comment>
+  </data>
+  <data name="Key0x0C_Clear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>●Clear</comment>
+  </data>
+  <data name="Key0x0D_Enter" xml:space="preserve">
+    <value>Enter</value>
+    <comment>{Enter}キー</comment>
+  </data>
+  <data name="Key0x10_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+    <comment>{Shift}キー</comment>
+  </data>
+  <data name="Key0x11_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+    <comment>{Ctrl}キー</comment>
+  </data>
+  <data name="Key0x12_Menu" xml:space="preserve">
+    <value>Alt</value>
+    <comment>{Alt}キー</comment>
+  </data>
+  <data name="Key0x13_Pause" xml:space="preserve">
+    <value>Pause</value>
+    <comment>{Pause}キー</comment>
+  </data>
+  <data name="Key0x14_CapsLock" xml:space="preserve">
+    <value>CapsLock</value>
+    <comment>CapsLock（{Shift}+{CapsLock}キー）</comment>
+  </data>
+  <data name="Key0x15_KanaMode" xml:space="preserve">
+    <value>かな/ローマ字</value>
+    <comment>IME かなモード</comment>
+  </data>
+  <data name="Key0x17_JunjaMode" xml:space="preserve">
+    <value>IME Junjaモード</value>
+    <comment>●IME Junjaモード</comment>
+  </data>
+  <data name="Key0x18_FinalMode" xml:space="preserve">
+    <value>IME Finalモード</value>
+    <comment>●IME Finalモード</comment>
+  </data>
+  <data name="Key0x19_KanjiMode" xml:space="preserve">
+    <value>英数/漢字</value>
+    <comment>IME 漢字モード（{Alt}+{半角／全角}キー）</comment>
+  </data>
+  <data name="Key0x1B_Escape" xml:space="preserve">
+    <value>Esc</value>
+    <comment>{Esc}キー</comment>
+  </data>
+  <data name="Key0x1C_IMEConvert" xml:space="preserve">
+    <value>変換</value>
+    <comment>{変換}キー（IME変換）</comment>
+  </data>
+  <data name="Key0x1D_IMENonconvert" xml:space="preserve">
+    <value>無変換</value>
+    <comment>{無変換}キー（IME無変換）</comment>
+  </data>
+  <data name="Key0x1E_IMEAccept" xml:space="preserve">
+    <value>IME Accept</value>
+    <comment>●IME Accept</comment>
+  </data>
+  <data name="Key0x1F_IMEModeChange" xml:space="preserve">
+    <value>IME モード変更</value>
+    <comment>●IME モード変更</comment>
+  </data>
+  <data name="Key0x20_Space" xml:space="preserve">
+    <value>Space</value>
+    <comment>{Space}キー</comment>
+  </data>
+  <data name="Key0x21_PageUp" xml:space="preserve">
+    <value>PageUp</value>
+    <comment>{PageUp}キー</comment>
+  </data>
+  <data name="Key0x22_PageDown" xml:space="preserve">
+    <value>PageDown</value>
+    <comment>{PageDown}キー</comment>
+  </data>
+  <data name="Key0x23_End" xml:space="preserve">
+    <value>End</value>
+    <comment>{End}キー</comment>
+  </data>
+  <data name="Key0x24_Home" xml:space="preserve">
+    <value>Home</value>
+    <comment>{Home}キー</comment>
+  </data>
+  <data name="Key0x25_Left" xml:space="preserve">
+    <value>←</value>
+    <comment>{←}キー</comment>
+  </data>
+  <data name="Key0x26_Up" xml:space="preserve">
+    <value>↑</value>
+    <comment>{↑}キー</comment>
+  </data>
+  <data name="Key0x27_Right" xml:space="preserve">
+    <value>→</value>
+    <comment>{→}キー</comment>
+  </data>
+  <data name="Key0x28_Down" xml:space="preserve">
+    <value>↓</value>
+    <comment>{↓}キー</comment>
+  </data>
+  <data name="Key0x29_Select" xml:space="preserve">
+    <value>Select</value>
+    <comment>●Select</comment>
+  </data>
+  <data name="Key0x2A_Print" xml:space="preserve">
+    <value>Print</value>
+    <comment>●Print</comment>
+  </data>
+  <data name="Key0x2B_Execute" xml:space="preserve">
+    <value>Execute</value>
+    <comment>●Execute</comment>
+  </data>
+  <data name="Key0x2C_PrintScreen" xml:space="preserve">
+    <value>PrintScreen</value>
+    <comment>{PrintScreen}キー</comment>
+  </data>
+  <data name="Key0x2D_Insert" xml:space="preserve">
+    <value>Insert</value>
+    <comment>{Insert}キー</comment>
+  </data>
+  <data name="Key0x2E_Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>{Delete}キー</comment>
+  </data>
+  <data name="Key0x2F_Help" xml:space="preserve">
+    <value>Help</value>
+    <comment>●Help</comment>
+  </data>
+  <data name="Key0x30_D0" xml:space="preserve">
+    <value>0</value>
+    <comment>{0}キー</comment>
+  </data>
+  <data name="Key0x31_D1" xml:space="preserve">
+    <value>1</value>
+    <comment>{1}キー</comment>
+  </data>
+  <data name="Key0x32_D2" xml:space="preserve">
+    <value>2</value>
+    <comment>{2}キー</comment>
+  </data>
+  <data name="Key0x33_D3" xml:space="preserve">
+    <value>3</value>
+    <comment>{3}キー</comment>
+  </data>
+  <data name="Key0x34_D4" xml:space="preserve">
+    <value>4</value>
+    <comment>{4}キー</comment>
+  </data>
+  <data name="Key0x35_D5" xml:space="preserve">
+    <value>5</value>
+    <comment>{5}キー</comment>
+  </data>
+  <data name="Key0x36_D6" xml:space="preserve">
+    <value>6</value>
+    <comment>{6}キー</comment>
+  </data>
+  <data name="Key0x37_D7" xml:space="preserve">
+    <value>7</value>
+    <comment>{7}キー</comment>
+  </data>
+  <data name="Key0x38_D8" xml:space="preserve">
+    <value>8</value>
+    <comment>{8}キー</comment>
+  </data>
+  <data name="Key0x39_D9" xml:space="preserve">
+    <value>9</value>
+    <comment>{9}キー</comment>
+  </data>
+  <data name="Key0x41_A" xml:space="preserve">
+    <value>A</value>
+    <comment>{A}キー</comment>
+  </data>
+  <data name="Key0x42_B" xml:space="preserve">
+    <value>B</value>
+    <comment>{B}キー</comment>
+  </data>
+  <data name="Key0x43_C" xml:space="preserve">
+    <value>C</value>
+    <comment>{C}キー</comment>
+  </data>
+  <data name="Key0x44_D" xml:space="preserve">
+    <value>D</value>
+    <comment>{D}キー</comment>
+  </data>
+  <data name="Key0x45_E" xml:space="preserve">
+    <value>E</value>
+    <comment>{E}キー</comment>
+  </data>
+  <data name="Key0x46_F" xml:space="preserve">
+    <value>F</value>
+    <comment>{F}キー</comment>
+  </data>
+  <data name="Key0x47_G" xml:space="preserve">
+    <value>G</value>
+    <comment>{G}キー</comment>
+  </data>
+  <data name="Key0x48_H" xml:space="preserve">
+    <value>H</value>
+    <comment>{H}キー</comment>
+  </data>
+  <data name="Key0x49_I" xml:space="preserve">
+    <value>I</value>
+    <comment>{I}キー</comment>
+  </data>
+  <data name="Key0x4A_J" xml:space="preserve">
+    <value>J</value>
+    <comment>{J}キー</comment>
+  </data>
+  <data name="Key0x4B_K" xml:space="preserve">
+    <value>K</value>
+    <comment>{K}キー</comment>
+  </data>
+  <data name="Key0x4C_L" xml:space="preserve">
+    <value>L</value>
+    <comment>{L}キー</comment>
+  </data>
+  <data name="Key0x4D_M" xml:space="preserve">
+    <value>M</value>
+    <comment>{M}キー</comment>
+  </data>
+  <data name="Key0x4E_N" xml:space="preserve">
+    <value>N</value>
+    <comment>{N}キー</comment>
+  </data>
+  <data name="Key0x4F_O" xml:space="preserve">
+    <value>O</value>
+    <comment>{O}キー</comment>
+  </data>
+  <data name="Key0x50_P" xml:space="preserve">
+    <value>P</value>
+    <comment>{P}キー</comment>
+  </data>
+  <data name="Key0x51_Q" xml:space="preserve">
+    <value>Q</value>
+    <comment>{Q}キー</comment>
+  </data>
+  <data name="Key0x52_R" xml:space="preserve">
+    <value>R</value>
+    <comment>{R}キー</comment>
+  </data>
+  <data name="Key0x53_S" xml:space="preserve">
+    <value>S</value>
+    <comment>{S}キー</comment>
+  </data>
+  <data name="Key0x54_T" xml:space="preserve">
+    <value>T</value>
+    <comment>{T}キー</comment>
+  </data>
+  <data name="Key0x55_U" xml:space="preserve">
+    <value>U</value>
+    <comment>{U}キー</comment>
+  </data>
+  <data name="Key0x56_V" xml:space="preserve">
+    <value>V</value>
+    <comment>{V}キー</comment>
+  </data>
+  <data name="Key0x57_W" xml:space="preserve">
+    <value>W</value>
+    <comment>{W}キー</comment>
+  </data>
+  <data name="Key0x58_X" xml:space="preserve">
+    <value>X</value>
+    <comment>{X}キー</comment>
+  </data>
+  <data name="Key0x59_Y" xml:space="preserve">
+    <value>Y</value>
+    <comment>{Y}キー</comment>
+  </data>
+  <data name="Key0x5A_Z" xml:space="preserve">
+    <value>Z</value>
+    <comment>{Z}キー</comment>
+  </data>
+  <data name="Key0x5B_LWin" xml:space="preserve">
+    <value>Win</value>
+    <comment>左の{Windowsロゴ}キー</comment>
+  </data>
+  <data name="Key0x5C_RWin" xml:space="preserve">
+    <value>Win</value>
+    <comment>右の{Windowsロゴ}キー</comment>
+  </data>
+  <data name="Key0x5D_Apps" xml:space="preserve">
+    <value>App</value>
+    <comment>{アプリケーション}キー</comment>
+  </data>
+  <data name="Key0x5F_Sleep" xml:space="preserve">
+    <value>Sleep</value>
+    <comment>{Sleep}キー（コンピュータをスリープさせるキー）</comment>
+  </data>
+  <data name="Key0x60_NumPad0" xml:space="preserve">
+    <value>0(テンキー)</value>
+    <comment>NumLockオンのテンキーの{0}キー</comment>
+  </data>
+  <data name="Key0x61_NumPad1" xml:space="preserve">
+    <value>1(テンキー)</value>
+    <comment>NumLockオンのテンキーの{1}キー</comment>
+  </data>
+  <data name="Key0x62_NumPad2" xml:space="preserve">
+    <value>2(テンキー)</value>
+    <comment>NumLockオンのテンキーの{2}キー</comment>
+  </data>
+  <data name="Key0x63_NumPad3" xml:space="preserve">
+    <value>3(テンキー)</value>
+    <comment>NumLockオンのテンキーの{3}キー</comment>
+  </data>
+  <data name="Key0x64_NumPad4" xml:space="preserve">
+    <value>4(テンキー)</value>
+    <comment>NumLockオンのテンキーの{4}キー</comment>
+  </data>
+  <data name="Key0x65_NumPad5" xml:space="preserve">
+    <value>5(テンキー)</value>
+    <comment>NumLockオンのテンキーの{5}キー</comment>
+  </data>
+  <data name="Key0x66_NumPad6" xml:space="preserve">
+    <value>6(テンキー)</value>
+    <comment>NumLockオンのテンキーの{6}キー</comment>
+  </data>
+  <data name="Key0x67_NumPad7" xml:space="preserve">
+    <value>7(テンキー)</value>
+    <comment>NumLockオンのテンキーの{7}キー</comment>
+  </data>
+  <data name="Key0x68_NumPad8" xml:space="preserve">
+    <value>8(テンキー)</value>
+    <comment>NumLockオンのテンキーの{5}キー</comment>
+  </data>
+  <data name="Key0x69_NumPad9" xml:space="preserve">
+    <value>9(テンキー)</value>
+    <comment>NumLockオンのテンキーの{9}キー</comment>
+  </data>
+  <data name="Key0x6A_Multiply" xml:space="preserve">
+    <value>[ * ](テンキー)</value>
+    <comment>テンキーの{*}キー</comment>
+  </data>
+  <data name="Key0x6B_Add" xml:space="preserve">
+    <value>[ + ](テンキー)</value>
+    <comment>テンキーの{+}キー</comment>
+  </data>
+  <data name="Key0x6C_Separator" xml:space="preserve">
+    <value>区切り記号</value>
+    <comment>●区切り記号（カンマ{,}）</comment>
+  </data>
+  <data name="Key0x6D_Subtract" xml:space="preserve">
+    <value>[ - ](テンキー)</value>
+    <comment>テンキーの{-}キー</comment>
+  </data>
+  <data name="Key0x6E_Decimal" xml:space="preserve">
+    <value>[ . ](テンキー)</value>
+    <comment>テンキーの{.}キー</comment>
+  </data>
+  <data name="Key0x6F_Divide" xml:space="preserve">
+    <value>[ / ](テンキー)</value>
+    <comment>テンキーの{/}キー</comment>
+  </data>
+  <data name="Key0x70_F1" xml:space="preserve">
+    <value>F1</value>
+    <comment>{F1}キー</comment>
+  </data>
+  <data name="Key0x71_F2" xml:space="preserve">
+    <value>F2</value>
+    <comment>{F2}キー</comment>
+  </data>
+  <data name="Key0x72_F3" xml:space="preserve">
+    <value>F3</value>
+    <comment>{F3}キー</comment>
+  </data>
+  <data name="Key0x73_F4" xml:space="preserve">
+    <value>F4</value>
+    <comment>{F4}キー</comment>
+  </data>
+  <data name="Key0x74_F5" xml:space="preserve">
+    <value>F5</value>
+    <comment>{F5}キー</comment>
+  </data>
+  <data name="Key0x75_F6" xml:space="preserve">
+    <value>F6</value>
+    <comment>{F6}キー</comment>
+  </data>
+  <data name="Key0x76_F7" xml:space="preserve">
+    <value>F7</value>
+    <comment>{F7}キー</comment>
+  </data>
+  <data name="Key0x77_F8" xml:space="preserve">
+    <value>F8</value>
+    <comment>{F8}キー</comment>
+  </data>
+  <data name="Key0x78_F9" xml:space="preserve">
+    <value>F9</value>
+    <comment>{F9}キー</comment>
+  </data>
+  <data name="Key0x79_F10" xml:space="preserve">
+    <value>F10</value>
+    <comment>{F10}キー</comment>
+  </data>
+  <data name="Key0x7A_F11" xml:space="preserve">
+    <value>F11</value>
+    <comment>{F11}キー</comment>
+  </data>
+  <data name="Key0x7B_F12" xml:space="preserve">
+    <value>F12</value>
+    <comment>{F12}キー</comment>
+  </data>
+  <data name="Key0x7C_F13" xml:space="preserve">
+    <value>F13</value>
+    <comment>{F13}キー</comment>
+  </data>
+  <data name="Key0x7D_F14" xml:space="preserve">
+    <value>F14</value>
+    <comment>{F14}キー</comment>
+  </data>
+  <data name="Key0x7E_F15" xml:space="preserve">
+    <value>F15</value>
+    <comment>{F15}キー</comment>
+  </data>
+  <data name="Key0x7F_F16" xml:space="preserve">
+    <value>F16</value>
+    <comment>{F16}キー</comment>
+  </data>
+  <data name="Key0x80_F17" xml:space="preserve">
+    <value>F17</value>
+    <comment>{F17}キー</comment>
+  </data>
+  <data name="Key0x81_F18" xml:space="preserve">
+    <value>F18</value>
+    <comment>{F18}キー</comment>
+  </data>
+  <data name="Key0x82_F19" xml:space="preserve">
+    <value>F19</value>
+    <comment>{F19}キー</comment>
+  </data>
+  <data name="Key0x83_F20" xml:space="preserve">
+    <value>F20</value>
+    <comment>{F20}キー</comment>
+  </data>
+  <data name="Key0x84_F21" xml:space="preserve">
+    <value>F21</value>
+    <comment>{F21}キー</comment>
+  </data>
+  <data name="Key0x85_F22" xml:space="preserve">
+    <value>F22</value>
+    <comment>{F22}キー</comment>
+  </data>
+  <data name="Key0x86_F23" xml:space="preserve">
+    <value>F23</value>
+    <comment>{F23}キー</comment>
+  </data>
+  <data name="Key0x87_F24" xml:space="preserve">
+    <value>F24</value>
+    <comment>{F24}キー</comment>
+  </data>
+  <data name="Key0x90_NumLock" xml:space="preserve">
+    <value>NumLock</value>
+    <comment>{NumLock}キー</comment>
+  </data>
+  <data name="Key0x91_Scroll" xml:space="preserve">
+    <value>ScrollLock</value>
+    <comment>{ScrollLock}キー</comment>
+  </data>
+  <data name="Key0xA0_LShiftKey" xml:space="preserve">
+    <value>Shift</value>
+    <comment>左の{Shift}キー</comment>
+  </data>
+  <data name="Key0xA1_RShiftKey" xml:space="preserve">
+    <value>Shift</value>
+    <comment>右の{Shift}キー</comment>
+  </data>
+  <data name="Key0xA2_LControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+    <comment>左の{Ctrl}キー</comment>
+  </data>
+  <data name="Key0xA3_RControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+    <comment>右の{Ctrl}キー</comment>
+  </data>
+  <data name="Key0xA4_LMenu" xml:space="preserve">
+    <value>Alt</value>
+    <comment>左の{Alt}キー</comment>
+  </data>
+  <data name="Key0xA5_RMenu" xml:space="preserve">
+    <value>Alt</value>
+    <comment>右の{Alt}キー</comment>
+  </data>
+  <data name="Key0xA6_BrowserBack" xml:space="preserve">
+    <value>ブラウザ_戻る</value>
+    <comment>ブラウザーの戻るキー</comment>
+  </data>
+  <data name="Key0xA7_BrowserForward" xml:space="preserve">
+    <value>ブラウザ_進む</value>
+    <comment>ブラウザーの進むキー</comment>
+  </data>
+  <data name="Key0xA8_BrowserRefresh" xml:space="preserve">
+    <value>ブラウザ_更新</value>
+    <comment>ブラウザーの更新のキー</comment>
+  </data>
+  <data name="Key0xA9_BrowserStop" xml:space="preserve">
+    <value>ブラウザ_中止</value>
+    <comment>ブラウザーの中止キー</comment>
+  </data>
+  <data name="Key0xAA_BrowserSearch" xml:space="preserve">
+    <value>ブラウザ_検索</value>
+    <comment>●ブラウザーの検索キー</comment>
+  </data>
+  <data name="Key0xAB_BrowserFavorites" xml:space="preserve">
+    <value>ブラウザ_お気に入り</value>
+    <comment>●ブラウザーのお気に入りキー</comment>
+  </data>
+  <data name="Key0xAC_BrowserHome" xml:space="preserve">
+    <value>ブラウザ_ホーム</value>
+    <comment>ブラウザーのホームキー</comment>
+  </data>
+  <data name="Key0xAD_VolumeMute" xml:space="preserve">
+    <value>音量[ミュート]</value>
+    <comment>音量ミュートキー</comment>
+  </data>
+  <data name="Key0xAE_VolumeDown" xml:space="preserve">
+    <value>音量[ - ]</value>
+    <comment>音量 - キー</comment>
+  </data>
+  <data name="Key0xAF_VolumeUp" xml:space="preserve">
+    <value>音量[ + ]</value>
+    <comment>音量 + キー</comment>
+  </data>
+  <data name="Key0xB0_MediaNextTrack" xml:space="preserve">
+    <value>メディア_次のトラック</value>
+    <comment>次のトラックキー</comment>
+  </data>
+  <data name="Key0xB1_MediaPreviousTrack" xml:space="preserve">
+    <value>メディア_前のトラック</value>
+    <comment>前のトラックキー（曲の先頭へ戻る又は前のトラックへ行く）</comment>
+  </data>
+  <data name="Key0xB2_MediaStop" xml:space="preserve">
+    <value>メディア_停止</value>
+    <comment>●メディア停止キー</comment>
+  </data>
+  <data name="Key0xB3_MediaPlayPause" xml:space="preserve">
+    <value>メディア_再生/一時停止</value>
+    <comment>メディア再生/一時停止キー</comment>
+  </data>
+  <data name="Key0xB4_LaunchMail" xml:space="preserve">
+    <value>メール起動</value>
+    <comment>●メール起動キー</comment>
+  </data>
+  <data name="Key0xB5_SelectMedia" xml:space="preserve">
+    <value>メディア選択</value>
+    <comment>●メディア選択キー</comment>
+  </data>
+  <data name="Key0xB6_LaunchApplication1" xml:space="preserve">
+    <value>ホットキー１</value>
+    <comment>●カスタムホットキー1</comment>
+  </data>
+  <data name="Key0xB7_LaunchApplication2" xml:space="preserve">
+    <value>ホットキー２</value>
+    <comment>●カスタムホットキー2</comment>
+  </data>
+  <data name="Key0xBA_OemSemicolon" xml:space="preserve">
+    <value>[ :* ]</value>
+    <comment>米国標準キーボードの{;}キー（日本語キーボードの場合{: *}キー）</comment>
+  </data>
+  <data name="Key0xBB_Oemplus" xml:space="preserve">
+    <value>[ ;+ ]</value>
+    <comment>国または地域別キーボードの{+}キー（日本語キーボードの場合{; +}キー）</comment>
+  </data>
+  <data name="Key0xBC_Oemcomma" xml:space="preserve">
+    <value>[ ,&lt; ]</value>
+    <comment>国または地域別キーボードの{,}キー（日本語キーボードの場合{, &lt;}キー）</comment>
+  </data>
+  <data name="Key0xBD_OemMinus" xml:space="preserve">
+    <value>[ -= ]</value>
+    <comment>国または地域別キーボードの{-}キー（日本語キーボードの場合{- =}キー）</comment>
+  </data>
+  <data name="Key0xBE_OemPeriod" xml:space="preserve">
+    <value>[ .&gt; ]</value>
+    <comment>国または地域別キーボードの{.}キー（日本語キーボードの場合{. &gt;}キー）</comment>
+  </data>
+  <data name="Key0xBF_OemQuestion" xml:space="preserve">
+    <value>[ /? ]</value>
+    <comment>米国標準キーボードの{?}キー（日本語キーボードの場合{/ ?}キー）</comment>
+  </data>
+  <data name="Key0xC0_Oemtilde" xml:space="preserve">
+    <value>[ @` ]</value>
+    <comment>米国標準キーボードの{~}キー（日本語キーボードの場合{@ `}キー）</comment>
+  </data>
+  <data name="Key0xDB_OemOpenBrackets" xml:space="preserve">
+    <value>[ [{ ]</value>
+    <comment>米国標準キーボードの{[}キー（日本語キーボードの場合{[ {}キー）</comment>
+  </data>
+  <data name="Key0xDC_OemPipe" xml:space="preserve">
+    <value>[ \| ]</value>
+    <comment>米国標準キーボードの{|}キー（日本語キーボードの場合{\ |}キー）</comment>
+  </data>
+  <data name="Key0xDD_OemCloseBrackets" xml:space="preserve">
+    <value>[ ]} ]</value>
+    <comment>米国標準キーボード{]}キー（日本語キーボードの場合{] }}キー）</comment>
+  </data>
+  <data name="Key0xDE_OemQuotes" xml:space="preserve">
+    <value>[ ^~ ]</value>
+    <comment>米国標準キーボードの{' "}キー（日本語キーボードの場合{^ ~}キー）</comment>
+  </data>
+  <data name="Key0xDF_Oem8" xml:space="preserve">
+    <value />
+    <comment>●OEM 8</comment>
+  </data>
+  <data name="Key0xE2_OemBackslash" xml:space="preserve">
+    <value>[ \_ ]</value>
+    <comment>RT102キーボードの{^ \}（日本語キーボードの場合{＼ _}キー）</comment>
+  </data>
+  <data name="Key0xE5_ProcessKey" xml:space="preserve">
+    <value>ProcessKey</value>
+    <comment>●ProcessKey</comment>
+  </data>
+  <data name="Key0xE7_Packet" xml:space="preserve">
+    <value />
+    <comment>●Unicode文字をキーストロークであるかのように渡すための32ビット仮想キー値の下位ワード</comment>
+  </data>
+  <data name="Key0xF0_VK_OEM_ATTN" xml:space="preserve">
+    <value>英数 CapsLock</value>
+    <comment>●{英数 CapsLock}キー</comment>
+  </data>
+  <data name="Key0xF2_VK_OEM_COPY" xml:space="preserve">
+    <value>カタカナ ひらがな</value>
+    <comment>●{カタカナ ひらがな}キー</comment>
+  </data>
+  <data name="Key0xF3_VK_OEM_AUTO" xml:space="preserve">
+    <value>半角／全角</value>
+    <comment>●{半角／全角}キー</comment>
+  </data>
+  <data name="Key0xF5_VK_OEM_BACKTAB" xml:space="preserve">
+    <value>ローマ字</value>
+    <comment>●ローマ字キー（{Alt}+{カタカナ ひらがな}キー）</comment>
+  </data>
+  <data name="Key0xF6_Attn" xml:space="preserve">
+    <value>Attn</value>
+    <comment>●Attn</comment>
+  </data>
+  <data name="Key0xF7_Crsel" xml:space="preserve">
+    <value>Crsel</value>
+    <comment>●Crsel</comment>
+  </data>
+  <data name="Key0xF8_Exsel" xml:space="preserve">
+    <value>Exsel</value>
+    <comment>●Exsel</comment>
+  </data>
+  <data name="Key0xF9_EraseEof" xml:space="preserve">
+    <value>Erase Eof</value>
+    <comment>●Erase Eof</comment>
+  </data>
+  <data name="Key0xFA_Play" xml:space="preserve">
+    <value>Play</value>
+    <comment>●Play</comment>
+  </data>
+  <data name="Key0xFB_Zoom" xml:space="preserve">
+    <value>Zoom</value>
+    <comment>●Zoom</comment>
+  </data>
+  <data name="Key0xFC_NoName" xml:space="preserve">
+    <value />
+    <comment>●予約済定数</comment>
+  </data>
+  <data name="Key0xFD_Pa1" xml:space="preserve">
+    <value>PA1</value>
+    <comment>●PA1</comment>
+  </data>
+  <data name="Key0xFE_OemClear" xml:space="preserve">
+    <value>OemClear</value>
+    <comment>●Clear</comment>
+  </data>
+</root>

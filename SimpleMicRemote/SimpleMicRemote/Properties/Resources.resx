@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChromeSizePoint_Description" xml:space="preserve">
+    <value>音声認識で使用するChromeウィンドウのサイズと位置を指定する。</value>
+    <comment>プロパティ「音声認識ウィンドウのサイズと位置」の説明</comment>
+  </data>
+  <data name="ChromeSizePoint_DisplayName" xml:space="preserve">
+    <value>音声認識ウィンドウのサイズと位置</value>
+    <comment>プロパティ「音声認識ウィンドウのサイズと位置」の表示名</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icon\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InputKey1_Description" xml:space="preserve">
+    <value>キー1 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー1 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey1_DisplayName" xml:space="preserve">
+    <value>キー1 の押下キー</value>
+    <comment>プロパティ「キー1 の押下キー」の表示名</comment>
+  </data>
+  <data name="InputKey2_Description" xml:space="preserve">
+    <value>キー2 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー2 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey2_DisplayName" xml:space="preserve">
+    <value>キー2 の押下キー</value>
+    <comment>プロパティ「キー2 の押下キー」の表示名</comment>
+  </data>
+  <data name="InputKey3_Description" xml:space="preserve">
+    <value>キー3 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー3 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey3_DisplayName" xml:space="preserve">
+    <value>キー3 の押下キー</value>
+    <comment>プロパティ「キー3 の押下キー」の表示名</comment>
+  </data>
+  <data name="InputKey4_Description" xml:space="preserve">
+    <value>キー4 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー4 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey4_DisplayName" xml:space="preserve">
+    <value>キー4 の押下キー</value>
+    <comment>プロパティ「キー4 の押下キー」の表示名</comment>
+  </data>
+  <data name="InputKey5_Description" xml:space="preserve">
+    <value>キー5 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー5 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey5_DisplayName" xml:space="preserve">
+    <value>キー5 の押下キー</value>
+    <comment>プロパティ「キー5 の押下キー」の表示名</comment>
+  </data>
+  <data name="InputKey6_Description" xml:space="preserve">
+    <value>キー6 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー6 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey6_DisplayName" xml:space="preserve">
+    <value>キー6 の押下キー</value>
+    <comment>プロパティ「キー6 の押下キー」の表示名</comment>
+  </data>
+  <data name="InputKey7_Description" xml:space="preserve">
+    <value>キー7 に紐づける押下するキーを指定する。</value>
+    <comment>プロパティ「キー7 の押下キー」の説明</comment>
+  </data>
+  <data name="InputKey7_DisplayName" xml:space="preserve">
+    <value>キー7 の押下キー</value>
+    <comment>プロパティ「キー7 の押下キー」の表示名</comment>
+  </data>
+  <data name="SettingErrorMessageInvalidPropertyValue" xml:space="preserve">
+    <value>設定情報（Settings.settings）の[{0}]プロパティにおいて、デフォルト値[{1}]の設定値が不正です。該当するEnumの値が取得できません。</value>
+    <comment>プロパティに定義されているデフォルト値を取得する場合において、デフォルト値が指定のEnum型に変換できない場合のメッセージ　{0}：対象のプロパティ名、{1}：プロパティの設定値</comment>
+  </data>
+  <data name="SettingErrorMessageNoTargetProperty" xml:space="preserve">
+    <value>設定情報（Settings.settings）に[{0}]に該当するプロパティは存在しません。</value>
+    <comment>対象のプロパティが設定情報（Settings.settings）に存在しない場合のメッセージ　{0}：対象のプロパティ名</comment>
+  </data>
+  <data name="SettingErrorMessagePropertyNotHaveDefaultAttribute" xml:space="preserve">
+    <value>設定情報（Settings.settings）の[{0}]プロパティにデフォルト値属性（DefaultSettingValueAttribute）が存在しません。</value>
+    <comment>プロパティに定義されているデフォルト値を取得する場合において、デフォルト値属性の定義が存在しない場合のメッセージ　{0}：対象のプロパティ名</comment>
+  </data>
+  <data name="SimpleFormMatchLabelTextError" xml:space="preserve">
+    <value>[設定エラー]</value>
+    <comment>SimpleFormのマッチング用ラベルにおいて、該当するプロパティグリッドの項目が不正な値の場合にラベルに表示する文言</comment>
+  </data>
+  <data name="SimpleFormMatchLabelTextNotSet" xml:space="preserve">
+    <value>[設定無]</value>
+    <comment>SimpleFormのマッチング用ラベルにおいて、該当するプロパティグリッドの項目が未設定の場合にラベルに表示する文言</comment>
+  </data>
+  <data name="StartInputMode_Description" xml:space="preserve">
+    <value>アプリケーション開始時の音声認識した文字をそのまま入力する機能のモードを指定する。
+指定するモードは下記のとおり。
+・Off：音声認識した文字をそのまま入力する機能を[OFF]状態とする。
+・On：音声認識した文字をそのまま入力する機能を[ON]状態とする。
+・OnEnter：音声認識した文字をそのまま入力する機能を入力後Enterを入力するモードで[ON]状態とする。</value>
+    <comment>プロパティ「開始時の入力モード」の説明</comment>
+  </data>
+  <data name="StartInputMode_DisplayName" xml:space="preserve">
+    <value>開始時の入力モード</value>
+    <comment>プロパティ「開始時の入力モード」の表示名</comment>
+  </data>
+  <data name="StartStartupMode_Description" xml:space="preserve">
+    <value>アプリケーション開始時のモードを指定する。
+指定するモードは下記のとおり。
+・Setting：設定を行うモード、設定画面を表示し、音声認識を停止状態で起動する。
+・StartupNormal：アプリケーション開始と共に音声認識を開始するモード、設定画面も表示する。
+・StartupMinimize：アプリケーション開始と共に音声認識を開始するモード、設定画面は最小化状態とする。</value>
+    <comment>プロパティ「開始時の起動モード」の説明</comment>
+  </data>
+  <data name="StartStartupMode_DisplayName" xml:space="preserve">
+    <value>開始時の起動モード</value>
+    <comment>プロパティ「開始時の起動モード」の表示名</comment>
+  </data>
+  <data name="StartTargetPath1_Description" xml:space="preserve">
+    <value>起動1 に紐づける起動する対象となるアプリ／ファイルのパスを指定する。</value>
+    <comment>プロパティ「起動1 で起動するアプリ／ファイルのパス」の説明</comment>
+  </data>
+  <data name="StartTargetPath1_DisplayName" xml:space="preserve">
+    <value>起動1 のアプリ／ファイルのパス</value>
+    <comment>プロパティ「起動1 で起動するアプリ／ファイルのパス」の表示名</comment>
+  </data>
+  <data name="StartTargetPath2_Description" xml:space="preserve">
+    <value>起動2 に紐づける起動する対象となるアプリ／ファイルのパスを指定する。</value>
+    <comment>プロパティ「起動2 で起動するアプリ／ファイルのパス」の説明</comment>
+  </data>
+  <data name="StartTargetPath2_DisplayName" xml:space="preserve">
+    <value>起動2 のアプリ／ファイルのパス</value>
+    <comment>プロパティ「起動2 で起動するアプリ／ファイルのパス」の表示名</comment>
+  </data>
+  <data name="StartTargetPath3_Description" xml:space="preserve">
+    <value>起動3 に紐づける起動する対象となるアプリ／ファイルのパスを指定する。</value>
+    <comment>プロパティ「起動3 で起動するアプリ／ファイルのパス」の説明</comment>
+  </data>
+  <data name="StartTargetPath3_DisplayName" xml:space="preserve">
+    <value>起動3 のアプリ／ファイルのパス</value>
+    <comment>プロパティ「起動3 で起動するアプリ／ファイルのパス」の表示名</comment>
+  </data>
+  <data name="StartTargetPath4_Description" xml:space="preserve">
+    <value>起動4 に紐づける起動する対象となるアプリ／ファイルのパスを指定する。</value>
+    <comment>プロパティ「起動4 で起動するアプリ／ファイルのパス」の説明</comment>
+  </data>
+  <data name="StartTargetPath4_DisplayName" xml:space="preserve">
+    <value>起動4 のアプリ／ファイルのパス</value>
+    <comment>プロパティ「起動4 で起動するアプリ／ファイルのパス」の表示名</comment>
+  </data>
+  <data name="StartTargetPath5_Description" xml:space="preserve">
+    <value>起動5 に紐づける起動する対象となるアプリ／ファイルのパスを指定する。</value>
+    <comment>プロパティ「起動5 で起動するアプリ／ファイルのパス」の説明</comment>
+  </data>
+  <data name="StartTargetPath5_DisplayName" xml:space="preserve">
+    <value>起動5 のアプリ／ファイルのパス</value>
+    <comment>プロパティ「起動5 で起動するアプリ／ファイルのパス」の表示名</comment>
+  </data>
+  <data name="StartTargetPath6_Description" xml:space="preserve">
+    <value>起動6 に紐づける起動する対象となるアプリ／ファイルのパスを指定する。</value>
+    <comment>プロパティ「起動6 で起動するアプリ／ファイルのパス」の説明</comment>
+  </data>
+  <data name="StartTargetPath6_DisplayName" xml:space="preserve">
+    <value>起動6 のアプリ／ファイルのパス</value>
+    <comment>プロパティ「起動6 で起動するアプリ／ファイルのパス」の表示名</comment>
+  </data>
+</root>

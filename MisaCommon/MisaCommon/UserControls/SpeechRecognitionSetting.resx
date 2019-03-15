@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PlFillTable.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PlFillTable.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="PlFillTable.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="PlMatchMessage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PlMatchMessage.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="TxtMatchMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="TxtMatchMessage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="TxtMatchMessage.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TxtMatchMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 30</value>
+  </data>
+  <data name="TxtMatchMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TxtMatchMessage.Text" xml:space="preserve">
+    <value>マッチングする文言とマッチパターンを入力</value>
+  </data>
+  <data name="&gt;&gt;TxtMatchMessage.Name" xml:space="preserve">
+    <value>TxtMatchMessage</value>
+  </data>
+  <data name="&gt;&gt;TxtMatchMessage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtMatchMessage.Parent" xml:space="preserve">
+    <value>PlMatchMessage</value>
+  </data>
+  <data name="&gt;&gt;TxtMatchMessage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RdoExactMatch.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RdoExactMatch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 3</value>
+  </data>
+  <data name="RdoExactMatch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 16</value>
+  </data>
+  <data name="RdoExactMatch.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="RdoExactMatch.Text" xml:space="preserve">
+    <value>完全</value>
+  </data>
+  <data name="&gt;&gt;RdoExactMatch.Name" xml:space="preserve">
+    <value>RdoExactMatch</value>
+  </data>
+  <data name="&gt;&gt;RdoExactMatch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RdoExactMatch.Parent" xml:space="preserve">
+    <value>PlMatchPattern</value>
+  </data>
+  <data name="&gt;&gt;RdoExactMatch.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RdoForwardMatch.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RdoForwardMatch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 3</value>
+  </data>
+  <data name="RdoForwardMatch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 16</value>
+  </data>
+  <data name="RdoForwardMatch.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="RdoForwardMatch.Text" xml:space="preserve">
+    <value>前方</value>
+  </data>
+  <data name="&gt;&gt;RdoForwardMatch.Name" xml:space="preserve">
+    <value>RdoForwardMatch</value>
+  </data>
+  <data name="&gt;&gt;RdoForwardMatch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RdoForwardMatch.Parent" xml:space="preserve">
+    <value>PlMatchPattern</value>
+  </data>
+  <data name="&gt;&gt;RdoForwardMatch.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="RdoBackwardMatch.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RdoBackwardMatch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 3</value>
+  </data>
+  <data name="RdoBackwardMatch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 16</value>
+  </data>
+  <data name="RdoBackwardMatch.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="RdoBackwardMatch.Text" xml:space="preserve">
+    <value>後方</value>
+  </data>
+  <data name="&gt;&gt;RdoBackwardMatch.Name" xml:space="preserve">
+    <value>RdoBackwardMatch</value>
+  </data>
+  <data name="&gt;&gt;RdoBackwardMatch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RdoBackwardMatch.Parent" xml:space="preserve">
+    <value>PlMatchPattern</value>
+  </data>
+  <data name="&gt;&gt;RdoBackwardMatch.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="RdoPartialMatch.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RdoPartialMatch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="RdoPartialMatch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 16</value>
+  </data>
+  <data name="RdoPartialMatch.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="RdoPartialMatch.Text" xml:space="preserve">
+    <value>部分</value>
+  </data>
+  <data name="&gt;&gt;RdoPartialMatch.Name" xml:space="preserve">
+    <value>RdoPartialMatch</value>
+  </data>
+  <data name="&gt;&gt;RdoPartialMatch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RdoPartialMatch.Parent" xml:space="preserve">
+    <value>PlMatchPattern</value>
+  </data>
+  <data name="&gt;&gt;RdoPartialMatch.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="RdoRegularExpression.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RdoRegularExpression.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 25</value>
+  </data>
+  <data name="RdoRegularExpression.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 16</value>
+  </data>
+  <data name="RdoRegularExpression.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="RdoRegularExpression.Text" xml:space="preserve">
+    <value>正規表現</value>
+  </data>
+  <data name="&gt;&gt;RdoRegularExpression.Name" xml:space="preserve">
+    <value>RdoRegularExpression</value>
+  </data>
+  <data name="&gt;&gt;RdoRegularExpression.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RdoRegularExpression.Parent" xml:space="preserve">
+    <value>PlMatchPattern</value>
+  </data>
+  <data name="&gt;&gt;RdoRegularExpression.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="PlMatchPattern.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 38</value>
+  </data>
+  <data name="PlMatchPattern.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 44</value>
+  </data>
+  <data name="PlMatchPattern.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;PlMatchPattern.Name" xml:space="preserve">
+    <value>PlMatchPattern</value>
+  </data>
+  <data name="&gt;&gt;PlMatchPattern.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlMatchPattern.Parent" xml:space="preserve">
+    <value>PlMatchMessage</value>
+  </data>
+  <data name="&gt;&gt;PlMatchPattern.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PlMatchMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PlMatchMessage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="PlMatchMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 85</value>
+  </data>
+  <data name="PlMatchMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PlMatchMessage.Name" xml:space="preserve">
+    <value>PlMatchMessage</value>
+  </data>
+  <data name="&gt;&gt;PlMatchMessage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlMatchMessage.Parent" xml:space="preserve">
+    <value>PlFillTable</value>
+  </data>
+  <data name="&gt;&gt;PlMatchMessage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="BtMinMax.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMS41ZEdYUgAAATpJREFUSEvl1L8r
+        xHEcx/EvipyiLG6hW2TQLayUSVF0k7Ibbcqo61aZrMyUzWAwW/0BsojlDMoNp7j8eL6P0+Hl0/f7vc/3
+        U/KsR3d9+37f7+nzif5lRcw7LDgsOZQcptAc/hrYHJodQ72QhSN8No5HqBd9ekABX9qGetmnCn40iCrU
+        Bz7cYACyNaiPfFjFr3XjHOrDTpyhC85m8QI1II1nTCNWh1BD0thD7MZQhxqUxD1GkKgy1LAkNpC4HK6h
+        BsZxgV6kyo6AGhrHIlJnR8COghrscoKOs6NgR0ItUJ4wAS/tQy1RduCtPGpQi9rdYghe24Ra1s7ueu/1
+        4RJqobE73u76TFqGWmp3+wwy7RTfFx8g8ybRQGup3emjCNIuWou37EGohnGHK/Tbg5CtY+X9b9h6Pn7/
+        UlH0BhfKdT4VfCJHAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="BtMinMax.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="BtMinMax.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BtMinMax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>217, 6</value>
+  </data>
+  <data name="BtMinMax.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 6, 0, 6</value>
+  </data>
+  <data name="BtMinMax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 30</value>
+  </data>
+  <data name="BtMinMax.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;BtMinMax.Name" xml:space="preserve">
+    <value>BtMinMax</value>
+  </data>
+  <data name="&gt;&gt;BtMinMax.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtMinMax.Parent" xml:space="preserve">
+    <value>PlFillTable</value>
+  </data>
+  <data name="&gt;&gt;BtMinMax.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PlControl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PlControl.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="LbSummaryText.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="LbSummaryText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt, style=Bold</value>
+  </data>
+  <data name="LbSummaryText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="LbSummaryText.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 9, 6, 9</value>
+  </data>
+  <data name="LbSummaryText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 42</value>
+  </data>
+  <data name="LbSummaryText.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="LbSummaryText.Text" xml:space="preserve">
+    <value>[XXXXXXXXXXXXXXXXXXXXXXXXXXXX]
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</value>
+  </data>
+  <data name="LbSummaryText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;LbSummaryText.Name" xml:space="preserve">
+    <value>LbSummaryText</value>
+  </data>
+  <data name="&gt;&gt;LbSummaryText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LbSummaryText.Parent" xml:space="preserve">
+    <value>PlControl</value>
+  </data>
+  <data name="&gt;&gt;LbSummaryText.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PlControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="PlControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>247, 0</value>
+  </data>
+  <data name="PlControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="PlControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 85</value>
+  </data>
+  <data name="PlControl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;PlControl.Name" xml:space="preserve">
+    <value>PlControl</value>
+  </data>
+  <data name="&gt;&gt;PlControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlControl.Parent" xml:space="preserve">
+    <value>PlFillTable</value>
+  </data>
+  <data name="&gt;&gt;PlControl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="PlFillTable.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="PlFillTable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PlFillTable.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="PlFillTable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>665, 85</value>
+  </data>
+  <data name="PlFillTable.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PlFillTable.Name" xml:space="preserve">
+    <value>PlFillTable</value>
+  </data>
+  <data name="&gt;&gt;PlFillTable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlFillTable.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PlFillTable.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PlFillTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="PlMatchMessage" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BtMinMax" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="PlControl" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>665, 85</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>SpeechRecognitionSetting</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

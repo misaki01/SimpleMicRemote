@@ -237,8 +237,8 @@
     </Compile>
     <Compile Include="Utility\ExtendMethod\ShortExtend.cs" />
     <Compile Include="Utility\ExtendMethod\TableLayoutRowStyleCollectionExtend.cs" />
-    <Compile Include="Utility\ExtendMethod\StringExtend.cs" />
     <Compile Include="Utility\ExtendMethod\Z1Extend.cs" />
+    <Compile Include="Utility\ExtendMethod\Z2Extend.cs" />
     <Compile Include="Utility\StaticMethod\ExecuteEnvironment.cs" />
     <Compile Include="Utility\StaticMethod\ImageTransform.cs" />
     <Compile Include="Utility\StaticMethod\KeyNameMapping.cs" />

@@ -11,7 +11,6 @@
     using MisaCommon.CustomType;
     using MisaCommon.CustomType.Attribute;
     using MisaCommon.CustomType.Converter;
-    using MisaCommon.Utility.ExtendMethod;
 
     /// <summary>
     /// 起動モード（アプリケーション起動の際のモード）
@@ -424,7 +423,7 @@
         {
             string name = nameof(Properties.Settings.Default.ChromeSizePoint);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(ChromeSizePoint?.ConvertToString(ChromeSizePoint));
+            return !string.Equals(defaultValue, ChromeSizePoint?.ConvertToString(ChromeSizePoint));
         }
 
         /// <summary>
@@ -445,7 +444,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey1);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey1?.ConvertToString(InputKey1));
+            return !string.Equals(defaultValue, InputKey1?.ConvertToString(InputKey1));
         }
 
         /// <summary>
@@ -466,7 +465,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey2);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey2?.ConvertToString(InputKey2));
+            return !string.Equals(defaultValue, InputKey2?.ConvertToString(InputKey2));
         }
 
         /// <summary>
@@ -487,7 +486,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey3);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey3?.ConvertToString(InputKey3));
+            return !string.Equals(defaultValue, InputKey3?.ConvertToString(InputKey3));
         }
 
         /// <summary>
@@ -508,7 +507,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey4);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey4?.ConvertToString(InputKey4));
+            return !string.Equals(defaultValue, InputKey4?.ConvertToString(InputKey4));
         }
 
         /// <summary>
@@ -529,7 +528,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey5);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey5?.ConvertToString(InputKey5));
+            return !string.Equals(defaultValue, InputKey5?.ConvertToString(InputKey5));
         }
 
         /// <summary>
@@ -550,7 +549,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey6);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey6?.ConvertToString(InputKey6));
+            return !string.Equals(defaultValue, InputKey6?.ConvertToString(InputKey6));
         }
 
         /// <summary>
@@ -571,7 +570,7 @@
         {
             string name = nameof(Properties.Settings.Default.InputKey7);
             string defaultValue = DefaultUserSettings[name];
-            return !defaultValue.EqualsWithNull(InputKey7?.ConvertToString(InputKey7));
+            return !string.Equals(defaultValue, InputKey7?.ConvertToString(InputKey7));
         }
 
         /// <summary>

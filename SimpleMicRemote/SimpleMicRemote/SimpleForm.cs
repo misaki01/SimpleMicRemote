@@ -14,7 +14,6 @@
     using MisaCommon.CustomType;
     using MisaCommon.Exceptions;
     using MisaCommon.Modules;
-    using MisaCommon.Utility.ExtendMethod;
     using MisaCommon.Utility.Win32Api;
 
     // TODO：動的プロパティ、メソッドの検討
@@ -668,7 +667,7 @@
                     {
                         // 音声認識した文字に概要するデータをマッチングリストから取得
                         KeyValuePair<string, Action> matchData
-                            = matchingList.FirstOrDefault(x => x.Key.EqualsWithNull(recognitionText));
+                            = matchingList.FirstOrDefault(x => string.Equals(x.Key, recognitionText));
 
                         // マッチングデータが取得できたか判定
                         if (!matchData.Equals(default(KeyValuePair<string, Action>)))

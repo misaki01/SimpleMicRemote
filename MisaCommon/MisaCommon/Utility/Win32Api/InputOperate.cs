@@ -131,6 +131,12 @@
         /// </summary>
         /// <param name="point">クリックする座標</param>
         /// <param name="screen">ディスプレイの情報</param>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void MouseClick(Point point, Screen screen)
         {
             // マウス操作の座標に変換する
@@ -167,6 +173,12 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputKey"/> がNULLの場合に発生
         /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void MouseClick(InputKey inputKey)
         {
             MouseClick(inputKey, MouseInputInterval);
@@ -181,6 +193,12 @@
         /// <param name="inputInterval">マウスの入力から次の入力までの間隔（ミリ秒単位）</param>
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputKey"/> がNULLの場合に発生
+        /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
         public static void MouseClick(InputKey inputKey, int inputInterval)
         {
@@ -221,6 +239,12 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputKey"/> がNULLの場合に発生
         /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void KeybordInput(InputKey inputKey)
         {
             // NULLチェック
@@ -256,6 +280,12 @@
         /// <summary>
         /// 押下したままのキーを放す
         /// </summary>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void KeybordReleaseKey()
         {
             // 押下したままのキーが存在しない場合は処理を終了する
@@ -289,6 +319,12 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputKey"/> がNULLの場合に発生
         /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void MouseKeybordInput(InputKey inputKey)
         {
             MouseKeybordInput(inputKey, MouseInputInterval);
@@ -306,6 +342,12 @@
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputKey"/> がNULLの場合に発生
+        /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
         public static void MouseKeybordInput(InputKey inputKey, int mouseInputInterval)
         {
@@ -341,6 +383,12 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputText"/> がNULLの場合に発生
         /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void TextInput(string inputText)
         {
             TextInput(inputText, false, true, KeybordInputInterval);
@@ -357,6 +405,12 @@
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputText"/> がNULLの場合に発生
+        /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
         public static void TextInput(string inputText, bool isEnter)
         {
@@ -376,6 +430,12 @@
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputText"/> がNULLの場合に発生
+        /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
         public static void TextInput(string inputText, int inputInterval)
         {
@@ -401,6 +461,12 @@
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="inputText"/> がNULLの場合に発生
+        /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
         public static void TextInput(string inputText, bool isEnter, bool isConfirmConvert, int inputInterval)
         {
@@ -486,6 +552,12 @@
         /// <param name="inputs">
         /// キーボード、マウス以外の入力デバイスの操作の情報の配列
         /// </param>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
+        /// </exception>
         public static void HardwareInput(params HardwareInput[] inputs)
         {
             // 入力操作の情報が存在しない場合は処理を終了する

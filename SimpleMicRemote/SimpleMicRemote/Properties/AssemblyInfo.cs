@@ -16,10 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 // アゼンブリがCLSに準拠している場合は true 、準拠していない場合は false を設定してください。
-// （「Microsoftのすべての規則」の条件でコード分析を行いエラーをなくしているため、
-// 　　CLSに準拠していると思いたい。多分おそらく・・・、
-// 　　よくわからないけど、コード分析で検出されるかもしれないから一応 true にしておく）
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 
 // ComVisible を false に設定すると、このアセンブリ内の型は COM コンポーネントから
 // 参照できなくなります。COM からこのアセンブリ内の型にアクセスする必要がある場合は、

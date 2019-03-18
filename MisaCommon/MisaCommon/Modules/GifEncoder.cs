@@ -21,6 +21,15 @@
         #region クラス変数・定数
 
         /// <summary>
+        /// Gifのディレイの単位
+        /// （Gifは1/100秒単位で各フレームのディレイを設定する）
+        /// </summary>
+        /// <remarks>
+        /// Gifのディレイの設定は1/100秒単位で行うため100を指定
+        /// </remarks>
+        public const int GifDelayUnit = 100;
+
+        /// <summary>
         /// 保存処理で使用する閾値（10M）
         /// 保存していないデータのデータサイズがこの閾値を超えた場合に都度保存を行う
         /// </summary>
@@ -90,21 +99,6 @@
         }
 
         /// <summary>
-        /// コンストラクタ（ループしないGifの場合）
-        /// 各プロパティの初期化を行う
-        /// </summary>
-        /// <param name="outputStream">
-        /// Gif形式へエンコードしたデータの出力用ストリーム
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の出力用ストリーム（<paramref name="outputStream"/>）がNULLの場合に発生
-        /// </exception>
-        public GifEncoder(Stream outputStream)
-            : this(outputStream, false, 1)
-        {
-        }
-
-        /// <summary>
         /// コンストラクタ（Gifが無限ループするかを指定する場合）
         /// 各プロパティの初期化を行う
         /// </summary>
@@ -143,6 +137,58 @@
         }
 
         /// <summary>
+        /// コンストラクタ（ループしないGifの場合）
+        /// 各プロパティの初期化を行う
+        /// </summary>
+        /// <param name="outputStream">
+        /// Gif形式へエンコードしたデータの出力用ストリーム
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// 引数の出力用ストリーム（<paramref name="outputStream"/>）がNULLの場合に発生
+        /// </exception>
+        public GifEncoder(Stream outputStream)
+            : this(outputStream, false, 1)
+        {
+        }
+
+        /// <summary>
+        /// コンストラクタ
+        /// 各プロパティの初期化を行う
+        /// </summary>
+        /// <param name="savePath">
+        /// Gif形式へエンコードしたデータの保存先のパス
+        /// </param>
+        /// <param name="isRoop">
+        /// 作成するGifがループするかのフラグ
+        /// ループする場合：True、しない場合：False
+        /// </param>
+        /// <param name="roopCount">
+        /// ループする場合に設定するループする回数
+        /// 0以下の値を設定した場合は無限ループとする
+        /// </param>
+        /// <param name="isAppend">
+        /// 保存先に既にファイルが存在する場合、
+        /// ループする場合に設定するループする回数
+        /// 0以下の値を設定した場合は無限ループとする
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// 引数の保存先のパス（<paramref name="savePath"/>）がNULLの場合に発生
+        /// </exception>
+        public GifEncoder(string savePath, bool isAppend, bool isRoop, short roopCount)
+        {
+            // 出力用のストリームに関する設定
+            _callerGeneratedOutputStream = null;
+            SavePath = savePath ?? throw new ArgumentNullException(nameof(savePath));
+
+            // 追記を行う かつ、追記するファイルが存在する場合は、出力中フラグを ON にする
+            IsWriting = isAppend && File.Exists(savePath);
+
+            // 各プロパティの初期値を設定
+            IsRoop = isRoop;
+            RoopCount = roopCount;
+        }
+
+        /// <summary>
         /// コンストラクタ
         /// 各プロパティの初期化を行う
         /// </summary>
@@ -161,29 +207,7 @@
         /// 引数の保存先のパス（<paramref name="savePath"/>）がNULLの場合に発生
         /// </exception>
         public GifEncoder(string savePath, bool isRoop, short roopCount)
-        {
-            // 出力用のストリームに関する設定
-            _callerGeneratedOutputStream = null;
-            SavePath = savePath ?? throw new ArgumentNullException(nameof(savePath));
-            IsWriting = false;
-
-            // 各プロパティの初期値を設定
-            IsRoop = isRoop;
-            RoopCount = roopCount;
-        }
-
-        /// <summary>
-        /// コンストラクタ（ループしないGifの場合）
-        /// 各プロパティの初期化を行う
-        /// </summary>
-        /// <param name="savePath">
-        /// Gif形式へエンコードしたデータの保存先のパス
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の保存先のパス（<paramref name="savePath"/>）がNULLの場合に発生
-        /// </exception>
-        public GifEncoder(string savePath)
-            : this(savePath, false, 1)
+            : this(savePath, false, isRoop, roopCount)
         {
         }
 
@@ -222,6 +246,21 @@
         /// </exception>
         public GifEncoder(string savePath, short roopCount)
             : this(savePath, true, roopCount)
+        {
+        }
+
+        /// <summary>
+        /// コンストラクタ（ループしないGifの場合）
+        /// 各プロパティの初期化を行う
+        /// </summary>
+        /// <param name="savePath">
+        /// Gif形式へエンコードしたデータの保存先のパス
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// 引数の保存先のパス（<paramref name="savePath"/>）がNULLの場合に発生
+        /// </exception>
+        public GifEncoder(string savePath)
+            : this(savePath, false, 1)
         {
         }
 
@@ -312,7 +351,7 @@
                     // その出力ストリームを返す
                     return _callerGeneratedOutputStream;
                 }
-                else　if (_thisClassGeneratedOutputStream != null)
+                else if (_thisClassGeneratedOutputStream != null)
                 {
                     // 呼び出し元から保存先のパスを渡されている場合で、
                     // 既にそのパスから出力ストリームを生成済みの場合
@@ -321,9 +360,18 @@
                 }
 
                 // 呼び出し元から保存先のパスを渡されている場合で、
-                // 出力ストリームを生成していない場合
-                // そのパスから出力ストリームを生成し返す
-                _thisClassGeneratedOutputStream = new FileStream(SavePath, FileMode.Create);
+                // 出力ストリームを生成していない場合そのパスから出力ストリームを生成し返す
+                // （追記する場合は Open、追記しない場合は Create モードでストリームを生成する）
+                _thisClassGeneratedOutputStream
+                    = new FileStream(SavePath, IsWriting ? FileMode.Open : FileMode.Create);
+
+                // 追記の場合は現在位置を最後にする
+                if (IsWriting)
+                {
+                    _thisClassGeneratedOutputStream.Seek(
+                        _thisClassGeneratedOutputStream.Length - 1, SeekOrigin.Current);
+                }
+
                 return _thisClassGeneratedOutputStream;
             }
         }
@@ -631,8 +679,8 @@
                 return false;
             }
 
-            // 初回の出力処理でない場合、末端データを削除する
-            if (IsWriting)
+            // 初回の出力処理でないかつデータが存在する場合、末端データを削除する
+            if (IsWriting && OutputStream.Length >= GifFrameData.LastLength)
             {
                 OutputStream.SetLength(OutputStream.Length - GifFrameData.LastLength);
             }

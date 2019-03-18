@@ -1,14 +1,234 @@
 ﻿namespace MisaCommon.Utility.StaticMethod
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
 
     /// <summary>
     /// 画像に関する処理を行うクラス
     /// </summary>
     public static class ImageTransform
     {
+        #region クラス変数・定数
+
+        /// <summary>
+        /// Bitmap形式として扱うことが可能な拡張子
+        /// </summary>
+        private static string[] _canConvertBitmapExtensions = null;
+
+        #endregion
+
+        #region 画像形式への読み込み
+
+        /// <summary>
+        /// このクラスで扱うことが可能な画像データの拡張子を取得する
+        /// </summary>
+        /// <remarks>
+        /// シングルトンパターンで実装
+        /// </remarks>
+        /// <returns>このクラスで扱うことが可能な画像データの拡張子</returns>
+        public static string[] GetCanConvertImageExtensions()
+        {
+            if (_canConvertBitmapExtensions == null)
+            {
+                // 拡張子が未設定の場合は扱える拡張子を設定する
+                List<string> extensionList = new List<string>();
+                foreach (ImageCodecInfo codecInfo in ImageCodecInfo.GetImageDecoders())
+                {
+                    // 拡張子の情報はセミコロン「;」区切りのデータとなっているためばらす
+                    foreach (string extemstion in codecInfo.FilenameExtension.Split(';'))
+                    {
+                        // 拡張子情報の最初の１文字目は「*」が設定されている
+                        // それを除外しリストに追加する
+                        if (extemstion.Length > 1)
+                        {
+                            extensionList.Add(extemstion.Substring(1));
+                        }
+                    }
+                }
+
+                // 取得した拡張子リストを設定する
+                _canConvertBitmapExtensions = extensionList.ToArray();
+            }
+
+            return _canConvertBitmapExtensions;
+        }
+
+        /// <summary>
+        /// 入力されたパスから<see cref="Image"/>型の画像データを読み込む
+        /// </summary>
+        /// <param name="path">
+        /// 画像ファイルへのパス
+        /// </param>
+        /// <param name="image">
+        /// 読み込んだ<see cref="Image"/>型の画像データ
+        /// （変換できなかった場合はNULL）
+        /// </param>
+        /// <returns>
+        /// <see cref="Image"/>型として読み込める場合：True、読み込めない場合：False
+        /// </returns>
+        public static bool TryImageLoad(string path, out Image image)
+        {
+            // outパラメータの初期値を設定
+            image = null;
+
+            // 各種チェック
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                // NG：空文字チェック
+                return false;
+            }
+            else if (!File.Exists(path))
+            {
+                // NG：ファイル存在チェック
+                return false;
+            }
+            else
+            {
+                // パスから拡張子を取得しチェックする
+                string extension = Path.GetExtension(path).ToUpperInvariant();
+                if (!GetCanConvertImageExtensions().Any(canExtension
+                    => canExtension.ToUpperInvariant().Equals(extension)))
+                {
+                    // NG：読み込み可能な拡張子かチェック
+                    return false;
+                }
+            }
+
+            // このクラスではBitmapクラスを使用してImageの複製を行っている、
+            // それが行えるか判定する
+            try
+            {
+                image = new Bitmap(path);
+            }
+            catch (Exception ex)
+                when (ex is ArgumentException
+                    || ex is IOException)
+            {
+                // 下記の場合に例外が発生することを想定
+                // ArgumentException
+                // ・引数で指定されたパスのファイルが画像データでない場合（破損している場合も含む）
+                // IOException
+                // ・I/O エラーが発生した場合
+
+                // このクラスで扱える画像データでない場合は False を返す
+                image?.Dispose();
+                image = null;
+                return false;
+            }
+
+            // 全てのチェックを通過したため True を返す
+            return true;
+        }
+
+        /// <summary>
+        /// 入力されたストリームから<see cref="Image"/>型の画像データを読み込む
+        /// </summary>
+        /// <param name="stream">
+        /// 画像ファイルへのストリーム
+        /// </param>
+        /// <param name="image">
+        /// 読み込んだ<see cref="Image"/>型の画像データ
+        /// （変換できなかった場合はNULL）
+        /// </param>
+        /// <returns>
+        /// <see cref="Image"/>型として読み込める場合：True、読み込めない場合：False
+        /// </returns>
+        public static bool TryImageLoad(Stream stream, out Image image)
+        {
+            // outパラメータの初期値を設定
+            image = null;
+
+            // 各種チェックチェック
+            if (stream == null)
+            {
+                // NG：NULLチェック
+                return false;
+            }
+
+            // このクラスではBitmapクラスを使用してImageの複製を行っている、
+            // そのためBitmap型で読み込めるか判定する
+            try
+            {
+                image = new Bitmap(stream);
+            }
+            catch (Exception ex)
+                when (ex is ArgumentException
+                    || ex is NotSupportedException
+                    || ex is InvalidOperationException
+                    || ex is ObjectDisposedException
+                    || ex is IOException)
+            {
+                // 下記の場合に例外が発生することを想定
+                // ArgumentException
+                // ・引数で指定されたストリームが不正、
+                // 　または、ストリームの画像ファイルが画像データでない場合（破損している場合も含む）
+                // NotSupportedException
+                // ・ストリームが読み取りをサポートしていない場合
+                // InvalidOperationException
+                // ・現在ストリームが使用中であり使用できない場合
+                // ObjectDisposedException
+                // ・ストリームが既に破棄されている場合
+                // IOException
+                // ・I/O エラーが発生した場合
+
+                // このクラスで扱える画像データでない場合は False を返す
+                image?.Dispose();
+                image = null;
+                return false;
+            }
+
+            // 全てのチェックを通過したため True を返す
+            return true;
+        }
+
+        /// <summary>
+        /// 入力されたパスから<see cref="Image"/>型の画像データを読み込むことが可能か判定する
+        /// </summary>
+        /// <param name="path">画像ファイルへのパス</param>
+        /// <returns>
+        /// <see cref="Image"/>型として読み込める場合：True、読み込めない場合：False
+        /// </returns>
+        public static bool CanImageLoad(string path)
+        {
+            Image image = null;
+            try
+            {
+                return TryImageLoad(path, out image);
+            }
+            finally
+            {
+                image?.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 入力されたストリームから<see cref="Image"/>型の画像データを読み込むことが可能か判定する
+        /// </summary>
+        /// <param name="stream">画像ファイルへのストリーム</param>
+        /// <returns>
+        /// <see cref="Image"/>型として読み込める場合：True、読み込めない場合：False
+        /// </returns>
+        public static bool CanImageLoad(Stream stream)
+        {
+            Image image = null;
+            try
+            {
+                return TryImageLoad(stream, out image);
+            }
+            finally
+            {
+                image?.Dispose();
+            }
+        }
+
+        #endregion
+
         #region キャンパスサイズ変更
 
         /// <summary>

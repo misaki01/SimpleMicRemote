@@ -5,7 +5,7 @@
     using System.Security;
 
     /// <summary>
-    /// 【注意：このクラスのメソッドはは直接呼び出さず、<see cref="WindowOperate"/> クラスを経由して呼び出すこと】
+    /// 【注意：このクラスのメソッドは直接呼び出さず、<see cref="WindowOperate"/> クラスを経由して呼び出すこと】
     /// プラットフォーム呼び出しサービスを使用してアンマネージ コードへのアクセスを提供するためのクラス
     /// このクラスではWin32APIのウィンドウに関する機能を扱う
     /// </summary>
@@ -136,7 +136,7 @@
         /// </summary>
         /// <param name="windowHandle">取得対象のウィンドウのハンドル</param>
         /// <param name="processId">ウィンドウのプロセスIDを格納</param>
-        /// <returns>ウィンドウを作成したスレッドの ID</returns>
+        /// <returns>ウィンドウを作成したスレッドのID（処理が失敗した場合は 0 を返却）</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         internal static extern int GetWindowThreadProcessId(IntPtr windowHandle, out int processId);
 

@@ -151,6 +151,18 @@
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool GetWindowRect(IntPtr windowHandle, out RECT windowRect);
 
+        /// <summary>
+        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウにおいて、
+        /// そのウィンドウのクライアント領域の上下左右の座標情報を取得する
+        /// （クライアント領域の座標は相対座標のため X：0, Y：0 となる）
+        /// </summary>
+        /// <param name="windowHandle">取得対象のウィンドウのハンドル</param>
+        /// <param name="clientRect">ウィンドウのクライアント領域の上下左右の座標情報を格納</param>
+        /// <returns>正常終了：True、異常終了：False</returns>
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetClientRect(IntPtr windowHandle, out RECT clientRect);
+
         #endregion
 
         #region ウインドウに対する設定

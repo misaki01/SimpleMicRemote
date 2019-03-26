@@ -21,6 +21,8 @@
     {
         #region メソッド
 
+        #region カーソルのキャプチャ
+
         /// <summary>
         /// 現在のカーソルをキャプチャする（画像、座標情報を取得）
         /// </summary>
@@ -54,16 +56,19 @@
         /// </returns>
         public static CursorInfo CaptureCurrentCursor()
         {
-            return CaptureCurrentCursor(null);
+            return CaptureCurrentCursor(null, new Point(0, 0));
         }
 
         /// <summary>
         /// 現在のカーソルをキャプチャする（画像、座標情報を取得）
         /// </summary>
-        /// <param name="backgroundInfo">
+        /// <param name="backgroundImage">
         /// Iビームカーソル等の背景に応じで色が変化するカーソルを、
-        /// 正確に描画するために使用するカーソルの下にある背景画像等の情報
+        /// 正確に描画するために使用するカーソルの下にある背景画像
         /// （NULLを指定した場合、白一色の背景としてカーソルをキャプチャする）
+        /// </param>
+        /// <param name="backgroundImageScreenPoint">
+        /// 背景画像の画面上の座標（画像の左上の絶対座標）
         /// </param>
         /// <exception cref="PlatformInvokeException">
         /// Win32Apiの下記の処理の呼び出しに失敗した場合に発生
@@ -93,7 +98,7 @@
         /// 現在のカーソルの画像、座標情報
         /// （カーソルが取得できない場合はNULLを返却する）
         /// </returns>
-        public static CursorInfo CaptureCurrentCursor(CursorBackgroundInfo backgroundInfo)
+        public static CursorInfo CaptureCurrentCursor(Bitmap backgroundImage, Point backgroundImageScreenPoint)
         {
             // カーソル情報を取得
             Cursor.CURSORINFO cursorInfo = GetCursorInfo();
@@ -130,14 +135,12 @@
                     y: cursorInfo.ScreenPosition.Y - iconInfo.HotspotY);
 
                 // 背景画像からの相対座標
-                Point backgroundPoint
-                    = backgroundInfo == null ? new Point(0, 0) : backgroundInfo.ScreenPoint;
                 imagePoint = new Point(
-                    x: screenPoint.X - backgroundPoint.X,
-                    y: screenPoint.Y - backgroundPoint.Y);
+                    x: screenPoint.X - backgroundImageScreenPoint.X,
+                    y: screenPoint.Y - backgroundImageScreenPoint.Y);
 
                 // カーソルの画像を取得
-                if (backgroundInfo == null)
+                if (backgroundImage == null)
                 {
                     // 背景画像を使用しない場合
                     cursorImage = GetCursorImage(iconHandle, iconInfo);
@@ -145,7 +148,7 @@
                 else
                 {
                     // 背景画像を使用する場合
-                    cursorImage = GetCursorImage(iconHandle, iconInfo, backgroundInfo.BackgroundImage, imagePoint);
+                    cursorImage = GetCursorImage(iconHandle, iconInfo, backgroundImage, imagePoint);
                 }
 
                 // カーソルの画像が取得できない場合は NULL を返す
@@ -178,6 +181,8 @@
             // カーソル情報を生成して返す
             return new CursorInfo(cursorImage, screenPoint, imagePoint);
         }
+
+        #endregion
 
         #endregion
 
@@ -711,7 +716,7 @@
                         // 画像の合成処理
                         int width = cursorImage.Width;
                         int height = cursorImage.Height;
-                        Point base1Point = drawPoint.HasValue ? drawPoint.Value : new Point(0, 0);
+                        Point base1Point = drawPoint ?? new Point(0, 0);
                         Point mask1Point = new Point(0, 0);
                         Point mask2Point = new Point(0, maskImage.Height / 2);
                         BitBlt(cursorImageHdc, 0, 0, width, height, baseHdc, base1Point.X, base1Point.Y, ROPCode.SRCCOPY);

@@ -462,11 +462,15 @@
         /// <param name="windowHandle">取得対象のウィンドウのハンドル</param>
         /// <exception cref="PlatformInvokeException">
         /// Win32Apiの下記の処理の呼び出しに失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：IsWindow」
+        /// ・「DLL：user32.dll、メソッド：IsWindowVisible」
         /// ・「DLL：user32.dll、メソッド：IsIconic」
         /// ・「DLL：user32.dll、メソッド：GetWindowRect」
         /// </exception>
         /// <exception cref="Win32OperateException">
         /// Win32Apiの下記の処理に失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：IsWindow」
+        /// ・「DLL：user32.dll、メソッド：IsWindowVisible」
         /// ・「DLL：user32.dll、メソッド：IsIconic」
         /// ・「DLL：user32.dll、メソッド：GetWindowRect」
         /// </exception>
@@ -503,6 +507,71 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetWindowRect);
+            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+
+            // 正常終了したかチェック
+            if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
+            {
+                throw Win32ApiCommon.GetWin32OperateException(dllName, methodName, result.ErrorCode);
+            }
+
+            // 取得したウィンドウのサイズ位置情報を返却
+            return (SizePoint)result.ReturnValue;
+        }
+
+        /// <summary>
+        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウにおいて、
+        /// そのウィンドウのクライアント領域の上下左右の座標情報を取得する
+        /// （クライアント領域の座標は相対座標のため X：0, Y：0 となる）
+        /// </summary>
+        /// <param name="windowHandle">取得対象のウィンドウのハンドル</param>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの下記の処理の呼び出しに失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：IsWindow」
+        /// ・「DLL：user32.dll、メソッド：IsWindowVisible」
+        /// ・「DLL：user32.dll、メソッド：IsIconic」
+        /// ・「DLL：user32.dll、メソッド：GetClientRect」
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの下記の処理に失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：IsWindow」
+        /// ・「DLL：user32.dll、メソッド：IsWindowVisible」
+        /// ・「DLL：user32.dll、メソッド：IsIconic」
+        /// ・「DLL：user32.dll、メソッド：GetClientRect」
+        /// </exception>
+        /// <returns>
+        /// ウィンドウのクライアント領域のサイズ位置情報
+        /// ウィンドウが存在しない、非表示、最小化状態の場合はNULLを返却
+        /// </returns>
+        public static SizePoint GetClientRect(IntPtr windowHandle)
+        {
+            // ウィンドウが存在しない、非表示、最小化状態の場合は処理をせずに終了する
+            if (!IsWindow(windowHandle)
+                || !IsWindowVisible(windowHandle)
+                || IsIconic(windowHandle))
+            {
+                return null;
+            }
+
+            // Win32Apiの実行処理
+            // Win32ApiのWindou共通の呼び出し機能を用いて、上下左右の座標情報の取得処理を呼び出す
+            Win32ApiResult function()
+            {
+                bool win32Result = Win32Api.GetClientRect(windowHandle, out Win32Api.RECT rect);
+                int win32ErrorCode = Marshal.GetLastWin32Error();
+
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+                int positionX = rect.Left;
+                int positionY = rect.Top;
+                SizePoint sizePoint = new SizePoint(width, height, positionX, positionY);
+
+                return new Win32ApiResult(sizePoint, win32Result, win32ErrorCode);
+            }
+
+            // 実行
+            string dllName = "user32.dll";
+            string methodName = nameof(Win32Api.GetClientRect);
             Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
 
             // 正常終了したかチェック

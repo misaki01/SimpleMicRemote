@@ -115,6 +115,7 @@
     <Compile Include="CustomType\Converter\ConverterDelegateInfo.cs" />
     <Compile Include="CustomType\Converter\LocalizableConverter.cs" />
     <Compile Include="CustomType\Converter\LocalizablePropertyDescriptor.cs" />
+    <Compile Include="CustomType\CursorBackgroundInfo.cs" />
     <Compile Include="CustomType\CursorInfo.cs" />
     <Compile Include="CustomType\HardwareInput.cs" />
     <Compile Include="CustomType\InputKey.cs" />
@@ -246,11 +247,12 @@
     <Compile Include="Utility\StaticMethod\MessageBox.cs" />
     <Compile Include="Utility\ExtendMethod\Z0UnfinishedUtility.cs" />
     <Compile Include="Utility\StaticMethod\CustomConvert.cs" />
-    <Compile Include="Utility\Win32Api\IconCursorOperate.cs" />
+    <Compile Include="Utility\Win32Api\CaptureOperate.cs" />
     <Compile Include="Utility\Win32Api\MessageOperate.cs" />
-    <Compile Include="Utility\Win32Api\NativeMethod\IconCursor\Cursor.cs" />
-    <Compile Include="Utility\Win32Api\NativeMethod\IconCursor\Icon.cs" />
-    <Compile Include="Utility\Win32Api\NativeMethod\IconCursor\NativeMethods.cs" />
+    <Compile Include="Utility\Win32Api\NativeMethod\Capture\Cursor.cs" />
+    <Compile Include="Utility\Win32Api\NativeMethod\Capture\Icon.cs" />
+    <Compile Include="Utility\Win32Api\NativeMethod\Capture\NativeMethods.cs" />
+    <Compile Include="Utility\Win32Api\NativeMethod\Capture\RasterOperation.cs" />
     <Compile Include="Utility\Win32Api\NativeMethod\VirtualKey.cs" />
     <Compile Include="Utility\Win32Api\NativeMethod\Input\Hardware.cs" />
     <Compile Include="Utility\Win32Api\NativeMethod\Input\Keyboard.cs" />

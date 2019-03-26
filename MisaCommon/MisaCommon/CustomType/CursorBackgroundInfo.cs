@@ -4,9 +4,11 @@
     using System.Drawing;
 
     /// <summary>
-    /// カーソルの情報をまとめて扱うクラス
+    /// カーソルをキャプチャする際に用いる背景情報をまとめて扱うクラス
+    /// （Iビームカーソル等の背景に応じで色が変化するカーソルを、
+    /// 　正確に描画するために使用するカーソルの下にある背景画像等の情報）
     /// </summary>
-    public class CursorInfo : IDisposable
+    public class CursorBackgroundInfo : IDisposable
     {
         #region クラス変数・定数
 
@@ -23,27 +25,12 @@
         /// デフォルトコンストラクタ
         /// 引数でプロパティを初期化する
         /// </summary>
-        /// <param name="cursorImage">カーソルの画像</param>
-        /// <param name="screenPoint">カーソルが存在する画面上の座標（絶対座標）</param>
-        /// <param name="imagePoint">カーソルが存在する背景イメージ上の座標（相対座標）</param>
-        public CursorInfo(Image cursorImage, Point screenPoint, Point imagePoint)
+        /// <param name="backgroundImage">カーソルの下にある背景画像</param>
+        /// <param name="screenPoint">背景画像の画面上の座標（画像の左上の絶対座標）</param>
+        public CursorBackgroundInfo(Bitmap backgroundImage, Point screenPoint)
         {
-            CursorImage = cursorImage;
+            BackgroundImage = backgroundImage;
             ScreenPoint = screenPoint;
-            ImagePoint = imagePoint;
-        }
-
-        /// <summary>
-        /// コンストラクタ
-        /// 引数でプロパティを初期化する
-        /// </summary>
-        /// <param name="cursorImage">カーソルの画像</param>
-        /// <param name="screenPoint">カーソルが存在する画面上の座標（絶対座標）</param>
-        public CursorInfo(Image cursorImage, Point screenPoint)
-        {
-            CursorImage = cursorImage;
-            ScreenPoint = screenPoint;
-            ImagePoint = screenPoint;
         }
 
         #endregion
@@ -54,7 +41,7 @@
         /// ファイナライザー
         /// リソースを解放する
         /// </summary>
-        ~CursorInfo()
+        ~CursorBackgroundInfo()
         {
             // リソースの解放処理は「Dispose(bool disposing)」にて実装する
             // ここでは解放処理は行わないこと
@@ -66,21 +53,16 @@
         #region プロパティ
 
         /// <summary>
-        /// カーソルの画像
+        /// カーソルの下にある背景画像
+        /// （Iビームカーソル等の背景に応じで色が変化するカーソルを、
+        /// 　正確に描画するために使用するカーソルの下にある背景画像）
         /// </summary>
-        public Image CursorImage { get; set; }
+        public Bitmap BackgroundImage { get; set; }
 
         /// <summary>
-        /// カーソルが存在する画面上の座標（絶対座標）
+        /// 背景画像の画面上の座標（画像の左上の絶対座標）
         /// </summary>
         public Point ScreenPoint { get; set; }
-
-        /// <summary>
-        /// カーソルが存在する画面上の座標（絶対座標）
-        /// （背景イメージを指定してカーソルを取得した場合：背景イメージ上にカーソルを描写する座標、
-        /// 　背景イメージを指定しないでカーソルを取得した場合：画面上の座標（絶対座標）と同じ値
-        /// </summary>
-        public Point ImagePoint { get; set; }
 
         #endregion
 
@@ -92,12 +74,11 @@
         /// <returns>
         /// このクラスのインスタンスのコピーである新しいインスタンス
         /// </returns>
-        public CursorInfo DeepCopy()
+        public CursorBackgroundInfo DeepCopy()
         {
-            return new CursorInfo(
-                cursorImage: (Image)CursorImage.Clone(),
-                screenPoint: new Point(ScreenPoint.X, ScreenPoint.Y),
-                imagePoint: new Point(ImagePoint.X, ImagePoint.Y));
+            return new CursorBackgroundInfo(
+                backgroundImage: (Bitmap)BackgroundImage.Clone(),
+                screenPoint: new Point(ScreenPoint.X, ScreenPoint.Y));
         }
 
         #region IDisposable インターフェースの Dispoase メソッド
@@ -132,7 +113,7 @@
                 {
                     // マネージドオブジェクトの解放
                     // 背景画像の解放
-                    CursorImage?.Dispose();
+                    BackgroundImage?.Dispose();
                 }
 
                 // アンマネージドオブジェクトの解放

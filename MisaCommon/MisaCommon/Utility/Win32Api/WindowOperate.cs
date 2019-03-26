@@ -208,6 +208,76 @@
             return handle;
         }
 
+        /// <summary>
+        /// ディスクトップウィンドウのハンドルを取得する
+        /// （取得が失敗した場合は例外が発生うする）
+        /// </summary>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの下記の処理の呼び出しに失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：GetDesktopWindow」
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの下記の処理に失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：GetDesktopWindow」
+        /// </exception>
+        /// <returns>
+        /// ディスクトップウィンドウのハンドル
+        /// </returns>
+        public static IntPtr GetDesktopWindow()
+        {
+            return GetDesktopWindow(true);
+        }
+
+        /// <summary>
+        /// ディスクトップウィンドウのハンドルを取得する
+        /// </summary>
+        /// <param name="isThrowExceptionGetFail">
+        /// ディスクトップウィンドウのハンドルが取得できなかった場合に
+        /// 例外を発生させるかどうかを指定するフラグ
+        /// （例外を発生させる場合：True、例外を発生させない場合：False
+        /// 　Falseを指定しハンドルが取得できなかった場合は <see cref="IntPtr.Zero"/> を返却する）
+        /// </param>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの下記の処理の呼び出しに失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：GetDesktopWindow」
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの下記の処理に失敗した場合に発生
+        /// ・「DLL：user32.dll、メソッド：GetDesktopWindow」
+        /// </exception>
+        /// <returns>
+        /// ディスクトップウィンドウのハンドル
+        /// </returns>
+        public static IntPtr GetDesktopWindow(bool isThrowExceptionGetFail)
+        {
+            // Win32Apiの実行処理
+            // Win32ApiのWindou共通の呼び出し機能を用いて、ディスクトップウィンドウのハンドルを取得する
+            Win32ApiResult function()
+            {
+                // ディスクトップウィンドウのハンドルを取得
+                IntPtr windowHandle = Win32Api.GetDesktopWindow();
+
+                // チェックOKの場合は取得したウィンドウハンドルを、NGの場合はIntPtr.Zeroを返却
+                return new Win32ApiResult(windowHandle);
+            }
+
+            // 実行
+            string dllName = "user32.dll";
+            string methodName = nameof(Win32Api.GetDesktopWindow);
+            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            IntPtr handle = (IntPtr)result.ReturnValue;
+
+            // 例外発生フラグが立っている場合、取得成功か判定
+            if (isThrowExceptionGetFail && handle == IntPtr.Zero)
+            {
+                // 取得失敗の場合、例外をスローする
+                throw Win32ApiCommon.GetWin32OperateException(dllName, methodName);
+            }
+
+            // 取得したウインドウハンドルを返却
+            return handle;
+        }
+
         #endregion
 
         #region ウインドウが表示されている状態の取得（表示されてるか、最小化されてるか等）

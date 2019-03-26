@@ -1,4 +1,4 @@
-﻿namespace MisaCommon.Utility.Win32Api.NativeMethod.IconCursor
+﻿namespace MisaCommon.Utility.Win32Api.NativeMethod.Capture
 {
     using System;
     using System.Runtime.InteropServices;

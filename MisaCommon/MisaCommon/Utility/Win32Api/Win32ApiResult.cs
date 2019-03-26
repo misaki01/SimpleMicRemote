@@ -34,6 +34,18 @@
         }
 
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="returnValue">実行したWin32Apiの戻り値（戻り値が存在しない場合はNULL）</param>
+        /// <param name="result">正常終了したかどうかを表すフラグ 正常終了：True、異常終了：False</param>
+        public Win32ApiResult(object returnValue, bool result)
+        {
+            ReturnValue = returnValue;
+            Result = result;
+            ErrorCode = (int)NativeMethod.ErrorCode.NO_ERROR;
+        }
+
+        /// <summary>
         /// コンストラクタ（戻り値のみで実行結果のチェックを行わないパターン）
         /// 実行結果、エラーコードは正常終了の値で初期化する
         /// </summary>

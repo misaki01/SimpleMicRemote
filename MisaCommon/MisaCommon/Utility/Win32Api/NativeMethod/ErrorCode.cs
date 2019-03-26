@@ -16,5 +16,11 @@
         /// 「タイムアウト期間が経過したため、この操作は終了しました。」のエラーコード
         /// </summary>
         ERROR_TIMEOUT = 0x000005B4,
+
+        /// <summary>
+        /// 異常終了
+        /// GDIエラーが発生した場合のエラーコード
+        /// </summary>
+        GDI_ERROR = unchecked((int)0xFFFFFFFF),
     }
 }

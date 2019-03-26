@@ -756,20 +756,20 @@
                 if (disposing)
                 {
                     // マネージドオブジェクトの解放
+                    // バイナリデータを書き込むための Writerを解放する
+                    if (_writer != null)
+                    {
+                        _writer.Dispose();
+                    }
+
+                    // このクラスで生成した出力用ストリームを解放する
+                    if (_thisClassGeneratedOutputStream != null)
+                    {
+                        _thisClassGeneratedOutputStream.Dispose();
+                    }
                 }
 
                 // アンマネージドオブジェクトの解放
-                // バイナリデータを書き込むための Writerを解放する
-                if (_writer != null)
-                {
-                    _writer.Dispose();
-                }
-
-                // このクラスで生成した出力用ストリームを解放する
-                if (_thisClassGeneratedOutputStream != null)
-                {
-                    _thisClassGeneratedOutputStream.Dispose();
-                }
 
                 // 大きなフィールドの解放（NULLの設定）
                 _gifData?.Clear();

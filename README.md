@@ -35,6 +35,14 @@ EXEは以下のURLで公開しております。
 # 対応言語
 日本語のみ  
   
+# 開発環境
+<table>
+<tr><th align="left">言語</th><td>C#</td></tr>
+<tr><th align="left">開発ツール</th><td>Visual Studio 2017 Community版</td></tr>
+<tr><th align="left">フレームワーク</th><td>.NET Framework 4.5</td></tr>
+<tr><th align="left">NuGet等の外部ライブラリ</th><td>使用していない</td></tr>
+</table>
+  
 # ライセンス
 MITライセンスです。  
 詳細は「LICENSE」ファイルを見てください。  

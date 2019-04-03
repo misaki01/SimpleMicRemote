@@ -2,12 +2,13 @@
 {
     using System;
     using System.Runtime.Serialization;
+    using System.Security.Permissions;
 
     /// <summary>
     /// ローカルのHttpサーバに関する例外を扱う <see cref="Exception"/> の派生クラス
     /// </summary>
     [Serializable]
-    public class LocalHttpServerException : Exception
+    public class LocalHttpServerException : Exception, ISerializable
     {
         #region コンストラクタ
 
@@ -61,6 +62,24 @@
         protected LocalHttpServerException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
+        }
+
+        #endregion
+
+        #region メソッド
+
+        /// <summary>
+        /// <see cref="SerializationInfo"/> に、オブジェクトをシリアル化するために必要なデータを設定する
+        /// </summary>
+        /// <param name="info">データの読み込み先となる <see cref="SerializationInfo"/></param>
+        /// <param name="context">このシリアル化のシリアル化先（<see cref="StreamingContext"/>）</param>
+        /// <exception cref="System.Security.SecurityException">
+        /// 呼び出し元に、必要なアクセス許可がない場合に発生
+        /// </exception>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
         }
 
         #endregion

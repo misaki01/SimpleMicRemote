@@ -34,6 +34,15 @@
     [TypeConverter(typeof(LocalizableTypeConverter<StartProcessInfo, StartProcessInfoPropertyMessage>))]
     public class StartProcessInfo : ITypeConvertable<StartProcessInfo>
     {
+        #region クラス変数・定数
+
+        /// <summary>
+        /// プロセス起動後、処理を待つ間隔（ミリ秒）のシリアル化用のフィールド
+        /// </summary>
+        private string _waitDelaySerialized;
+
+        #endregion
+
         #region コンストラクタ
 
         /// <summary>
@@ -175,7 +184,27 @@
         /// 起動が遅いプロセスについてのみ、大きい値を設定すること
         /// </summary>
         [DefaultValue(StartProcess.DefaultWaitDelay)]
-        public int? WaitDelay { get; set; }
+        public int? WaitDelay
+        {
+            get
+            {
+                // 文字列から数値に変換して返却
+                bool canParse = false;
+                int waitDelay = 0;
+                if (!string.IsNullOrWhiteSpace(_waitDelaySerialized))
+                {
+                    canParse = int.TryParse(_waitDelaySerialized, out waitDelay);
+                }
+
+                return canParse ? waitDelay : (int?)null;
+            }
+
+            set
+            {
+                // シリアル化のため内部では文字列で保持する
+                _waitDelaySerialized = value?.ToString(CultureInfo.InvariantCulture);
+            }
+        }
 
         #endregion
 

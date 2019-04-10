@@ -1,7 +1,7 @@
 # SimpleMicRemote の概要
 マイク入力でキーボードのシュミレート及びアプリ起動を行うツールです。  
 Chromeの音声認識を使用し、設定したキーワードを話すと、それに対応する動作を行います。  
-![icon](https://github.com/misaki01/SimpleMicRemote/blob/image/icon.png)  
+![icon](https://github.com/misaki01/SimpleMicRemote/blob/image/README/icon.png)  
 
 # 機能説明
 音声認識とマッチングさせるキーワードは自由に設定が可能です。  

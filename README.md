@@ -41,7 +41,8 @@ EXEは以下のURLで公開しております。
 # 開発環境
 <table>
 <tr><th align="left">言語</th><td>C#</td></tr>
-<tr><th align="left">開発ツール</th><td>Visual Studio 2017 Community版</td></tr>
+<tr><th align="left">開発ツール：Ver0.5まで</th><td>Visual Studio 2017 Community版</td></tr>
+<tr><th align="left">開発ツール：Ver0.6以降</th><td>Visual Studio 2019 Community版</td></tr>
 <tr><th align="left">フレームワーク</th><td>.NET Framework 4.5</td></tr>
 <tr><th align="left">NuGet等の外部ライブラリ</th><td>使用していない</td></tr>
 </table>

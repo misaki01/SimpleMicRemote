@@ -98,10 +98,7 @@
         /// </remarks>
         [ReadOnly(true)]
         [Browsable(false)]
-        public StartProcessInfo SettingStartProcessInfo
-        {
-            get => StartInfo?.DeepCopy();
-        }
+        public StartProcessInfo SettingStartProcessInfo => StartInfo?.DeepCopy();
 
         #endregion
 
@@ -157,10 +154,14 @@
         }
 
         /// <summary>
-        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で初期化したコントロールを取得する
+        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で
+        /// 初期化したコントロールを取得する
         /// </summary>
         /// <param name="settingData">設定データ</param>
-        /// <returns> 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で初期化したコントロール</returns>
+        /// <returns>
+        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で
+        /// 初期化したコントロール
+        /// </returns>
         public Control GetInitializeControl(string settingData)
         {
             // 引数の設定データからプロセスの実行に関する情報を生成する
@@ -198,7 +199,8 @@
         private void BtPath_Click(object sender, EventArgs e)
         {
             // ファイル選択ダイアログを開き、回転パラメータファイルを選択する
-            using (OpenFileDialog dialog = new OpenFileDialog())
+            OpenFileDialog dialog;
+            using (dialog = new OpenFileDialog())
             {
                 // ファイル選択ダイアログの表示設定
                 dialog.Title = StartProcessSettingMessage.FileSelectDialogTitle;

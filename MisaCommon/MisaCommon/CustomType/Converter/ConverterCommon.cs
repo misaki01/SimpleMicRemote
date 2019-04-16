@@ -11,7 +11,8 @@
         #region 型変換が可能かの判定
 
         /// <summary>
-        /// 指定した型（<paramref name="sourceType"/>）のオブジェクトをコンバーターが対象とする型に変換できるかどうかを示す値を返却する
+        /// 指定した型（<paramref name="sourceType"/>）のオブジェクトを
+        /// コンバーターが対象とする型に変換できるかどうかを示す値を返却する
         /// </summary>
         /// <param name="sourceType">
         /// 変換元のデータ型
@@ -22,10 +23,13 @@
         /// <returns>
         /// コンバーターで変換処理が実装している型の場合は True、それ以外の場合は False
         /// </returns>
-        public static bool CanConvertFrom(Type sourceType, IReadOnlyDictionary<Type, ConverterDelegateInfo> supportTypeList)
+        public static bool CanConvertFrom(
+            Type sourceType, IReadOnlyDictionary<Type, ConverterDelegateInfo> supportTypeList)
         {
             // サポート対象の型かチェックする
-            if (sourceType == null || supportTypeList == null || !supportTypeList.ContainsKey(sourceType))
+            if (sourceType == null
+                || supportTypeList == null
+                || !supportTypeList.ContainsKey(sourceType))
             {
                 // サポート対象外の型の場合はFalseを返却
                 return false;
@@ -43,7 +47,8 @@
         }
 
         /// <summary>
-        /// コンバーターが対象とする型のオブジェクトを指定した型（<paramref name="destinationType"/>）型に変換できるかどうかを示す値を返却する
+        /// コンバーターが対象とする型のオブジェクトを
+        /// 指定した型（<paramref name="destinationType"/>）型に変換できるかどうかを示す値を返却する
         /// </summary>
         /// <param name="destinationType">
         /// 変換後のデータ型
@@ -54,10 +59,13 @@
         /// <returns>
         /// コンバーターで変換処理が実装している型の場合は True、それ以外の場合は False
         /// </returns>
-        public static bool CanConvertTo(Type destinationType, IReadOnlyDictionary<Type, ConverterDelegateInfo> supportTypeList)
+        public static bool CanConvertTo(
+            Type destinationType, IReadOnlyDictionary<Type, ConverterDelegateInfo> supportTypeList)
         {
             // サポート対象の型かチェックする
-            if (destinationType == null || supportTypeList == null || !supportTypeList.ContainsKey(destinationType))
+            if (destinationType == null
+                || supportTypeList == null
+                || !supportTypeList.ContainsKey(destinationType))
             {
                 // サポート対象外の型の場合はFalseを返却
                 return false;

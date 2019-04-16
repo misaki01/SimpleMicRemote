@@ -1,4 +1,4 @@
-﻿namespace MisaCommon.CustomType.UiEditor
+﻿namespace MisaCommon.CustomType.UIEditor
 {
     using System;
     using System.ComponentModel;
@@ -10,10 +10,10 @@
     using MisaCommon.UserControls;
 
     /// <summary>
-    /// プロパティグリッドにおいて <see cref="InputKey"/> 型の値を編集するためのユーザーインターフェイスを提供する
-    /// <see cref="UITypeEditor"/> の派生クラス
+    /// プロパティグリッドにおいて <see cref="InputKey"/> 型の値を編集するための
+    /// ユーザーインターフェイスを提供する <see cref="UITypeEditor"/> の派生クラス
     /// </summary>
-    internal class InputKeyUIEditor : UITypeEditor
+    public class InputKeyUIEditor : UITypeEditor
     {
         #region プロパティ
 
@@ -28,8 +28,8 @@
         #region メソッド
 
         /// <summary>
-        /// <see cref="GetEditStyle(ITypeDescriptorContext)"/> メソッドで指定されたエディタースタイルを使用して、
-        /// 指定したオブジェクトの値を編集する
+        /// <see cref="GetEditStyle(ITypeDescriptorContext)"/> メソッドで指定された
+        /// エディタースタイルを使用して、指定したオブジェクトの値を編集する
         /// </summary>
         /// <param name="context">
         /// 追加のコンテキスト情報を取得するために使用する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -44,7 +44,8 @@
         /// オブジェクトの新しい値
         /// オブジェクトの値が変更されない場合は、引数の<paramref name="value"/>オブジェクトをそのまま返す
         /// </returns>
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object EditValue(
+            ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             // 編集対象のオブジェクトの型チェック
             if (!(value is InputKey inputKeyValue))
@@ -54,7 +55,8 @@
             }
 
             // IWindowsFormsEditorServiceを使用してドロップダウンのUIのプロパティウィンドウを表示する
-            if (!(provider?.GetService(typeof(IWindowsFormsEditorService)) is IWindowsFormsEditorService editorService))
+            if (!(provider?.GetService(
+                typeof(IWindowsFormsEditorService)) is IWindowsFormsEditorService editorService))
             {
                 // IWindowsFormsEditorServiceが取得できない場合は編集を行わず、引数の値をそのまま返す
                 return value;
@@ -62,7 +64,8 @@
 
             // エディターのユーザインターフェースを生成しドロップダウンで表示する
             InputKey inputKey = null;
-            using (KeyInputSetting editorUI = new KeyInputSetting(inputKeyValue))
+            KeyInputSetting editorUI;
+            using (editorUI = new KeyInputSetting(inputKeyValue))
             {
                 // 表示設定
                 editorUI.EnabledImeKey = false;
@@ -79,13 +82,15 @@
         }
 
         /// <summary>
-        /// <see cref="UITypeEditor.EditValue(IServiceProvider, object)"/> メソッドで使用するエディターのスタイルを取得する
+        /// <see cref="UITypeEditor.EditValue(IServiceProvider, object)"/> メソッドで使用する
+        /// エディターのスタイルを取得する
         /// </summary>
         /// <param name="context">
         /// 追加のコンテキスト情報を取得するために使用する <see cref="ITypeDescriptorContext"/> オブジェクト
         /// </param>
         /// <returns>
-        /// <see cref="UITypeEditor.EditValue(IServiceProvider, object)"/> メソッドで使用するエディターのスタイル
+        /// <see cref="UITypeEditor.EditValue(IServiceProvider, object)"/> メソッドで使用する
+        /// エディターのスタイル
         /// </returns>
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {

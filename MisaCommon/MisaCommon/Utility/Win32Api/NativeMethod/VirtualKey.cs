@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+
     using WindowFormKeys = System.Windows.Forms.Keys;
 
     /// <summary>
@@ -1037,12 +1038,13 @@
             if (!short.TryParse(((int)key).ToString(CultureInfo.InvariantCulture), out short keyCode))
             {
                 // short型に変換できない場合は False を返却する
-                // short型に変換できないキーは下記のもの又は、複数のキーの情報をもっているものとなる（Ctrl+A等）
-                // KeyCode  ：0x0000FFFF   キー値からキーコードを抽出するビットマスク
-                // Modifiers：0xFFFF0000   キー値から修飾子を抽出するビットマスク
-                // Shift    ：0x00010000   Shift修飾子キー
-                // Control  ：0x00020000   Ctrl修飾子キー
-                // Alt      ：0x00040000   Alt修飾子キー
+                // short型に変換できないキーは複数のキーの情報をもっているもの（Ctrl＋A等）
+                // または、下記のものとなる
+                // ・KeyCode  ：0x0000FFFF   キー値からキーコードを抽出するビットマスク
+                // ・Modifiers：0xFFFF0000   キー値から修飾子を抽出するビットマスク
+                // ・Shift    ：0x00010000   Shift修飾子キー
+                // ・Control  ：0x00020000   Ctrl修飾子キー
+                // ・Alt      ：0x00040000   Alt修飾子キー
                 virtualKey = Keys.VK_NONE;
                 return false;
             }

@@ -8,6 +8,7 @@
     using MisaCommon.CustomType;
     using MisaCommon.Exceptions;
     using MisaCommon.Utility.Win32Api.NativeMethod;
+
     using Win32Api = NativeMethod.Window.NativeMethods;
     using Win32MessageApi = NativeMethod.Message.NativeMethods;
 
@@ -52,20 +53,19 @@
         /// </summary>
         /// <remarks>
         /// このメソッドを呼び出すと、下記の動作を繰り返し実行しトップレベルウィンドウの列挙を行う
-        /// 　1) トップレベルウィンドウを取得
-        /// 　2) 取得したトップレベルウィンドウのハンドルを引数のコールバック関数（<paramref name="callBack"/>）に設定する
-        /// 　3) コールバック関数（<paramref name="callBack"/>）を実行する
+        /// 1. トップレベルウィンドウを取得
+        /// 2. トップレベルウィンドウのハンドルを引数のコールバック関数（<paramref name="callBack"/>）に渡す
+        /// 3. コールバック関数（<paramref name="callBack"/>）を実行する
         ///
-        /// 上記処理は全てのトップレベルウィンドウを列挙し終えるか、
-        /// コールバック関数（<paramref name="callBack"/>）から False が返却されるまで繰り返す
+        /// 上記処理を全てのトップレベルウィンドウを列挙し終えるか、
+        /// コールバック関数（<paramref name="callBack"/>）から 0（False）が返却されるまで繰り返す
         /// </remarks>
         /// <param name="callBack">
         /// <see cref="Func{T1, T2, TResult}"/> で定義されるコールバック関数を指定
-        /// コールバック関数はコールバック元から受け取った引数に対して処理を行い、戻り値を返却するメソッドである
         /// 引数及び、戻り値の詳細は下記のとおり
-        /// 　・引数1（型：IntPtr）：コールバック元から引き渡されるトップレベルウィンドウのハンドル
-        /// 　・引数2（型：IntPtr）：コールバック元から引き渡される値
-        /// 　・戻り値（型：bool）：コールバック元の列挙処理を継続する場合は True、中断する場合は False を返却
+        /// ・引数1 （型：IntPtr）：コールバック元から引き渡されるトップレベルウィンドウのハンドル
+        /// ・引数2 （型：IntPtr）：コールバック元から引き渡される値
+        /// ・戻り値（型：bool）：コールバック元の列挙処理を継続する場合は True、中断する場合は False を返却
         /// </param>
         /// <param name="callBackValue">
         /// コールバック関数に渡す値を指定
@@ -125,7 +125,8 @@
         /// ・「DLL：user32.dll、メソッド：IsWindowVisible」
         /// ・「DLL：user32.dll、メソッド：IsWindowEnabled」
         /// ・「DLL：user32.dll、メソッド：GetDesktopWindow」
-        /// （例外発生フラグが True の場合で、取得したウィンドウハンドルの値が相応しくない場合もこの例外を発生させる）
+        /// （例外発生フラグが True の場合で、
+        /// 　取得したウィンドウハンドルの値が相応しくない場合もこの例外を発生させる）
         /// </exception>
         /// <returns>
         /// 現在ユーザーが作業している最前面ウィンドウのハンドル
@@ -141,7 +142,8 @@
         /// 取得できなかった場合は <see cref="IntPtr.Zero"/> を返却する
         /// </summary>
         /// <param name="isThrowExceptionGetFail">
-        /// 取得したウィンドウハンドルに該当するウィンドウが下記の場合に例外を発生させるかどうかを指定するフラグ
+        /// 取得したウィンドウハンドルに該当するウィンドウが下記の場合、
+        /// 例外を発生させるかどうかを指定するフラグ
         /// ・アクティブウィンドウが存在しない
         /// ・取得したウィンドウハンドルのウィンドウがウィンドウではない
         /// ・表示されない（非表示）ウィンドウ
@@ -165,7 +167,8 @@
         /// ・「DLL：user32.dll、メソッド：IsWindowVisible」
         /// ・「DLL：user32.dll、メソッド：IsWindowEnabled」
         /// ・「DLL：user32.dll、メソッド：GetDesktopWindow」
-        /// （例外発生フラグが True の場合で、取得したウィンドウハンドルの値が相応しくない場合もこの例外を発生させる）
+        /// （例外発生フラグが True の場合で、
+        /// 　取得したウィンドウハンドルの値が相応しくない場合もこの例外を発生させる）
         /// </exception>
         /// <returns>
         /// 現在ユーザーが作業している最前面ウィンドウのハンドル
@@ -181,10 +184,11 @@
                 IntPtr windowHandle = Win32Api.GetForegroundWindow();
 
                 // 取得したウィンドウのチェック
+                HandleRef tmpHandle = new HandleRef(0, windowHandle);
                 bool win32Result = windowHandle != IntPtr.Zero
-                    && Win32Api.IsWindow(windowHandle)
-                    && Win32Api.IsWindowVisible(windowHandle)
-                    && Win32Api.IsWindowEnabled(windowHandle)
+                    && Win32Api.IsWindow(tmpHandle)
+                    && Win32Api.IsWindowVisible(tmpHandle)
+                    && Win32Api.IsWindowEnabled(tmpHandle)
                     && windowHandle != Win32Api.GetDesktopWindow();
 
                 // チェックOKの場合は取得したウィンドウハンドルを、NGの場合はIntPtr.Zeroを返却
@@ -294,7 +298,7 @@
         /// Win32Apiの処理「DLL：user32.dll、メソッド：IsWindow」の処理に失敗した場合に発生
         /// </exception>
         /// <returns>ウィンドウが存在する場合：True、存在しない場合：False</returns>
-        public static bool IsWindow(IntPtr windowHandle)
+        public static bool IsWindow(HandleRef windowHandle)
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの存在チェック処理を呼び出す
@@ -326,7 +330,7 @@
         /// Win32Apiの処理「DLL：user32.dll、メソッド：IsWindowEnabled」の処理に失敗した場合に発生
         /// </exception>
         /// <returns>ウィンドウが有効な場合：True、無効な場合：False</returns>
-        public static bool IsWindowEnabled(IntPtr windowHandle)
+        public static bool IsWindowEnabled(HandleRef windowHandle)
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの有効無効チェック処理を呼び出す
@@ -358,7 +362,7 @@
         /// Win32Apiの処理「DLL：user32.dll、メソッド：IsWindowVisible」の処理に失敗した場合に発生
         /// </exception>
         /// <returns>ウィンドウが表示されている場合：True、表示されていない場合：False</returns>
-        public static bool IsWindowVisible(IntPtr windowHandle)
+        public static bool IsWindowVisible(HandleRef windowHandle)
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの表示有無チェック処理を呼び出す
@@ -390,7 +394,7 @@
         /// </exception>
         /// <param name="windowHandle">チェック対象のウィンドウのハンドル</param>
         /// <returns>ウィンドウが最小化されている場合：True、最小化されていない場合：False</returns>
-        public static bool IsIconic(IntPtr windowHandle)
+        public static bool IsIconic(HandleRef windowHandle)
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの最小化チェック処理を呼び出す
@@ -420,13 +424,15 @@
         /// </summary>
         /// <param name="windowHandle">取得対象のウィンドウのハンドル</param>
         /// <exception cref="PlatformInvokeException">
-        /// Win32Apiの処理「DLL：user32.dll、メソッド：GetWindowThreadProcessId」の呼び出しに失敗した場合に発生
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：GetWindowThreadProcessId」の呼び出しに
+        /// 失敗した場合に発生
         /// </exception>
         /// <exception cref="Win32OperateException">
-        /// Win32Apiの処理「DLL：user32.dll、メソッド：GetWindowThreadProcessId」の処理に失敗した場合に発生
+        /// Win32Apiの処理「DLL：user32.dll、メソッド：GetWindowThreadProcessId」の処理に
+        /// 失敗した場合に発生
         /// </exception>
         /// <returns>ウィンドウを作成したスレッドIDとプロセスID等のウィンドウの情報</returns>
-        public static WindowInfo GetWindowThreadProcessId(IntPtr windowHandle)
+        public static WindowInfo GetWindowThreadProcessId(HandleRef windowHandle)
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、スレッドID、プロセスIDの取得処理を呼び出す
@@ -478,7 +484,7 @@
         /// ウィンドウのサイズ位置情報
         /// ウィンドウが存在しない、非表示、最小化状態の場合はNULLを返却
         /// </returns>
-        public static SizePoint GetWindowRect(IntPtr windowHandle)
+        public static SizePoint GetWindowRect(HandleRef windowHandle)
         {
             // ウィンドウが存在しない、非表示、最小化状態の場合は処理をせずに終了する
             if (!IsWindow(windowHandle)
@@ -543,7 +549,7 @@
         /// ウィンドウのクライアント領域のサイズ位置情報
         /// ウィンドウが存在しない、非表示、最小化状態の場合はNULLを返却
         /// </returns>
-        public static SizePoint GetClientRect(IntPtr windowHandle)
+        public static SizePoint GetClientRect(HandleRef windowHandle)
         {
             // ウィンドウが存在しない、非表示、最小化状態の場合は処理をせずに終了する
             if (!IsWindow(windowHandle)
@@ -602,7 +608,7 @@
         /// ・「DLL：user32.dll、メソッド：IsIconic」
         /// ・「DLL：user32.dll、メソッド：IconicWindow」
         /// </exception>
-        public static void IconicWindow(IntPtr windowHandle)
+        public static void IconicWindow(HandleRef windowHandle)
         {
             // 既に最小化状態の場合は処理をせずに終了する
             if (IsIconic(windowHandle))
@@ -633,8 +639,8 @@
         }
 
         /// <summary>
-        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウを最小化状態から元に戻す
-        /// 元に戻したウィンドウはアクティブにする
+        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウを
+        /// 最小化状態から元に戻す（元に戻したウィンドウはアクティブになる）
         /// </summary>
         /// <param name="windowHandle">最小化状態を戻す対象のウィンドウのハンドル</param>
         /// <exception cref="PlatformInvokeException">
@@ -647,7 +653,7 @@
         /// ・「DLL：user32.dll、メソッド：IsIconic」
         /// ・「DLL：user32.dll、メソッド：OpenIcon」
         /// </exception>
-        public static void OpenIconicWindow(IntPtr windowHandle)
+        public static void OpenIconicWindow(HandleRef windowHandle)
         {
             // 既に最小化状態でないの場合は処理をせずに終了する
             if (!IsIconic(windowHandle))
@@ -678,7 +684,8 @@
         }
 
         /// <summary>
-        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウのサイズ、位置を変更する
+        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウの
+        /// サイズ、位置を変更する
         /// </summary>
         /// <param name="windowHandle">変更対象のウィンドウのハンドル</param>
         /// <param name="sizePoint">設定するウィンドウのサイズと位置</param>
@@ -695,7 +702,7 @@
         /// ・「DLL：user32.dll、メソッド：IsWindow」
         /// ・「DLL：user32.dll、メソッド：SetWindowSizeLocation」
         /// </exception>
-        public static void SetWindowSizeLocation(IntPtr windowHandle, SizePoint sizePoint)
+        public static void SetWindowSizeLocation(HandleRef windowHandle, SizePoint sizePoint)
         {
             // 対象のウィンドウが存在しない場合は処理を終了する
             if (!IsWindow(windowHandle))
@@ -780,7 +787,7 @@
             }
 
             // ウィンドウを閉じる
-            CloseWindow(handle);
+            CloseWindow(new HandleRef(0, handle));
         }
 
         /// <summary>
@@ -800,7 +807,7 @@
         /// ・「DLL：user32.dll、メソッド：IsWindow」
         /// ・「DLL：user32.dll、メソッド：SendMessage」
         /// </exception>
-        public static void CloseWindow(IntPtr windowHandle)
+        public static void CloseWindow(HandleRef windowHandle)
         {
             CloseWindow(windowHandle, false, true);
         }
@@ -817,7 +824,8 @@
         /// 閉じるだけの処理であるため失敗しても良いと判断される場合は False を設定、
         /// 閉じる処理の成功の保証がいる場合は Ture を設定
         /// 失敗するパターンとしては下記のパターンが考えられる
-        /// ・メモ帳等を閉じる際に表示される「保存しますか？」のダイアログが表示され待機が発生しタイムアウトが発生した
+        /// ・メモ帳等を閉じる際に表示される「保存しますか？」のダイアログが表示され、
+        /// 　待機となりタイムアウトが発生した場合
         /// </param>
         /// <exception cref="PlatformInvokeException">
         /// Win32Apiの下記の処理の呼び出しに失敗した場合に発生
@@ -829,7 +837,7 @@
         /// ・「DLL：user32.dll、メソッド：IsWindow」
         /// ・「DLL：user32.dll、メソッド：SendMessage」
         /// </exception>
-        public static void CloseWindow(IntPtr windowHandle, bool isThrowExceptionCloseFail)
+        public static void CloseWindow(HandleRef windowHandle, bool isThrowExceptionCloseFail)
         {
             CloseWindow(windowHandle, isThrowExceptionCloseFail, false);
         }
@@ -845,7 +853,8 @@
         /// 閉じるだけの処理であるため失敗しても良いと判断される場合は False を設定、
         /// 閉じる処理の成功の保証がいる場合は Ture を設定
         /// 失敗するパターンとしては下記のパターンが考えられる
-        /// ・メモ帳等を閉じる際に表示される「保存しますか？」のダイアログが表示され待機が発生しタイムアウトが発生した
+        /// ・メモ帳等を閉じる際に表示される「保存しますか？」のダイアログが表示され、
+        /// 　待機となりタイムアウトが発生した場合
         /// </param>
         /// <param name="isExcludeTimeoutExceptions">
         /// 発生させる例外のうち、タイムアウトに関する例外は除外するかどうかを指定するフラグ
@@ -865,7 +874,8 @@
         /// ・「DLL：user32.dll、メソッド：IsWindow」
         /// ・「DLL：user32.dll、メソッド：SendMessage」
         /// </exception>
-        public static void CloseWindow(IntPtr windowHandle, bool isThrowExceptionCloseFail, bool isExcludeTimeoutExceptions)
+        public static void CloseWindow(
+            HandleRef windowHandle, bool isThrowExceptionCloseFail, bool isExcludeTimeoutExceptions)
         {
             // 閉じる操作のコマンドを取得
             int message = Win32MessageApi.WM_CLOSE.MESSAGE;

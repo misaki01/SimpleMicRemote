@@ -117,15 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PlButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="PlButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="BtUp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="&gt;&gt;BtDown.Parent" xml:space="preserve">
-    <value>PlButton</value>
+  <data name="PlButton.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="BtPlus.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -138,29 +136,32 @@
         xABH1aU3zePNzgXH+6nlCzNZjWDHCICRAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="PlListTable.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+  <data name="BtPlus.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
   </data>
-  <data name="&gt;&gt;PlListTable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="BtPlus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 3</value>
   </data>
-  <data name="&gt;&gt;BtMinus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="BtPlus.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
   </data>
-  <data name="BtDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
-  </data>
-  <data name="BtMinus.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BtPlus.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 30</value>
   </data>
-  <data name="&gt;&gt;BtDown.Name" xml:space="preserve">
-    <value>BtDown</value>
+  <data name="BtPlus.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;PlButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;BtPlus.Name" xml:space="preserve">
+    <value>BtPlus</value>
   </data>
-  <data name="&gt;&gt;BtDown.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;BtPlus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtPlus.Parent" xml:space="preserve">
+    <value>PlButton</value>
+  </data>
+  <data name="&gt;&gt;BtPlus.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="BtMinus.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -171,80 +172,80 @@
         yijKKMooyijKKMooyijKKMooyijK6JnjC/c/vuqoQZjfAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="&gt;&gt;BtUp.Parent" xml:space="preserve">
-    <value>PlButton</value>
-  </data>
-  <data name="PlListTable.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;BtPlus.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BtDown.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="BtPlus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 3</value>
-  </data>
-  <data name="&gt;&gt;PlButton.Name" xml:space="preserve">
-    <value>PlButton</value>
-  </data>
-  <data name="BtUp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 30</value>
-  </data>
-  <data name="&gt;&gt;BtUp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PlFill.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;BtUp.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="BtUp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 3, 3</value>
-  </data>
   <data name="BtMinus.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
+  </data>
+  <data name="BtMinus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 3</value>
+  </data>
+  <data name="BtMinus.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 10, 3</value>
+  </data>
+  <data name="BtMinus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 30</value>
+  </data>
+  <data name="BtMinus.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;BtMinus.Name" xml:space="preserve">
+    <value>BtMinus</value>
+  </data>
+  <data name="&gt;&gt;BtMinus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtMinus.Parent" xml:space="preserve">
+    <value>PlButton</value>
   </data>
   <data name="&gt;&gt;BtMinus.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;PlFill.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="BtUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMS40E0BoxAAAA7ZJREFUaEPd2Vmr
+        lVUYwPHjmKmo5YioIOKMiuCsVJgGIg4YgRPqRTfeC34ARURUQk0SMafCKBNBLyr7ACpeiOJ0YZoTDjmb
+        Vpb1/4MvLBZrb09y9tnr9YEf4t5b93reNT1r7YYaRx98iqlo7QtljJYYiHPYhDYoZXTELjzHLXyC0kUr
+        fIRj+BfPsAF9UapwGK2HSRTuYDIccqWJebiCMBGH2CG4AJQiemINHE5hIjqNGSjFxB8LJ3echF7gK2Sf
+        SC/sxVOkEtGvWIZsw0k8HseRSiDkvuIQzDJMZBscPqnGh/7GLGQZrlRnkGp4zKH3PQYgq+iA1Ug1upIL
+        mAg3z2xiOv5CqsGVOAQP4i1kEW5wX+ARUg2u5jwWo+67fVHhnkKqoY3xOdqhruEZYzf+QaqRjfEHFqBu
+        0QIzcQKpBjaWpcwO1G0Fa4u1SDWuWg+l3rsOV7C6zJU5SNVUPuE/o9cKrlS/I17hTO4wmn237411eIKw
+        QXJ/uB+9VrCUv4YHwWsFK2MfTrMVlM6NEbD4ixtzFivgUInfkz3yI7YiVVh+CYdss0Q3WIrHw8enfQRz
+        kUpSJvI1vFm5/fLv4fs3sBQ1DyfjeyjO4qG78NrHs3q1oWWy3bHx5Wsh58pm1PwUaV20BfGTtHe2oz+m
+        4CbC9wtWvfvxLjwpppZu9xUfRk3jYziZ4y930i+BibrTX0T8mYIbqIlYaH6DeAUzEc/2PpSaxDtYBZ9q
+        +MXyHPI2jA9QaWj5b21kJ7hojIT1Vvw5jwMO4ZpUxv7H7gHxl3qTuAjFleiHqDZHXLW6wPCeyxXsMcLP
+        OXS/Q5Mn4hc7CeMK1ydsw3zChovBcPyC8HOhPXBoFWGZU2k/mo0mDb/YFekoit3cHdzJ6qWbw8Twzwlw
+        04sbJlcl50XRI4ZXqw5Ze9v3XThcLOypwWjyXnFyumyuxAGchDt8Z4ThIeseUokUy2/YI4aJLcdDfIaF
+        8MBV0xt8J3U/DENXXwjidXqkCJ++wzKLm8jXmSNZhomMwatKFJfyrMNERuMyKiVinZZ9Is6RcbiKVCLO
+        kX3IPhHjVavWz8h+jtgjk2A5nkrEHvkWqVUrq3CODMUbsWoNQbXqtxSJGJYs1YaWxWD2Q8t4Yya7y2/8
+        Q2ihNMuvc2QULiGViBuiP82VYo5MQ7WD1U8oxYb4Pn5DKhEPYv4mEpf+2cX/uXzIPuwRi0ZvQ+IkPCp7
+        Hsm+R4we8PcOC0eTKW5dTMLyZBDaoxRhMvPxA/z1difsiRol0dDwH6XWMpnfnSHTAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="PlFill.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="BtUp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
   </data>
-  <data name="PlFill.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="BtUp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>96, 3</value>
   </data>
-  <data name="PlListTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,1,Absolute,1" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="BtUp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="&gt;&gt;PlButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;PlButton.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="BtUp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 30</value>
   </data>
   <data name="BtUp.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="PlButton.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;BtUp.Name" xml:space="preserve">
+    <value>BtUp</value>
   </data>
-  <data name="PlButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;BtUp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;PlListTable.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;BtUp.Parent" xml:space="preserve">
+    <value>PlButton</value>
   </data>
-  <data name="PlListTable.ColumnCount" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;BtUp.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="BtDown.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -269,140 +270,154 @@
         kb9arVQ4jNxXvElMosK91/CM4bWPNyslVrhtbbcAuGUymYH3dP8AAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="&gt;&gt;BtUp.Name" xml:space="preserve">
-    <value>BtUp</value>
-  </data>
-  <data name="&gt;&gt;PlListTable.Parent" xml:space="preserve">
-    <value>PlFill</value>
-  </data>
-  <data name="PlListTable.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ControlListBox</value>
-  </data>
-  <data name="PlListTable.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="PlFill.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
   <data name="BtDown.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
-  </data>
-  <data name="BtPlus.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="&gt;&gt;BtPlus.Parent" xml:space="preserve">
-    <value>PlButton</value>
-  </data>
-  <data name="&gt;&gt;BtDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="PlListTable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;PlFill.Name" xml:space="preserve">
-    <value>PlFill</value>
-  </data>
-  <data name="PlListTable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 2</value>
   </data>
   <data name="BtDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>132, 3</value>
   </data>
-  <data name="PlFill.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 264</value>
-  </data>
-  <data name="PlListTable.CellBorderStyle" type="System.Windows.Forms.TableLayoutPanelCellBorderStyle, System.Windows.Forms">
-    <value>Single</value>
-  </data>
-  <data name="BtMinus.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 300</value>
-  </data>
-  <data name="PlButton.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="BtMinus.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="BtDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 10, 3</value>
   </data>
   <data name="BtDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 30</value>
   </data>
-  <data name="&gt;&gt;BtPlus.Name" xml:space="preserve">
-    <value>BtPlus</value>
+  <data name="BtDown.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="PlFill.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;BtDown.Name" xml:space="preserve">
+    <value>BtDown</value>
   </data>
-  <data name="BtMinus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 3</value>
+  <data name="&gt;&gt;BtDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="BtPlus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 30</value>
-  </data>
-  <data name="BtUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMS40E0BoxAAAA7ZJREFUaEPd2Vmr
-        lVUYwPHjmKmo5YioIOKMiuCsVJgGIg4YgRPqRTfeC34ARURUQk0SMafCKBNBLyr7ACpeiOJ0YZoTDjmb
-        Vpb1/4MvLBZrb09y9tnr9YEf4t5b93reNT1r7YYaRx98iqlo7QtljJYYiHPYhDYoZXTELjzHLXyC0kUr
-        fIRj+BfPsAF9UapwGK2HSRTuYDIccqWJebiCMBGH2CG4AJQiemINHE5hIjqNGSjFxB8LJ3echF7gK2Sf
-        SC/sxVOkEtGvWIZsw0k8HseRSiDkvuIQzDJMZBscPqnGh/7GLGQZrlRnkGp4zKH3PQYgq+iA1Ug1upIL
-        mAg3z2xiOv5CqsGVOAQP4i1kEW5wX+ARUg2u5jwWo+67fVHhnkKqoY3xOdqhruEZYzf+QaqRjfEHFqBu
-        0QIzcQKpBjaWpcwO1G0Fa4u1SDWuWg+l3rsOV7C6zJU5SNVUPuE/o9cKrlS/I17hTO4wmn237411eIKw
-        QXJ/uB+9VrCUv4YHwWsFK2MfTrMVlM6NEbD4ixtzFivgUInfkz3yI7YiVVh+CYdss0Q3WIrHw8enfQRz
-        kUpSJvI1vFm5/fLv4fs3sBQ1DyfjeyjO4qG78NrHs3q1oWWy3bHx5Wsh58pm1PwUaV20BfGTtHe2oz+m
-        4CbC9wtWvfvxLjwpppZu9xUfRk3jYziZ4y930i+BibrTX0T8mYIbqIlYaH6DeAUzEc/2PpSaxDtYBZ9q
-        +MXyHPI2jA9QaWj5b21kJ7hojIT1Vvw5jwMO4ZpUxv7H7gHxl3qTuAjFleiHqDZHXLW6wPCeyxXsMcLP
-        OXS/Q5Mn4hc7CeMK1ydsw3zChovBcPyC8HOhPXBoFWGZU2k/mo0mDb/YFekoit3cHdzJ6qWbw8Twzwlw
-        04sbJlcl50XRI4ZXqw5Ze9v3XThcLOypwWjyXnFyumyuxAGchDt8Z4ThIeseUokUy2/YI4aJLcdDfIaF
-        8MBV0xt8J3U/DENXXwjidXqkCJ++wzKLm8jXmSNZhomMwatKFJfyrMNERuMyKiVinZZ9Is6RcbiKVCLO
-        kX3IPhHjVavWz8h+jtgjk2A5nkrEHvkWqVUrq3CODMUbsWoNQbXqtxSJGJYs1YaWxWD2Q8t4Yya7y2/8
-        Q2ihNMuvc2QULiGViBuiP82VYo5MQ7WD1U8oxYb4Pn5DKhEPYv4mEpf+2cX/uXzIPuwRi0ZvQ+IkPCp7
-        Hsm+R4we8PcOC0eTKW5dTMLyZBDaoxRhMvPxA/z1difsiRol0dDwH6XWMpnfnSHTAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="&gt;&gt;BtMinus.Parent" xml:space="preserve">
+  <data name="&gt;&gt;BtDown.Parent" xml:space="preserve">
     <value>PlButton</value>
+  </data>
+  <data name="&gt;&gt;BtDown.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="PlButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="PlButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 264</value>
   </data>
-  <data name="BtPlus.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 3, 3</value>
+  <data name="PlButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 36</value>
   </data>
-  <data name="&gt;&gt;PlFill.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="PlButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;PlButton.Name" xml:space="preserve">
+    <value>PlButton</value>
+  </data>
+  <data name="&gt;&gt;PlButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PlButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PlFill.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;PlListTable.Name" xml:space="preserve">
     <value>PlListTable</value>
   </data>
-  <data name="PlButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 36</value>
+  <data name="&gt;&gt;PlListTable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlListTable.Parent" xml:space="preserve">
+    <value>PlFill</value>
+  </data>
+  <data name="&gt;&gt;PlListTable.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PlListTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,1,Absolute,1" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="PlFill.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="PlFill.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PlFill.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 264</value>
+  </data>
+  <data name="PlFill.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PlFill.Name" xml:space="preserve">
+    <value>PlFill</value>
+  </data>
+  <data name="&gt;&gt;PlFill.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlFill.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PlFill.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PlListTable.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PlListTable.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="PlListTable.CellBorderStyle" type="System.Windows.Forms.TableLayoutPanelCellBorderStyle, System.Windows.Forms">
+    <value>Single</value>
+  </data>
+  <data name="PlListTable.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="PlListTable.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="PlListTable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="PlListTable.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="PlListTable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 2</value>
   </data>
-  <data name="&gt;&gt;BtMinus.Name" xml:space="preserve">
-    <value>BtMinus</value>
-  </data>
-  <data name="BtUp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 3</value>
-  </data>
-  <data name="BtPlus.TabIndex" type="System.Int32, mscorlib">
+  <data name="PlListTable.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;BtPlus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;PlListTable.Name" xml:space="preserve">
+    <value>PlListTable</value>
+  </data>
+  <data name="&gt;&gt;PlListTable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlListTable.Parent" xml:space="preserve">
+    <value>PlFill</value>
+  </data>
+  <data name="&gt;&gt;PlListTable.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PlListTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,1,Absolute,1" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 300</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ControlListBox</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

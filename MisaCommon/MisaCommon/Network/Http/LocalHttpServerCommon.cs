@@ -23,16 +23,16 @@
         /// SetStreamに設定するデリゲートの引数（stream）がNULLの場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="ObjectDisposedException">
+        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// <see cref="Stream"/> は読み取り/書き込みがサポートされていない環境の場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
+        /// <exception cref="IOException">
+        /// I/O エラーが発生した場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         public static HttpResponseData EmptyDataResponse =>
@@ -46,7 +46,8 @@
                 });
 
         /// <summary>
-        /// 引数（<paramref name="data"/>）のデータレスポンスデータを扱う <see cref="HttpResponseData"/> オブジェクト
+        /// 引数（<paramref name="data"/>）のデータレスポンスデータを扱う
+        /// <see cref="HttpResponseData"/> オブジェクト
         /// </summary>
         /// <param name="data">レスポンスデータとして返却するデータ</param>
         /// <param name="mimeType">レスポンスデータのMIMEタイプ</param>
@@ -57,16 +58,16 @@
         /// ・SetStreamに設定するデリゲートの引数（stream）がNULLの場合に発生
         /// 　（SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="ObjectDisposedException">
+        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// <see cref="Stream"/> は読み取り/書き込みがサポートされていない環境の場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
+        /// <exception cref="IOException">
+        /// I/O エラーが発生した場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <returns>
@@ -109,39 +110,38 @@
         /// ・<see cref="Path.InvalidPathChars"/> で定義される 1 つ以上の正しくない文字を含む
         /// （このメソッドを呼び出した時に発生する）
         /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の <paramref name="filePath"/> がシステム定義の最大長を超えている場合に発生
-        /// たとえば、Windowsベースのプラットフォームでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
-        /// （このメソッドを呼び出した時に発生する）
-        /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の <paramref name="filePath"/> が存在しないディレクトリを示している場合に発生
-        /// （このメソッドを呼び出した時に発生する）
-        /// </exception>
-        /// <exception cref="UnauthorizedAccessException">
-        /// 引数の <paramref name="filePath"/> がファイルを指定しないない（ディレクトリを指定）場合、
-        /// 又は、呼び出し元に必要なアクセス許可がない場合に発生
-        /// （このメソッドを呼び出した時に発生する）
-        /// </exception>
-        /// <exception cref="FileNotFoundException">
-        /// 引数の <paramref name="filePath"/> で指定されたファイルが存在しない場合に発生
-        /// （このメソッドを呼び出した時に発生する）
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
-        /// （このメソッドを呼び出した時、SetStreamに設定するデリゲート実行時の両方で発生する）
+        /// <exception cref="ObjectDisposedException">
+        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
+        /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// 引数の <paramref name="filePath"/> の形式が正しくない場合 又は、
         /// <see cref="Stream"/> は読み取り/書き込みがサポートされていない環境の場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// ・引数の <paramref name="filePath"/> がシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（たとえば、Windowsでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある）
+        ///   （このメソッドを呼び出した時に発生する）
+        /// ・引数の <paramref name="filePath"/> が存在しないディレクトリを示している場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// 　（このメソッドを呼び出した時に発生する）
+        /// ・引数の <paramref name="filePath"/> で指定されたファイルが存在しない場合
+        /// 　[<see cref="FileNotFoundException"/>]
+        /// 　（このメソッドを呼び出した時に発生する）
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
+        /// 　（このメソッドを呼び出した時、SetStreamに設定するデリゲート実行時の両方で発生する）
+        /// </exception>
+        /// <exception cref="UnauthorizedAccessException">
+        /// 引数の <paramref name="filePath"/> がファイルを指定しないない（ディレクトリを指定）場合、
+        /// 又は、呼び出し元に必要なアクセス許可がない場合に発生
+        /// （このメソッドを呼び出した時に発生する）
+        /// </exception>
         /// <exception cref="SecurityException">
         /// 呼び出し元に必要なアクセス許可がない場合に発生（セキュリティエラー）
-        /// （SetStreamに設定するデリゲート実行時に発生する）
-        /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <returns>
@@ -157,7 +157,8 @@
         }
 
         /// <summary>
-        /// 引数（<paramref name="icon"/>）のアイコンデータレスポンスデータを扱う <see cref="HttpResponseData"/> オブジェクト
+        /// 引数（<paramref name="icon"/>）のアイコンデータレスポンスデータを扱う
+        /// <see cref="HttpResponseData"/> オブジェクト
         /// </summary>
         /// <param name="icon">レスポンスデータとして返却するアイコンデータ</param>
         /// <exception cref="ArgumentNullException">
@@ -167,16 +168,16 @@
         /// ・SetStreamに設定するデリゲートの引数（stream）がNULLの場合に発生
         /// 　（SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="ObjectDisposedException">
+        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// <see cref="Stream"/> は読み取り/書き込みがサポートされていない環境の場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
+        /// <exception cref="IOException">
+        /// I/O エラーが発生した場合に発生
         /// （SetStreamに設定するデリゲート実行時に発生する）
         /// </exception>
         /// <returns>
@@ -193,7 +194,8 @@
 
             // アイコンをバイトデータで取得する
             byte[] data;
-            using (MemoryStream memoryStream = new MemoryStream())
+            MemoryStream memoryStream;
+            using (memoryStream = new MemoryStream())
             {
                 icon.ToBitmap().Save(memoryStream, ImageFormat.Png);
                 data = memoryStream.ToArray();
@@ -226,7 +228,8 @@
             }
 
             NameValueCollection collection = new NameValueCollection();
-            using (StreamReader reader = new StreamReader(request.InputStream))
+            StreamReader reader;
+            using (reader = new StreamReader(request.InputStream))
             {
                 // StreamからPOSTデータを読み込み
                 string postData = reader.ReadToEnd();
@@ -257,14 +260,14 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="stream"/> 又は <paramref name="inputData"/> がNULLの場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="ObjectDisposedException">
+        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// <see cref="Stream"/> は読み取り/書き込みがサポートされていない環境の場合に発生
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
+        /// <exception cref="IOException">
+        /// I/O エラーが発生した場合に発生
         /// </exception>
         public static void SetDataToStream(Stream stream, byte[] inputData)
         {
@@ -279,7 +282,8 @@
             }
 
             // メモリーStreamを生成して、設定先のStreamにデータを設定する
-            using (MemoryStream inputStream = new MemoryStream(inputData))
+            MemoryStream inputStream;
+            using (inputStream = new MemoryStream(inputData))
             {
                 SetDataToStream(stream, inputStream);
             }
@@ -293,14 +297,14 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="stream"/> 又は <paramref name="inputStream"/> がNULLの場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="ObjectDisposedException">
+        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// <see cref="Stream"/> は読み取り/書き込みがサポートされていない環境の場合に発生
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
-        /// <see cref="Stream"/> が閉じた後でメソッドが呼び出された場合に発生
+        /// <exception cref="IOException">
+        /// I/O エラーが発生した場合に発生
         /// </exception>
         public static void SetDataToStream(Stream stream, Stream inputStream)
         {

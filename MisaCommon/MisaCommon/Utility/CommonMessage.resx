@@ -121,19 +121,19 @@
     <value>値を空にすることはできません。</value>
     <comment>ArgumentExceptionに設定するメッセージ（値が空の場合）</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionLessThan" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatLessThan" xml:space="preserve">
     <value>この引数は {0} 未満の値にできません。</value>
     <comment>ArgumentOutOfRangeExceptionに設定するメッセージ（閾値未満の値の場合）　{0}: 閾値の値</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionMoreThan" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatMoreThan" xml:space="preserve">
     <value>この引数は {0} を超えた値にできません。</value>
     <comment>ArgumentOutOfRangeExceptionに設定するメッセージ（閾値を超えた値の場合）　{0}: 閾値の値</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionOrLess" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatOrLess" xml:space="preserve">
     <value>この引数は {0} 以下の値にできません。</value>
     <comment>ArgumentOutOfRangeExceptionに設定するメッセージ（閾値以下の値の場合）　{0}: 閾値の値</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionOrMore" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatOrMore" xml:space="preserve">
     <value>この引数は {0} 以上の値にできません。</value>
     <comment>ArgumentOutOfRangeExceptionに設定するメッセージ（閾値以上の値の場合）　{0}: 閾値の値</comment>
   </data>

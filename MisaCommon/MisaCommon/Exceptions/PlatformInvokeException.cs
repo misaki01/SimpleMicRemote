@@ -18,7 +18,7 @@
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 初期化を行う
         /// </summary>
         public PlatformInvokeException()

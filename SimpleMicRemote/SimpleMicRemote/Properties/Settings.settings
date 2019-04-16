@@ -29,45 +29,6 @@
     <Setting Name="ChromeSizePoint" Description="音声認識で使用するChromeウィンドウのサイズ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">300, 250, 200, 200</Value>
     </Setting>
-    <Setting Name="InputKey1" Description="キー入力1の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x0D:Enter</Value>
-    </Setting>
-    <Setting Name="InputKey2" Description="キー入力2の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x20:Space</Value>
-    </Setting>
-    <Setting Name="InputKey3" Description="キー入力3の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x00:- なし -</Value>
-    </Setting>
-    <Setting Name="InputKey4" Description="キー入力4の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x00:- なし -</Value>
-    </Setting>
-    <Setting Name="InputKey5" Description="キー入力5の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x00:- なし -</Value>
-    </Setting>
-    <Setting Name="InputKey6" Description="キー入力6の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x00:- なし -</Value>
-    </Setting>
-    <Setting Name="InputKey7" Description="キー入力7の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0x00:- なし -</Value>
-    </Setting>
-    <Setting Name="StartTargetPath1" Description="起動する対象のパス1の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\WINDOWS\system32\notepad.exe</Value>
-    </Setting>
-    <Setting Name="StartTargetPath2" Description="起動する対象のパス2の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="StartTargetPath3" Description="起動する対象のパス3の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="StartTargetPath4" Description="起動する対象のパス4の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="StartTargetPath5" Description="起動する対象のパス5の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="StartTargetPath6" Description="起動する対象のパス6の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="MatchMessageInputModeOn" Description="入力モードON：Enter無 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">入力モード</Value>
     </Setting>
@@ -120,6 +81,45 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MatchMessageExeStart6" Description="アプリ起動6 のマッチングメッセージ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="InputKey1" Description="キー入力1の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x0D:Enter</Value>
+    </Setting>
+    <Setting Name="InputKey2" Description="キー入力2の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x20:Space</Value>
+    </Setting>
+    <Setting Name="InputKey3" Description="キー入力3の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey4" Description="キー入力4の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey5" Description="キー入力5の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey6" Description="キー入力6の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="InputKey7" Description="キー入力7の入力キーの設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x00:- なし -</Value>
+    </Setting>
+    <Setting Name="StartTargetPath1" Description="起動する対象のパス1の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\WINDOWS\system32\notepad.exe</Value>
+    </Setting>
+    <Setting Name="StartTargetPath2" Description="起動する対象のパス2の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath3" Description="起動する対象のパス3の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath4" Description="起動する対象のパス4の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath5" Description="起動する対象のパス5の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartTargetPath6" Description="起動する対象のパス6の設定" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

@@ -10,14 +10,14 @@
         /// <summary>
         /// 起動したプロセスに関するウィンドウ情報
         /// </summary>
-        private WindowInfo _windowInfo;
+        private WindowInfo windowInfo;
 
         #endregion
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティを初期化する
         /// </summary>
         /// <param name="startNumId">
@@ -100,11 +100,11 @@
         /// </summary>
         public WindowInfo WindowInfo
         {
-            get => _windowInfo;
+            get => windowInfo;
             set
             {
                 HasWindowInfo = value != null;
-                _windowInfo = value;
+                windowInfo = value;
             }
         }
 

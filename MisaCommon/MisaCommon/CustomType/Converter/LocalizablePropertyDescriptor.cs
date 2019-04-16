@@ -17,7 +17,7 @@
         /// <summary>
         /// 基底クラスのインスタンス
         /// </summary>
-        private readonly PropertyDescriptor _originalData;
+        private readonly PropertyDescriptor originalData;
 
         #endregion
 
@@ -34,7 +34,7 @@
         public LocalizablePropertyDescriptor(PropertyDescriptor descriptor)
             : base(descriptor)
         {
-            _originalData = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
+            originalData = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
         }
 
         #endregion
@@ -125,17 +125,17 @@
         /// <summary>
         /// プロパティが関連付けられているコンポーネントの型
         /// </summary>
-        public override Type ComponentType => _originalData.ComponentType;
+        public override Type ComponentType => originalData.ComponentType;
 
         /// <summary>
         /// プロパティが読み取り専用かどうか
         /// </summary>
-        public override bool IsReadOnly => _originalData.IsReadOnly;
+        public override bool IsReadOnly => originalData.IsReadOnly;
 
         /// <summary>
         /// プロパティの型
         /// </summary>
-        public override Type PropertyType => _originalData.PropertyType;
+        public override Type PropertyType => originalData.PropertyType;
 
         /// <summary>
         /// オブジェクトをリセットしたときに、そのオブジェクトの値が変化するかどうかを示す値を返す
@@ -144,27 +144,39 @@
         /// <returns>
         /// コンポーネントをリセットするとコンポーネントの値が変化する場合は True、それ以外の場合は False
         /// </returns>
-        public override bool CanResetValue(object component) => _originalData.CanResetValue(component);
+        public override bool CanResetValue(object component)
+        {
+            return originalData.CanResetValue(component);
+        }
 
         /// <summary>
         /// コンポーネントのプロパティの現在の値を取得
         /// </summary>
         /// <param name="component">値の取得対象であるプロパティを持つコンポーネントオブジェクト</param>
         /// <returns>指定したコンポーネントのプロパティの値</returns>
-        public override object GetValue(object component) => _originalData.GetValue(component);
+        public override object GetValue(object component)
+        {
+            return originalData.GetValue(component);
+        }
 
         /// <summary>
         /// コンポーネントのプロパティの値を既定値にリセットする
         /// </summary>
         /// <param name="component">既定値にリセットする対象のプロパティ値を持つコンポーネントオブジェクト</param>
-        public override void ResetValue(object component) => _originalData.ResetValue(component);
+        public override void ResetValue(object component)
+        {
+            originalData.ResetValue(component);
+        }
 
         /// <summary>
         /// コンポーネントの値を別の値に設定する
         /// </summary>
         /// <param name="component">設定する対象のプロパティ値を持つコンポーネントオブジェクト</param>
         /// <param name="value">設定する値</param>
-        public override void SetValue(object component, object value) => _originalData.SetValue(component, value);
+        public override void SetValue(object component, object value)
+        {
+            originalData.SetValue(component, value);
+        }
 
         /// <summary>
         /// プロパティの値を永続化する必要があるかどうかを示す値を決定する
@@ -173,7 +185,10 @@
         /// <returns>
         /// プロパティを永続化する必要がある場合は True、それ以外の場合は False
         /// </returns>
-        public override bool ShouldSerializeValue(object component) => _originalData.ShouldSerializeValue(component);
+        public override bool ShouldSerializeValue(object component)
+        {
+            return originalData.ShouldSerializeValue(component);
+        }
 
         #endregion
     }

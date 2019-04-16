@@ -16,12 +16,12 @@
         /// <summary>
         /// ドロップダウンで表示しているかのフラグ
         /// </summary>
-        private readonly bool _isDropDown;
+        private readonly bool isDropDown;
 
         /// <summary>
         /// このコントロールで設定したサイズと位置の値（未設定、キャンセルの場合はNULL）
         /// </summary>
-        private SizePoint _settingSizePoint = null;
+        private SizePoint settingSizePoint = null;
 
         #endregion
 
@@ -68,7 +68,7 @@
 
             // ドロップダウンで表示しているかのフラグを保持
             // （NULLの場合はFalse：ドロップダウンでの表示ではないとする）
-            _isDropDown = isDropDown ?? false;
+            this.isDropDown = isDropDown ?? false;
 
             // 現在の設定値を元に各コントロールに値を設定
             SetCurrentSizePoint(CurrentSizePoint);
@@ -98,8 +98,8 @@
         [Browsable(false)]
         public SizePoint SettingSizePoint
         {
-            get => _settingSizePoint?.DeepCopy();
-            private set => _settingSizePoint = value;
+            get => settingSizePoint?.DeepCopy();
+            private set => settingSizePoint = value;
         }
 
         #endregion
@@ -238,7 +238,7 @@
         private void TxtSizePosition_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Enter、Escapeが押下されたか判定
-            bool isPress = false;
+            bool isPress;
             switch (e.KeyChar)
             {
                 case (char)Keys.Enter:
@@ -275,7 +275,7 @@
         private void CloseDropDown()
         {
             // ドロップダウンでの表示の場合、ESCキーを送信してドロップダウンを閉じる
-            if (_isDropDown)
+            if (isDropDown)
             {
                 SendKeys.Send("{ESC}");
             }
@@ -297,14 +297,18 @@
 
             // 画面からはみ出さないようにサイズの最大値を設定
             Screen screen = Screen.FromControl(this);
-            decimal maximunWidth = TxtSizeWidth.Value > screen.Bounds.Width ? TxtSizeWidth.Value : screen.Bounds.Width;
-            decimal maximunHeight = TxtSizeHeight.Value > screen.Bounds.Height ? TxtSizeHeight.Value : screen.Bounds.Height;
+            decimal maximunWidth = TxtSizeWidth.Value > screen.Bounds.Width
+                ? TxtSizeWidth.Value : screen.Bounds.Width;
+            decimal maximunHeight = TxtSizeHeight.Value > screen.Bounds.Height
+                ? TxtSizeHeight.Value : screen.Bounds.Height;
             TxtSizeWidth.Maximum = maximunWidth;
             TxtSizeHeight.Maximum = maximunHeight;
 
             // 画面から大きくはみ出さないように座標の最大値、最小値を設定
-            decimal maximunX = TxtPositionX.Value > screen.Bounds.Width ? TxtPositionX.Value : screen.Bounds.Width;
-            decimal maximunY = TxtPositionY.Value > screen.Bounds.Height ? TxtPositionY.Value : screen.Bounds.Height;
+            decimal maximunX = TxtPositionX.Value > screen.Bounds.Width
+                ? TxtPositionX.Value : screen.Bounds.Width;
+            decimal maximunY = TxtPositionY.Value > screen.Bounds.Height
+                ? TxtPositionY.Value : screen.Bounds.Height;
             TxtPositionX.Maximum = maximunX;
             TxtPositionX.Minimum = -1 * maximunX;
             TxtPositionY.Maximum = maximunY;

@@ -121,19 +121,19 @@
     <value>The value can not be empty.</value>
     <comment>Message to set to ArgumentException.  (value is empty)</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionLessThan" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatLessThan" xml:space="preserve">
     <value>This argument can not be less than {0}.</value>
     <comment>Message to be set in ArgumentOutOfRangeException. (value is less than threshold) {0}: threshold</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionMoreThan" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatMoreThan" xml:space="preserve">
     <value>This argument can not be more than {0}.</value>
     <comment>Message to be set in ArgumentOutOfRangeException. (value is more than threshold) {0}: threshold</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionOrLess" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatOrLess" xml:space="preserve">
     <value>This argument can not be {0} or less.</value>
     <comment>Message to be set in ArgumentOutOfRangeException. (value is threshold or less) {0}: threshold</comment>
   </data>
-  <data name="ArgumentOutOfRangeExceptionOrMore" xml:space="preserve">
+  <data name="ArgumentOutOfRangeExceptionMessageFormatOrMore" xml:space="preserve">
     <value>This argument can not be {0} or more.</value>
     <comment>Message to be set in ArgumentOutOfRangeException. (value is threshold or more) {0}: threshold</comment>
   </data>

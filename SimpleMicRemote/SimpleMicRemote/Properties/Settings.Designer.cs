@@ -12,7 +12,7 @@ namespace SimpleMicRemote.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -162,227 +162,6 @@ namespace SimpleMicRemote.Properties {
             }
             set {
                 this["ChromeSizePoint"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力1の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力1の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x0D:Enter")]
-        public string InputKey1 {
-            get {
-                return ((string)(this["InputKey1"]));
-            }
-            set {
-                this["InputKey1"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力2の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力2の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x20:Space")]
-        public string InputKey2 {
-            get {
-                return ((string)(this["InputKey2"]));
-            }
-            set {
-                this["InputKey2"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力3の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力3の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
-        public string InputKey3 {
-            get {
-                return ((string)(this["InputKey3"]));
-            }
-            set {
-                this["InputKey3"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力4の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力4の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
-        public string InputKey4 {
-            get {
-                return ((string)(this["InputKey4"]));
-            }
-            set {
-                this["InputKey4"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力5の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力5の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
-        public string InputKey5 {
-            get {
-                return ((string)(this["InputKey5"]));
-            }
-            set {
-                this["InputKey5"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力6の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力6の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
-        public string InputKey6 {
-            get {
-                return ((string)(this["InputKey6"]));
-            }
-            set {
-                this["InputKey6"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// キー入力7の入力キーの設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("キー入力7の入力キーの設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
-        public string InputKey7 {
-            get {
-                return ((string)(this["InputKey7"]));
-            }
-            set {
-                this["InputKey7"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// 起動する対象のパス1の設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス1の設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\WINDOWS\\system32\\notepad.exe")]
-        public string StartTargetPath1 {
-            get {
-                return ((string)(this["StartTargetPath1"]));
-            }
-            set {
-                this["StartTargetPath1"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// 起動する対象のパス2の設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス2の設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StartTargetPath2 {
-            get {
-                return ((string)(this["StartTargetPath2"]));
-            }
-            set {
-                this["StartTargetPath2"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// 起動する対象のパス3の設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス3の設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StartTargetPath3 {
-            get {
-                return ((string)(this["StartTargetPath3"]));
-            }
-            set {
-                this["StartTargetPath3"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// 起動する対象のパス4の設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス4の設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StartTargetPath4 {
-            get {
-                return ((string)(this["StartTargetPath4"]));
-            }
-            set {
-                this["StartTargetPath4"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// 起動する対象のパス5の設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス5の設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StartTargetPath5 {
-            get {
-                return ((string)(this["StartTargetPath5"]));
-            }
-            set {
-                this["StartTargetPath5"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// 起動する対象のパス6の設定
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
-        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス6の設定")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StartTargetPath6 {
-            get {
-                return ((string)(this["StartTargetPath6"]));
-            }
-            set {
-                this["StartTargetPath6"] = value;
             }
         }
         
@@ -689,6 +468,227 @@ namespace SimpleMicRemote.Properties {
             }
             set {
                 this["MatchMessageExeStart6"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力1の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力1の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x0D:Enter")]
+        public string InputKey1 {
+            get {
+                return ((string)(this["InputKey1"]));
+            }
+            set {
+                this["InputKey1"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力2の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力2の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x20:Space")]
+        public string InputKey2 {
+            get {
+                return ((string)(this["InputKey2"]));
+            }
+            set {
+                this["InputKey2"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力3の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力3の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
+        public string InputKey3 {
+            get {
+                return ((string)(this["InputKey3"]));
+            }
+            set {
+                this["InputKey3"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力4の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力4の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
+        public string InputKey4 {
+            get {
+                return ((string)(this["InputKey4"]));
+            }
+            set {
+                this["InputKey4"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力5の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力5の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
+        public string InputKey5 {
+            get {
+                return ((string)(this["InputKey5"]));
+            }
+            set {
+                this["InputKey5"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力6の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力6の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
+        public string InputKey6 {
+            get {
+                return ((string)(this["InputKey6"]));
+            }
+            set {
+                this["InputKey6"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// キー入力7の入力キーの設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("キー入力7の入力キーの設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x00:- なし -")]
+        public string InputKey7 {
+            get {
+                return ((string)(this["InputKey7"]));
+            }
+            set {
+                this["InputKey7"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// 起動する対象のパス1の設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス1の設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\WINDOWS\\system32\\notepad.exe")]
+        public string StartTargetPath1 {
+            get {
+                return ((string)(this["StartTargetPath1"]));
+            }
+            set {
+                this["StartTargetPath1"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// 起動する対象のパス2の設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス2の設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartTargetPath2 {
+            get {
+                return ((string)(this["StartTargetPath2"]));
+            }
+            set {
+                this["StartTargetPath2"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// 起動する対象のパス3の設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス3の設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartTargetPath3 {
+            get {
+                return ((string)(this["StartTargetPath3"]));
+            }
+            set {
+                this["StartTargetPath3"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// 起動する対象のパス4の設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス4の設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartTargetPath4 {
+            get {
+                return ((string)(this["StartTargetPath4"]));
+            }
+            set {
+                this["StartTargetPath4"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// 起動する対象のパス5の設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス5の設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartTargetPath5 {
+            get {
+                return ((string)(this["StartTargetPath5"]));
+            }
+            set {
+                this["StartTargetPath5"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// 起動する対象のパス6の設定
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider))]
+        [global::System.Configuration.SettingsDescriptionAttribute("起動する対象のパス6の設定")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartTargetPath6 {
+            get {
+                return ((string)(this["StartTargetPath6"]));
+            }
+            set {
+                this["StartTargetPath6"] = value;
             }
         }
     }

@@ -18,7 +18,7 @@
         /// <summary>
         /// Bitmap形式として扱うことが可能な拡張子
         /// </summary>
-        private static string[] _canConvertBitmapExtensions = null;
+        private static string[] canConvertBitmapExtensions = null;
 
         #endregion
 
@@ -33,7 +33,7 @@
         /// <returns>このクラスで扱うことが可能な画像データの拡張子</returns>
         public static string[] GetCanConvertImageExtensions()
         {
-            if (_canConvertBitmapExtensions == null)
+            if (canConvertBitmapExtensions == null)
             {
                 // 拡張子が未設定の場合は扱える拡張子を設定する
                 List<string> extensionList = new List<string>();
@@ -52,10 +52,10 @@
                 }
 
                 // 取得した拡張子リストを設定する
-                _canConvertBitmapExtensions = extensionList.ToArray();
+                canConvertBitmapExtensions = extensionList.ToArray();
             }
 
-            return _canConvertBitmapExtensions;
+            return canConvertBitmapExtensions;
         }
 
         /// <summary>
@@ -82,21 +82,21 @@
                 // NG：空文字チェック
                 return false;
             }
-            else if (!File.Exists(path))
+
+            // 拡張子チェック
+            string extension = Path.GetExtension(path).ToUpperInvariant();
+            if (!GetCanConvertImageExtensions().Any(canExtension
+                => canExtension.ToUpperInvariant().Equals(extension, StringComparison.Ordinal)))
             {
-                // NG：ファイル存在チェック
+                // NG：読み込み可能な拡張子かチェック
                 return false;
             }
-            else
+
+            // ファイル存在チェック
+            if (!File.Exists(path))
             {
-                // パスから拡張子を取得しチェックする
-                string extension = Path.GetExtension(path).ToUpperInvariant();
-                if (!GetCanConvertImageExtensions().Any(canExtension
-                    => canExtension.ToUpperInvariant().Equals(extension)))
-                {
-                    // NG：読み込み可能な拡張子かチェック
-                    return false;
-                }
+                // NG：
+                return false;
             }
 
             // このクラスではBitmapクラスを使用してImageの複製を行っている、
@@ -105,15 +105,13 @@
             {
                 image = new Bitmap(path);
             }
-            catch (Exception ex)
-                when (ex is ArgumentException
-                    || ex is IOException)
+            catch (ArgumentException)
             {
-                // 下記の場合に例外が発生することを想定
-                // ArgumentException
-                // ・引数で指定されたパスのファイルが画像データでない場合（破損している場合も含む）
-                // IOException
-                // ・I/O エラーが発生した場合
+                // 下記のエラーが発生する可能性がある
+                // [ArgumentException]
+                // ・Streamに画像データが含まれていない場合
+                // ・画像ファイルが画像データでない場合（破損している場合も含む）
+                // ・65535 ピクセルよりも大きいイメージの場合
 
                 // このクラスで扱える画像データでない場合は False を返す
                 image?.Dispose();
@@ -156,25 +154,13 @@
             {
                 image = new Bitmap(stream);
             }
-            catch (Exception ex)
-                when (ex is ArgumentException
-                    || ex is NotSupportedException
-                    || ex is InvalidOperationException
-                    || ex is ObjectDisposedException
-                    || ex is IOException)
+            catch (ArgumentException)
             {
-                // 下記の場合に例外が発生することを想定
-                // ArgumentException
-                // ・引数で指定されたストリームが不正、
-                // 　または、ストリームの画像ファイルが画像データでない場合（破損している場合も含む）
-                // NotSupportedException
-                // ・ストリームが読み取りをサポートしていない場合
-                // InvalidOperationException
-                // ・現在ストリームが使用中であり使用できない場合
-                // ObjectDisposedException
-                // ・ストリームが既に破棄されている場合
-                // IOException
-                // ・I/O エラーが発生した場合
+                // 下記のエラーが発生する可能性がある
+                // [ArgumentException]
+                // ・Streamに画像データが含まれていない場合
+                // ・画像ファイルが画像データでない場合（破損している場合も含む）
+                // ・65535 ピクセルよりも大きいイメージの場合
 
                 // このクラスで扱える画像データでない場合は False を返す
                 image?.Dispose();
@@ -231,7 +217,8 @@
         #region キャンパスサイズ変更
 
         /// <summary>
-        /// 対象の画像データのキャンパスを引数で指定したサイズ（<paramref name="changeSize"/>）のキャンパスに変更する
+        /// 対象の画像データのキャンパスを引数で指定したサイズ（<paramref name="changeSize"/>）の
+        /// キャンパスに変更する
         /// </summary>
         /// <param name="image">対象の画像データ</param>
         /// <param name="changeSize">変更するサイズ</param>
@@ -363,8 +350,8 @@
         }
 
         /// <summary>
-        /// 対象の画像データのキャンパスのサイズを引数の中心位置（<paramref name="changeCenterPoint"/>）を考慮した
-        /// 対角線の長さに拡大したキャンパスに変更する
+        /// 対象の画像データのキャンパスのサイズを引数の中心位置（<paramref name="changeCenterPoint"/>）を
+        /// 考慮した対角線の長さに拡大したキャンパスに変更する
         /// </summary>
         /// <remarks>
         /// 画像を回転させたときにキャンパスから画像がはみ出ないようにするため、
@@ -397,15 +384,20 @@
             diagonalLength = leftTop;
 
             // 右上
-            double rightTop = Math.Pow(image.Size.Width - changeCenterPoint.X, 2) + Math.Pow(changeCenterPoint.Y, 2);
+            double rightTop =
+                Math.Pow(image.Size.Width - changeCenterPoint.X, 2)
+                + Math.Pow(changeCenterPoint.Y, 2);
             diagonalLength = rightTop > diagonalLength ? rightTop : diagonalLength;
 
             // 左下
-            double leftBottom = Math.Pow(changeCenterPoint.X, 2) + Math.Pow(image.Size.Height - changeCenterPoint.Y, 2);
+            double leftBottom =
+                Math.Pow(changeCenterPoint.X, 2)
+                + Math.Pow(image.Size.Height - changeCenterPoint.Y, 2);
             diagonalLength = leftBottom > diagonalLength ? leftBottom : diagonalLength;
 
             // 右下
-            double rightBottom = Math.Pow(image.Size.Width - changeCenterPoint.X, 2)
+            double rightBottom =
+                Math.Pow(image.Size.Width - changeCenterPoint.X, 2)
                 + Math.Pow(image.Size.Height - changeCenterPoint.Y, 2);
             diagonalLength = rightBottom > diagonalLength ? rightBottom : diagonalLength;
 

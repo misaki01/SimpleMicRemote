@@ -8,7 +8,7 @@
     using System.Windows.Forms;
 
     using MisaCommon.CustomType.Converter;
-    using MisaCommon.CustomType.UiEditor;
+    using MisaCommon.CustomType.UIEditor;
     using MisaCommon.MessageResources.Type;
     using MisaCommon.Utility.StaticMethod;
 
@@ -19,16 +19,16 @@
     /// このクラスの公開プロパティにおける表示名と説明は、
     /// <see cref="LocalizableTypeConverter{T, TResouces}"/>にてマッピングしている
     /// <list type="bullet">
-    ///     <item>
-    ///         <term>string型への変換</term>
-    ///         <description>
-    ///         Shift、Ctrl、Alt、Win、キーコード及び押しっぱなしの６つをパイプ区切りの文字列で表現する
-    ///         Shift、Ctrl、Alt、Winについては False の場合は出力しない
-    ///         キーコードは「16進形式の数値:表示名」の形式で出力する
-    ///         【例1】Ctrl+A（押しっぱなし）の場合   ⇒ 「Ctrl|0x41:A|KeepPressing」
-    ///         【例2】Shift+Ctrl+Alt+Wi+A の場合     ⇒ 「Shift|Ctrl|Alt|Win|0x41:A」
-    ///         </description>
-    ///     </item>
+    /// <item>
+    /// <term>string型への変換</term>
+    /// <description>
+    /// Shift、Ctrl、Alt、Win、キーコード及び押しっぱなしの６つをパイプ区切りの文字列で表現する
+    /// ・Shift、Ctrl、Alt、Winについては False の場合は出力しない
+    /// ・キーコードは「16進形式の数値:表示名」の形式で出力する
+    /// 【例1】Ctrl+A（押しっぱなし）の場合   ⇒ 「Ctrl|0x41:A|KeepPressing」
+    /// 【例2】Shift+Ctrl+Alt+Wi+A の場合     ⇒ 「Shift|Ctrl|Alt|Win|0x41:A」
+    /// </description>
+    /// </item>
     /// </list>
     /// </remarks>
     [Serializable]
@@ -40,12 +40,12 @@
         /// キーを押しっぱなしにする場合であることを示すための文字
         /// <see cref="string"/>型に変換した際に付与する固定文言
         /// </summary>
-        private const string _keepPressingText = "KeepPressing";
+        private const string KeepPressingText = "KeepPressing";
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 引数の値で初期化する
         /// </summary>
         /// <param name="keyCode">キーコード</param>
@@ -213,31 +213,31 @@
                 string trimData = data.Trim();
 
                 // Shiftか判定
-                if (trimData.Equals(nameof(Shift)))
+                if (trimData.Equals(nameof(Shift), StringComparison.Ordinal))
                 {
                     shift = true;
                 }
 
                 // Ctrlか判定
-                if (trimData.Equals(nameof(Ctrl)))
+                if (trimData.Equals(nameof(Ctrl), StringComparison.Ordinal))
                 {
                     ctrl = true;
                 }
 
                 // Altか判定
-                if (trimData.Equals(nameof(Alt)))
+                if (trimData.Equals(nameof(Alt), StringComparison.Ordinal))
                 {
                     alt = true;
                 }
 
                 // Winか判定
-                if (trimData.Equals(nameof(Win)))
+                if (trimData.Equals(nameof(Win), StringComparison.Ordinal))
                 {
                     win = true;
                 }
 
                 // キーコードか判定
-                if (trimData.Length > 2 && trimData.Substring(0, 2).Equals("0x"))
+                if (trimData.Length > 2 && trimData.Substring(0, 2).Equals("0x", StringComparison.Ordinal))
                 {
                     // キーコードから16進のコード部分を抽出する
                     string tmpCode = trimData.Split(':')[0].Trim();
@@ -346,7 +346,7 @@
             if (IsKeepPressing)
             {
                 convertValue.Append("|");
-                convertValue.Append(_keepPressingText);
+                convertValue.Append(KeepPressingText);
             }
 
             // 生成した文字列を返却

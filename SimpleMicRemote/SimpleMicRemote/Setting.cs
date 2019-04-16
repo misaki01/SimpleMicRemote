@@ -67,7 +67,7 @@
         /// <summary>
         /// ユーザコンフィグのデフォルトの設定情報
         /// </summary>
-        private static IReadOnlyDictionary<string, string> _defaultUserSettings = null;
+        private static IReadOnlyDictionary<string, string> defaultUserSettings = null;
 
         #endregion
 
@@ -85,12 +85,12 @@
         public Setting()
         {
             // アプリケーション起動の際の起動モード
-            StartStartupMode
-                = GetSettingPropertyValue<StartupMode>(nameof(Properties.Settings.Default.StartStartupMode));
+            StartStartupMode = GetSettingPropertyValue<StartupMode>(
+                nameof(Properties.Settings.Default.StartStartupMode));
 
             // アプリケーション起動の際の入力モード
-            StartInputMode
-                = GetSettingPropertyValue<InputMode>(nameof(Properties.Settings.Default.StartInputMode));
+            StartInputMode = GetSettingPropertyValue<InputMode>(
+                nameof(Properties.Settings.Default.StartInputMode));
 
             // 音声認識で使用するChromeウィンドウのサイズ
             ChromeSizePoint = new SizePoint(Properties.Settings.Default.ChromeSizePoint);
@@ -259,15 +259,198 @@
         {
             get
             {
-                if (_defaultUserSettings == null)
+                if (defaultUserSettings == null)
                 {
                     SettingsContext context = Properties.Settings.Default.Context;
-                    _defaultUserSettings
-                        = new ReadOnlyDictionary<string, string>(UserSettingsProvider.GetDefaultUserSettings(context));
+                    AppConfig appConfig = new AppConfig();
+                    IDictionary<string, string> defaultSettings
+                        = appConfig.GetDefaultUserSettings(context);
+                    defaultUserSettings
+                        = new ReadOnlyDictionary<string, string>(defaultSettings);
                 }
 
-                return _defaultUserSettings;
+                return defaultUserSettings;
             }
+        }
+
+        #endregion
+
+        #region プロパティグリッドのデフォルト値、リセット機能用のメソッド
+
+        /// <summary>
+        /// 音声認識で使用するChromeウィンドウのサイズ、位置の設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeChromeSizePoint()
+        {
+            string name = nameof(Properties.Settings.Default.ChromeSizePoint);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, ChromeSizePoint?.ConvertToString(ChromeSizePoint), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// 音声認識で使用するChromeウィンドウのサイズ、位置の設定を既定値にリセットする
+        /// </summary>
+        public void ResetChromeSizePoint()
+        {
+            string name = nameof(Properties.Settings.Default.ChromeSizePoint);
+            string defaultValue = DefaultUserSettings[name];
+            ChromeSizePoint = new SizePoint(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 1 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey1()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey1);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey1?.ConvertToString(InputKey1), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 1 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey1()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey1);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey1 = new InputKey(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 1 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey2()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey2);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey2?.ConvertToString(InputKey2), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 2 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey2()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey2);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey2 = new InputKey(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 3 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey3()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey3);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey3?.ConvertToString(InputKey3), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 3 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey3()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey3);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey3 = new InputKey(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 4 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey4()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey4);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey4?.ConvertToString(InputKey4), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 4 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey4()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey4);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey4 = new InputKey(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 5 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey5()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey5);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey5?.ConvertToString(InputKey5), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 5 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey5()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey5);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey5 = new InputKey(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 6 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey6()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey6);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey6?.ConvertToString(InputKey6), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 6 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey6()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey6);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey6 = new InputKey(defaultValue);
+        }
+
+        /// <summary>
+        /// キー入力 7 の入力キーの設定が既定値か判定する
+        /// </summary>
+        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
+        public bool ShouldSerializeInputKey7()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey7);
+            string defaultValue = DefaultUserSettings[name];
+            return !string.Equals(
+                defaultValue, InputKey7?.ConvertToString(InputKey7), StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// キー入力 7 の入力キーの設定を既定値にリセットする
+        /// </summary>
+        public void ResetInputKey7()
+        {
+            string name = nameof(Properties.Settings.Default.InputKey7);
+            string defaultValue = DefaultUserSettings[name];
+            InputKey7 = new InputKey(defaultValue);
         }
 
         #endregion
@@ -275,7 +458,8 @@
         #region プライベートメソッド
 
         /// <summary>
-        /// 設定情報（<see cref="Properties.Settings"/>）から、引数のプロパティの名称（<paramref name="propertyName"/>）に該当する
+        /// 設定情報（<see cref="Properties.Settings"/>）から、
+        /// 引数のプロパティの名称（<paramref name="propertyName"/>）に該当する
         /// プロパティの値を<typeparamref name="T"/>のEnum型で取得する
         /// </summary>
         /// <typeparam name="T">取得対象のプロパティに該当するEnumの型</typeparam>
@@ -302,7 +486,8 @@
             }
 
             // 引数に該当するプロパティの値を取得
-            string value = GetSettingProperty(propertyName).GetValue(Properties.Settings.Default)?.ToString();
+            string value = GetSettingProperty(propertyName)
+                .GetValue(Properties.Settings.Default)?.ToString();
 
             // 該当するEnumが存在するかチェック
             if (string.IsNullOrEmpty(value)
@@ -336,7 +521,8 @@
 
         /// <summary>
         /// 設定情報（<see cref="Properties.Settings"/>）から、
-        /// 引数のプロパティの名称（<paramref name="propertyName"/>）に該当するプロパティのデフォルト値を取得する
+        /// 引数のプロパティの名称（<paramref name="propertyName"/>）に該当する
+        /// プロパティのデフォルト値を取得する
         /// </summary>
         /// <param name="propertyName">プロパティの名称</param>
         /// <exception cref="ArgumentNullException">
@@ -363,7 +549,9 @@
 
             // 取得した属性除法情報からデフォルト値属性を取得
             DefaultSettingValueAttribute defaultValueAttribute
-                = attributes == null ? null : attributes[typeof(DefaultSettingValueAttribute)] as DefaultSettingValueAttribute;
+                = attributes == null
+                ? null
+                : attributes[typeof(DefaultSettingValueAttribute)] as DefaultSettingValueAttribute;
             if (defaultValueAttribute == null)
             {
                 throw new SettingException(string.Format(
@@ -373,7 +561,7 @@
             }
 
             // デフォルト値から値を取得して返却
-            return defaultValueAttribute.Value?.ToString();
+            return defaultValueAttribute.Value?.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -385,7 +573,8 @@
         /// 引数のプロパティの名称（<paramref name="propertyName"/>）がNULLの場合に発生
         /// </exception>
         /// <exception cref="SettingException">
-        /// 引数で指定された名称のプロパティが設定情報（<see cref="Properties.Settings"/>）に存在しない場合に発生
+        /// 引数で指定された名称のプロパティが、
+        /// 設定情報（<see cref="Properties.Settings"/>）に存在しない場合に発生
         /// </exception>
         /// <returns>
         /// 引数のプロパティの名称（<paramref name="propertyName"/>）に該当する
@@ -413,174 +602,6 @@
 
             // 取得したプロパティを返却する
             return property;
-        }
-
-        /// <summary>
-        /// 音声認識で使用するChromeウィンドウのサイズ、位置の設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeChromeSizePoint()
-        {
-            string name = nameof(Properties.Settings.Default.ChromeSizePoint);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, ChromeSizePoint?.ConvertToString(ChromeSizePoint));
-        }
-
-        /// <summary>
-        /// 音声認識で使用するChromeウィンドウのサイズ、位置の設定を既定値にリセットする
-        /// </summary>
-        private void ResetChromeSizePoint()
-        {
-            string name = nameof(Properties.Settings.Default.ChromeSizePoint);
-            string defaultValue = DefaultUserSettings[name];
-            ChromeSizePoint = new SizePoint(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 1 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey1()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey1);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey1?.ConvertToString(InputKey1));
-        }
-
-        /// <summary>
-        /// キー入力 1 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey1()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey1);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey1 = new InputKey(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 1 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey2()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey2);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey2?.ConvertToString(InputKey2));
-        }
-
-        /// <summary>
-        /// キー入力 2 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey2()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey2);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey2 = new InputKey(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 3 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey3()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey3);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey3?.ConvertToString(InputKey3));
-        }
-
-        /// <summary>
-        /// キー入力 3 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey3()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey3);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey3 = new InputKey(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 4 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey4()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey4);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey4?.ConvertToString(InputKey4));
-        }
-
-        /// <summary>
-        /// キー入力 4 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey4()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey4);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey4 = new InputKey(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 5 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey5()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey5);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey5?.ConvertToString(InputKey5));
-        }
-
-        /// <summary>
-        /// キー入力 5 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey5()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey5);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey5 = new InputKey(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 6 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey6()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey6);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey6?.ConvertToString(InputKey6));
-        }
-
-        /// <summary>
-        /// キー入力 6 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey6()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey6);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey6 = new InputKey(defaultValue);
-        }
-
-        /// <summary>
-        /// キー入力 7 の入力キーの設定が既定値か判定する
-        /// </summary>
-        /// <returns>既定値でない場合：True、既定値の場合：False</returns>
-        private bool ShouldSerializeInputKey7()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey7);
-            string defaultValue = DefaultUserSettings[name];
-            return !string.Equals(defaultValue, InputKey7?.ConvertToString(InputKey7));
-        }
-
-        /// <summary>
-        /// キー入力 7 の入力キーの設定を既定値にリセットする
-        /// </summary>
-        private void ResetInputKey7()
-        {
-            string name = nameof(Properties.Settings.Default.InputKey7);
-            string defaultValue = DefaultUserSettings[name];
-            InputKey7 = new InputKey(defaultValue);
         }
 
         #endregion

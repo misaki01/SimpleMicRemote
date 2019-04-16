@@ -4,8 +4,8 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
-// アセンブリに関連付けられている情報を変更するには、
-// これらの属性値を変更してください。
+// 制御されます。アセンブリに関連付けられている情報を変更するには、
+// これらの属性値を変更します。
 [assembly: AssemblyTitle("SimpleMicRemote（簡易マイクリモコン）")]
 [assembly: AssemblyDescription("マイク入力でキーボードのシュミレート及びアプリ起動を行うツール")]
 [assembly: AssemblyConfiguration("")]
@@ -26,16 +26,16 @@ using System.Runtime.InteropServices;
 // このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
 [assembly: Guid("31f2eefe-675e-4524-8d5c-8b5f74d52985")]
 
-// アセンブリのバージョン情報は次の 4 つの値で構成されています:
+// アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 //
 //      メジャー バージョン
 //      マイナー バージョン
 //      ビルド番号
-//      Revision
+//      リビジョン
 //
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.0.0")]
-[assembly: AssemblyFileVersion("0.5.0.0")]
+[assembly: AssemblyVersion("0.6.0.0")]
+[assembly: AssemblyFileVersion("0.6.0.0")]
 [assembly: NeutralResourcesLanguage("ja")]

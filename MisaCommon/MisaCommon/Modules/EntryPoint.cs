@@ -8,6 +8,7 @@
 
     using MisaCommon.Exceptions;
     using MisaCommon.MessageResources;
+
     using Utility = Utility.StaticMethod;
 
     /// <summary>
@@ -24,7 +25,7 @@
         /// <remarks>
         /// シングルトンパターンで実装
         /// </remarks>
-        private static IList<IDisposable> _disposeClass = null;
+        private static IList<IDisposable> disposeClass = null;
 
         #endregion
 
@@ -42,12 +43,12 @@
             get
             {
                 // シングルトンの処理、NULLならオブジェクトを生成する
-                if (_disposeClass == null)
+                if (disposeClass == null)
                 {
-                    _disposeClass = new List<IDisposable>();
+                    disposeClass = new List<IDisposable>();
                 }
 
-                return _disposeClass;
+                return disposeClass;
             }
         }
 
@@ -116,6 +117,23 @@
         /// ・二重起動防止を行う場合（引数の<paramref name="isSingle"/>がTrue）かつ、
         /// 　引数の <paramref name="mutexName"/> がNULL又は空文字の場合
         /// </exception>
+        /// <exception cref="ArgumentException">
+        /// 二重起動を防止する場合において、引数（<paramref name="mutexName"/>）が
+        /// 260文字を超えている場合に発生
+        /// </exception>
+        /// <exception cref="UnauthorizedAccessException">
+        /// 二重起動を防止する場合において、既に引数（<paramref name="mutexName"/>）で指定した名前のMutexが、
+        /// アクセス制御セキュリティで作成されている場合において、
+        /// ユーザに <see cref="System.Security.AccessControl.MutexRights.FullControl"/> の権限が
+        /// ない場合に発生
+        /// </exception>
+        /// <exception cref="System.IO.IOException">
+        /// 二重起動を防止する場合において、Win32 エラーが発生した場合に発生
+        /// </exception>
+        /// <exception cref="WaitHandleCannotBeOpenedException">
+        /// 二重起動を防止する場合において、名前付きミューテックスを作成できない場合に発生
+        /// 原因として、別の型の待機ハンドルに同じ名前が付けられていることが考える
+        /// </exception>
         [STAThread]
         public static void ApplicationStart(Func<Form> newForm, bool isSingle, string mutexName)
         {
@@ -140,10 +158,15 @@
         /// ・二重起動防止を行う場合（引数の<paramref name="isSingle"/>がTrue）かつ、
         /// 　引数の <paramref name="mutexName"/> がNULL又は空文字の場合
         /// </exception>
+        /// <exception cref="ArgumentException">
+        /// 二重起動を防止する場合において、引数（<paramref name="mutexName"/>）が
+        /// 260文字を超えている場合に発生
+        /// </exception>
         /// <exception cref="UnauthorizedAccessException">
-        /// 二重起動を防止する場合において、捨てに引数（<paramref name="mutexName"/>）で指定した名前のMutexが、
+        /// 二重起動を防止する場合において、既に引数（<paramref name="mutexName"/>）で指定した名前のMutexが、
         /// アクセス制御セキュリティで作成されている場合において、
-        /// ユーザに <see cref="System.Security.AccessControl.MutexRights.FullControl"/> の権限がない場合に発生
+        /// ユーザに <see cref="System.Security.AccessControl.MutexRights.FullControl"/> の権限が
+        /// ない場合に発生
         /// </exception>
         /// <exception cref="System.IO.IOException">
         /// 二重起動を防止する場合において、Win32 エラーが発生した場合に発生
@@ -152,11 +175,9 @@
         /// 二重起動を防止する場合において、名前付きミューテックスを作成できない場合に発生
         /// 原因として、別の型の待機ハンドルに同じ名前が付けられていることが考える
         /// </exception>
-        /// <exception cref="ArgumentException">
-        /// 二重起動を防止する場合において、引数（<paramref name="mutexName"/>）が260文字を超えている場合に発生
-        /// </exception>
         [STAThread]
-        public static void ApplicationStart(Func<Form> newForm, CultureInfo culture, bool isSingle, string mutexName)
+        public static void ApplicationStart(
+            Func<Form> newForm, CultureInfo culture, bool isSingle, string mutexName)
         {
             // catchされなかった例外を処理するためのイベントハンドラを追加
 

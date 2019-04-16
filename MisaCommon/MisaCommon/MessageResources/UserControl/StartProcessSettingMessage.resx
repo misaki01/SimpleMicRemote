@@ -130,7 +130,7 @@
     <comment>プロパティに設定する「プロパティ変更」カテゴリ</comment>
   </data>
   <data name="SettingDataChangedDescription" xml:space="preserve">
-    <value>設定データを変更した時に発生する</value>
+    <value>設定データを変更した時に発生する。</value>
     <comment>イベント「設定データ変更イベント」の説明</comment>
   </data>
   <data name="SummaryTextFormat" xml:space="preserve">

@@ -1,11 +1,14 @@
 ﻿namespace MisaCommon.Utility.Win32Api.NativeMethod.Capture
 {
     using System;
+    using System.Runtime.ConstrainedExecution;
     using System.Runtime.InteropServices;
     using System.Security;
 
     /// <summary>
-    /// 【注意：このクラスのメソッドは直接呼び出さず、<see cref="CaptureOperate"/> クラスを経由して呼び出すこと】
+    /// 【注意】
+    /// このクラスのメソッドは直接呼び出さず、<see cref="CaptureOperate"/> クラスを経由して呼び出すこと
+    /// 【概要】
     /// プラットフォーム呼び出しサービスを使用してアンマネージ コードへのアクセスを提供するためのクラス
     /// このクラスではWin32APIのウィンドウに関する機能を扱う
     /// </summary>
@@ -37,14 +40,17 @@
         #region アイコンの情報を取得
 
         /// <summary>
-        /// グローバルのカーソル情報を取得する
+        /// アイコンの情報を取得する
+        /// （取得したアイコン情報のカラーBitmapハンドル（<see cref="Icon.ICONINFO.ColorBitmapHandle"/>）
+        /// 　マスクBitmapハンドル（<see cref="Icon.ICONINFO.ColorBitmapHandle"/>）は
+        /// 　<see cref="DeleteObject(IntPtr)"/> で破棄する必要がある）
         /// </summary>
         /// <param name="iconCursorHandle">アイコン／カーソルへのハンドル</param>
         /// <param name="iconInfo">アイコン情報を受け取る <see cref="Icon.ICONINFO"/> 構造体</param>
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetIconInfo(IntPtr iconCursorHandle, out Icon.ICONINFO iconInfo);
+        internal static extern bool GetIconInfo(SafeCopyIconHandle iconCursorHandle, out Icon.ICONINFO iconInfo);
 
         #endregion
 
@@ -53,11 +59,10 @@
         /// <summary>
         /// 引数で指定された他のモジュールのアイコンへのハンドル（<paramref name="iconCursorHandle"/>）を
         /// 現在のモジュールのアイコンへのハンドルに複製する
-        /// （複製したアイコンが不要になった場合、<see cref="DestroyIcon(IntPtr)"/> で破棄する必要がある）
         /// </summary>
         /// <remarks>
         /// この機能は、別のモジュールが所有しているアイコンを、現在のモジュールへの独自のハンドルで取得する
-        /// その結果、他のモジュールが解放されてもアプリケーションアイコンはアイコンとして使用することができる
+        /// 他のモジュールが解放されてもアプリケーションアイコンはアイコンとして使用することができる
         /// </remarks>
         /// <param name="iconCursorHandle">アイコン／カーソルへのハンドル</param>
         /// <returns>
@@ -65,7 +70,7 @@
         /// （処理失敗時は NULL（<see cref="IntPtr.Zero"/>） を返却）
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr CopyIcon(IntPtr iconCursorHandle);
+        internal static extern SafeCopyIconHandle CopyIcon(IntPtr iconCursorHandle);
 
         #endregion
 
@@ -73,20 +78,19 @@
 
         /// <summary>
         /// 指定されたデバイスと互換性のあるメモリデバイスコンテキスト（DC）を作成する
-        /// （作成したデバイスコンテキスト（DC）が不要になった場合、<see cref="DeleteObject(IntPtr)"/> で破棄する必要がある）
         /// </summary>
         /// <param name="targetDCHandle">
         /// 既存のデバイスコンテキスト（DC）へのハンドル
-        /// 指定したデバイスコンテキスト（DC）関連するデバイスと互換性のあるメモリデバイスコンテキスト（DC）を作成する
-        /// NULL（<see cref="IntPtr.Zero"/>）を指定した場合、アプリケーションの現在の画面と互換性のある
-        /// メモリデバイスコンテキストを作成する
+        /// 指定したデバイスコンテキスト（DC）関連するメモリデバイスコンテキスト（DC）を作成する
+        /// NULL（<see cref="IntPtr.Zero"/>）を指定した場合、
+        /// アプリケーションの現在の画面と互換性のあるメモリデバイスコンテキストを作成する
         /// </param>
         /// <returns>
         /// 作成したメモリデバイスコンテキスト（DC）へのハンドル
         /// （処理失敗時は NULL（<see cref="IntPtr.Zero"/>） を返却）
         /// </returns>
         [DllImport("gdi32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr CreateCompatibleDC(IntPtr targetDCHandle);
+        internal static extern SafeDCHandle CreateCompatibleDC(IntPtr targetDCHandle);
 
         /// <summary>
         /// 指定されたデバイスコンテキスト（DC）のオブジェクトを選択する
@@ -111,7 +115,8 @@
         /// 　リージョンの場合は GDI_ERROR（0xFFFFFFFF）を返却）
         /// </returns>
         [DllImport("gdi32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr SelectObject(IntPtr targetDCHandle, IntPtr gdiObjectHandle);
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+        internal static extern IntPtr SelectObject(SafeDCHandle targetDCHandle, IntPtr gdiObjectHandle);
 
         #endregion
 
@@ -134,12 +139,12 @@
         [DllImport("gdi32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool BitBlt(
-            IntPtr destDCHandle,
+            SafeDCHandle destDCHandle,
             int destPointX,
             int destPointY,
             int width,
             int height,
-            IntPtr sourceDCHandle,
+            SafeDCHandle sourceDCHandle,
             int sourcePointX,
             int sourcePointY,
             uint ropCode);
@@ -155,16 +160,19 @@
         /// <param name="iconCursorHandle">アイコン／カーソルへのハンドル</param>
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DestroyIcon(IntPtr iconCursorHandle);
 
         /// <summary>
         /// 指定されたデバイスコンテキスト（DC）を破棄する
-        /// （<see cref="CreateCompatibleDC(IntPtr)"/> で複製したデバイスコンテキスト（DC）は必ずこのメソッドで破棄する必要がある）
+        /// （<see cref="CreateCompatibleDC(IntPtr)"/> で複製したデバイスコンテキスト（DC）は
+        /// 　必ずこのメソッドで破棄する必要がある）
         /// </summary>
         /// <param name="targetDCHandle">デバイスコンテキスト（DC）へのハンドル</param>
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("gdi32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DeleteDC(IntPtr targetDCHandle);
 
@@ -178,6 +186,7 @@
         /// </param>
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("gdi32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DeleteObject(IntPtr objectHandle);
 
@@ -194,13 +203,14 @@
             /// <see cref="CopyIcon"/> の実行が成功したか判定する
             /// </summary>
             /// <remarks>
-            /// <see cref="CopyIcon"/> の場合、失敗時はアイコンへのハンドルが NULL（<see cref="IntPtr.Zero"/>） で返却
+            /// <see cref="CopyIcon"/> の場合、
+            /// 失敗時はアイコンへのハンドルが NULL（<see cref="IntPtr.Zero"/>） で返却
             /// </remarks>
             /// <param name="result"><see cref="CopyIcon"/> を実行した際の戻り値を指定</param>
             /// <returns>正常終了：True、異常終了：False</returns>
-            public static bool IsSuccess(IntPtr result)
+            public static bool IsSuccess(SafeCopyIconHandle result)
             {
-                return result != IntPtr.Zero;
+                return !result.IsInvalid;
             }
         }
 
@@ -222,9 +232,9 @@
             /// </remarks>
             /// <param name="result"><see cref="CreateCompatibleDC"/> を実行した際の戻り値を指定</param>
             /// <returns>正常終了：True、異常終了：False</returns>
-            public static bool IsSuccess(IntPtr result)
+            public static bool IsSuccess(SafeDCHandle result)
             {
-                return result != IntPtr.Zero;
+                return !result.IsInvalid;
             }
         }
 

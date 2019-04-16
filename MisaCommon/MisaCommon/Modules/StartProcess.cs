@@ -6,6 +6,7 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Threading;
 
     using MisaCommon.CustomType;
@@ -41,19 +42,19 @@
         /// <summary>
         /// プロセス起動後、処理を待つデフォルトの間隔（ミリ秒）
         /// </summary>
-        private static int? _waitDelay = null;
+        private static int? waitDelay = null;
 
         /// <summary>
         /// このクラスで起動したプロセスの情報リスト
         /// （シングルトンパターンで実装）
         /// </summary>
-        private static IList<ProcessInfo> _processInfoList = null;
+        private static IList<ProcessInfo> processInfoList = null;
 
         /// <summary>
         /// このクラスでプロセスを起動した回数のカウント
         /// （起動の指示のタイミングと起動したプロセス情報の関連をつけるIDの生成に使用する）
         /// </summary>
-        private static long _startCount = 0;
+        private static long startCount = 0;
 
         #endregion
 
@@ -68,8 +69,8 @@
         /// </summary>
         public static int WaitDelay
         {
-            get => _waitDelay ?? DefaultWaitDelay;
-            set => _waitDelay = value;
+            get => waitDelay ?? DefaultWaitDelay;
+            set => waitDelay = value;
         }
 
         /// <summary>
@@ -125,13 +126,13 @@
             get
             {
                 // シングルトンの処理、NULLならオブジェクトを生成する
-                if (_processInfoList == null)
+                if (processInfoList == null)
                 {
-                    _processInfoList = new List<ProcessInfo>();
+                    processInfoList = new List<ProcessInfo>();
                 }
 
                 // このクラスで起動したウインドウ情報を返却
-                return _processInfoList;
+                return processInfoList;
             }
         }
 
@@ -207,7 +208,8 @@
         /// プロセスの実行に関する情報
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="startProcessInfo"/> の <see cref="StartProcessInfo.ProcessPath"/> がNULLの場合に発生
+        /// 引数の <paramref name="startProcessInfo"/> の
+        /// <see cref="StartProcessInfo.ProcessPath"/> がNULLの場合に発生
         /// </exception>
         /// <exception cref="Win32Exception">
         /// 下記の要因で。指定ファイルを開いているときにエラーが発生した場合に発生
@@ -396,7 +398,8 @@
         /// 起動した順の番号IDを返却
         /// 起動したプロセスが存在しない場合はNULLを返却
         /// </returns>
-        public static long? Start(string processPath, string startupParam, SizePoint sizePoint, int waitDelay)
+        public static long? Start(
+            string processPath, string startupParam, SizePoint sizePoint, int waitDelay)
         {
             // NULLチェック
             if (processPath == null)
@@ -605,7 +608,7 @@
             long newId;
             lock (LockGetNewStartNumId)
             {
-                newId = ++_startCount;
+                newId = ++startCount;
             }
 
             // 生成したIDを返却
@@ -650,7 +653,6 @@
                     }
 
                     Array.Clear(processes, 0, processes.Length);
-                    processes = null;
                 }
             }
         }
@@ -733,13 +735,13 @@
             foreach (IntPtr handle in handleList)
             {
                 // ウィンドウが存在しないデータは無視する
-                if (!WindowOperate.IsWindow(handle))
+                if (!WindowOperate.IsWindow(new HandleRef(0, handle)))
                 {
                     continue;
                 }
 
                 // ウィンドウ情報を取得
-                WindowInfo info = WindowOperate.GetWindowThreadProcessId(handle);
+                WindowInfo info = WindowOperate.GetWindowThreadProcessId(new HandleRef(0, handle));
 
                 // 起動したプロセスのIDかどうか判定
                 if (processList.ContainsKey(info.ProcessId))
@@ -750,7 +752,7 @@
                     windowInfoList.Add(info);
                 }
                 else if (afterProcessList.ContainsKey(info.ProcessId)
-                    && afterProcessList[info.ProcessId].Equals(processName))
+                         && afterProcessList[info.ProcessId].Equals(processName, StringComparison.Ordinal))
                 {
                     // 増えたプロセスIDのリストに対象のウィンドウハンドルに紐づくプロセスIDが存在しない場合、
                     // 起動中の全プロセスからウィンドウハンドルに紐づくプロセスIDと、
@@ -781,7 +783,7 @@
                 // 増えたプロセスをプロセス情報として生成する
                 foreach (KeyValuePair<int, string> info in processList)
                 {
-                    if (info.Value.Equals(processName))
+                    if (info.Value.Equals(processName, StringComparison.Ordinal))
                     {
                         processInfoList.Add(new ProcessInfo(
                             startNumId: startNumId,

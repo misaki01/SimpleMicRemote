@@ -5,7 +5,9 @@
     using System.Security;
 
     /// <summary>
-    /// 【注意：このクラスのメソッドは直接呼び出さず、<see cref="MessageOperate"/> クラス等のラッパークラスをを経由して呼び出すこと】
+    /// 【注意】
+    /// このクラスのメソッドは直接呼び出さず、<see cref="MessageOperate"/> クラスを経由して呼び出すこと
+    /// 【概要】
     /// プラットフォーム呼び出しサービスを使用してアンマネージ コードへのアクセスを提供するためのクラス
     /// このクラスではWin32APIのウィンドウに関する機能を扱う
     /// </summary>
@@ -23,19 +25,41 @@
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウに、
         /// 引数で指定したメッセージを送信する
         /// </summary>
-        /// <param name="windowHandle">送信対象のウィンドウのハンドル</param>
-        /// <param name="message">送信するべきメッセージを指定</param>
-        /// <param name="wParam">メッセージ特有の１番目の追加情報を指定</param>
-        /// <param name="lParam">メッセージ特有の２番目の追加情報を指定</param>
-        /// <param name="optionFlag">メッセージの送信方法を指定するフラグ</param>
-        /// <param name="timeoutTime">タイムアウトまでの時間を指定（ミリ秒単位）</param>
-        /// <param name="messageResult">関数から制御が返った際に設定される、メッセージ処理の結果（送信されたメッセージにより異なる値となる）</param>
+        /// <param name="windowHandle">
+        /// 送信対象のウィンドウのハンドル
+        /// </param>
+        /// <param name="message">
+        /// 送信するべきメッセージを指定
+        /// </param>
+        /// <param name="wParam">
+        /// メッセージ特有の１番目の追加情報を指定
+        /// </param>
+        /// <param name="lParam">
+        /// メッセージ特有の２番目の追加情報を指定
+        /// </param>
+        /// <param name="optionFlag">
+        /// メッセージの送信方法を指定するフラグ
+        /// </param>
+        /// <param name="timeoutTime">
+        /// タイムアウトまでの時間を指定（ミリ秒単位）
+        /// </param>
+        /// <param name="messageResult">
+        /// 関数から制御が返った際に設定される、メッセージ処理の結果
+        /// （送信されたメッセージにより異なる値となる）
+        /// </param>
         /// <returns>
         /// 正常終了：0以外の値、異常終了：0
         /// 異常終了：0 かつ、GetLastErrorの結果が 0 の場合はタイムアウトを意味する
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern IntPtr SendMessageTimeout(IntPtr windowHandle, int message, IntPtr wParam, IntPtr lParam, uint optionFlag, uint timeoutTime, out IntPtr messageResult);
+        internal static extern IntPtr SendMessageTimeout(
+            HandleRef windowHandle,
+            int message,
+            IntPtr wParam,
+            IntPtr lParam,
+            uint optionFlag,
+            uint timeoutTime,
+            out IntPtr messageResult);
 
         #endregion
 
@@ -68,13 +92,16 @@
                 SMTO_BLOCK = 0x0001,
 
                 /// <summary>
-                /// 受信側のスレッドがハングアップ状態であると判断した場合、タイムアウト期間の経過を待たずに中断する
-                /// 受信側のスレッドが5秒以内に GetMessage 等の関数で処理を行わなかった場合にハングアップと判定する
+                /// 受信側のスレッドがハングアップ状態であると判断した場合、
+                /// タイムアウト期間の経過を待たずに中断する
+                /// （通常、受信側のスレッドが5秒以内に GetMessage 等の関数で処理を行わなかった場合に
+                /// 　ハングアップと判定する）
                 /// </summary>
                 SMTO_ABORTIFHUNG = 0x0002,
 
                 /// <summary>
-                /// Windows 2000/XP：受信側スレッドがハングアップしていない場合、タイムアウト期間が経過しても中断しない
+                /// Windows 2000/XP：受信側スレッドがハングアップしていない場合、
+                /// タイムアウト期間が経過しても中断しない
                 /// </summary>
                 SMTO_NOTIMEOUTIFNOTHUNG = 0x0008,
             }
@@ -83,7 +110,8 @@
             /// <see cref="SendMessageTimeout"/> の実行が成功したか判定する
             /// </summary>
             /// <remarks>
-            /// <see cref="SendMessageTimeout"/> の場合、正常時には 0以外の値を返却、それ以外の場合は 0 を返却する
+            /// <see cref="SendMessageTimeout"/> の場合、正常時には 0以外の値を返却、
+            /// それ以外の場合は 0 を返却する
             /// </remarks>
             /// <param name="lResult"><see cref="SendMessageTimeout"/> を実行した際の戻り値を指定</param>
             /// <returns>正常終了：True、異常終了：False</returns>

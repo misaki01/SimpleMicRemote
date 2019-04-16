@@ -1,23 +1,23 @@
 ﻿namespace MisaCommon.CustomType
 {
-    using System;
+    using System.Runtime.InteropServices;
 
     /// <summary>
-    /// ウィンドウに関する情報をまとめて扱うクラス
+    /// 外部アプリケーションのウィンドウに関する情報をまとめて扱うクラス
     /// </summary>
     public class WindowInfo
     {
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 引数でプロパティを初期化する
         /// </summary>
         /// <param name="windowHandle">ウインドウのハンドル</param>
         /// <param name="threadId">スレッドID</param>
         /// <param name="processId">プロセスID</param>
         /// <param name="processName">プロセス名</param>
-        public WindowInfo(IntPtr windowHandle, int threadId, int processId, string processName)
+        public WindowInfo(HandleRef windowHandle, int threadId, int processId, string processName)
         {
             WindowHandle = windowHandle;
             ThreadId = threadId;
@@ -32,7 +32,7 @@
         /// <param name="windowHandle">ウインドウのハンドル</param>
         /// <param name="threadId">スレッドID</param>
         /// <param name="processId">プロセスID</param>
-        public WindowInfo(IntPtr windowHandle, int threadId, int processId)
+        public WindowInfo(HandleRef windowHandle, int threadId, int processId)
         {
             WindowHandle = windowHandle;
             ThreadId = threadId;
@@ -47,7 +47,7 @@
         /// <summary>
         /// ウインドウのハンドルを取得・設定する
         /// </summary>
-        public IntPtr WindowHandle { get; set; }
+        public HandleRef WindowHandle { get; set; }
 
         /// <summary>
         /// スレッドIDを取得・設定する

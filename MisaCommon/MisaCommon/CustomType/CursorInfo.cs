@@ -13,14 +13,14 @@
         /// <summary>
         /// Dispose処理済みかどうかのフラグ
         /// </summary>
-        private bool _isDisposed = false;
+        private bool isDisposed = false;
 
         #endregion
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 引数でプロパティを初期化する
         /// </summary>
         /// <param name="cursorImage">カーソルの画像</param>
@@ -126,7 +126,7 @@
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!_isDisposed)
+            if (!isDisposed)
             {
                 if (disposing)
                 {
@@ -140,7 +140,7 @@
                 // 大きなフィールドの解放（NULLの設定）
 
                 // Dispose済みのフラグを立てる
-                _isDisposed = true;
+                isDisposed = true;
             }
         }
 

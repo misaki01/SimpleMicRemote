@@ -19,7 +19,7 @@ namespace MisaCommon.MessageResources.UserControl {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ControlListBoxMessage {
@@ -63,9 +63,9 @@ namespace MisaCommon.MessageResources.UserControl {
         /// <summary>
         ///   削除してもよろしいですか？ に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string BtMinusConfirmDeletionMessage {
+        internal static string BtMinusConfirmDeleteMessage {
             get {
-                return ResourceManager.GetString("BtMinusConfirmDeletionMessage", resourceCulture);
+                return ResourceManager.GetString("BtMinusConfirmDeleteMessage", resourceCulture);
             }
         }
         
@@ -88,7 +88,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   削除ボタン（[ー]ボタン）押下時の削除確認メッセージを表示するかのフラグを設定 に類似しているローカライズされた文字列を検索します。
+        ///   削除ボタン（[ー]ボタン）押下時の削除確認メッセージを表示するかのフラグを指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string IsShowDeleteConfirmMessageDescription {
             get {
@@ -97,7 +97,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   削除ボタン（[ー]ボタン）押下時において削除対象有無チェックでNGとなった場合にメッセージを表示するかのフラグを設定 に類似しているローカライズされた文字列を検索します。
+        ///   削除ボタン（[ー]ボタン）押下時において削除対象有無チェックでNGとなった場合にメッセージを表示するかのフラグを指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string IsShowDeleteNoChekedMessageDescription {
             get {
@@ -106,7 +106,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   移動ボタン（[↑]、[↓]ボタン）押下時において移動対象有無チェックでNGとなった場合にメッセージを表示するかのフラグを設定 に類似しているローカライズされた文字列を検索します。
+        ///   移動ボタン（[↑]、[↓]ボタン）押下時において移動対象有無チェックでNGとなった場合にメッセージを表示するかのフラグを指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string IsShowMoveNoChekedMessageDescription {
             get {
@@ -115,7 +115,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   コントロール追加ボタン（[＋]ボタン）押下時に発生する に類似しているローカライズされた文字列を検索します。
+        ///   コントロール追加ボタン（[＋]ボタン）押下時に発生する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string PlusClickDescription {
             get {
@@ -124,7 +124,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   選択された行に対する背景色 に類似しているローカライズされた文字列を検索します。
+        ///   選択された行に対する背景色を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string SelectRowBackColorDescription {
             get {

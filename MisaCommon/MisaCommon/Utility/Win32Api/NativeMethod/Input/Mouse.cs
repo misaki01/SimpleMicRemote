@@ -3,7 +3,6 @@
     using System;
     using System.Drawing;
     using System.Runtime.InteropServices;
-    using System.Windows.Forms;
 
     /// <summary>
     /// マウス操作の情報を扱うクラス
@@ -98,7 +97,7 @@
             /// <summary>
             /// 絶対位置の座標モードを使用する
             /// このフラグを設定していない場合は、相対位置の座標モードを使用する、
-            /// ・絶対位置：ディスクトップの座標（0,0：左上の座標～65535, 65535：右下の座標）にマッピングされる値
+            /// ・絶対位置：ディスクトップの座標（左上（0,0）～右下（65535, 65535））にマッピングされる値
             /// ・相対位置：最後のマウス操作イベント発生位置からの移動ピクセル数の値
             /// </summary>
             MOUSEEVENTF_ABSOLUTE = 0x8000,
@@ -130,12 +129,12 @@
         /// 引数の <paramref name="point"/> 座標をマウス操作で使用する座標に変換する
         /// </summary>
         /// <param name="point">変換対象の座標データ</param>
-        /// <param name="screen">対象のディスプレイ</param>
+        /// <param name="screenSize">対象のディスプレイ</param>
         /// <returns>変換したマウス操作で使用する座標</returns>
-        public static Point ToMousePoint(Point point, Screen screen)
+        public static Point ToMousePoint(Point point, Size screenSize)
         {
-            int x = point.X * (65535 / screen.Bounds.Width);
-            int y = point.Y * (65535 / screen.Bounds.Height);
+            int x = point.X * (65535 / screenSize.Width);
+            int y = point.Y * (65535 / screenSize.Height);
             return new Point(x, y);
         }
 
@@ -168,14 +167,15 @@
         public struct MOUSEINPUT
         {
             /// <summary>
-            /// マウスの絶対位置の X 座標 又は、最後のマウス操作イベント発生位置からの X 方向の移動ピクセル数
-            /// <see cref="OperateFlag"/> メンバーの値に応じて、絶対位置 又は、相対位置のどちらかの値を設定する
+            /// マウスの絶対位置の X 座標 または、
+            /// 最後のマウス操作イベント発生位置からの X 方向の移動ピクセル数
+            /// <see cref="OperateFlag"/> の値に応じて、絶対位置 または、相対位置のどちらかの値を設定する
             /// ・絶対位置の場合、ディスクトップの座標（0～65535）
             /// ・相対位置の場合、正の値は右方向の移動、負の値は左方向の移動を示す
             /// </summary>
             /// <remarks>
             /// マウスの相対的な移動はOSで設定しているマウスの速度や移動距離の閾値により影響を受ける
-            /// 指定された移動距離が第1の閾値よりも大きくマウス速度がゼロでない場合、システムは移動距離を2倍にする
+            /// 移動距離が第1の閾値よりも大きくマウス速度がゼロでない場合、システムは移動距離を2倍にする
             /// 移動距離が第2の閾値よりも大きくマウス速度が2に等しい場合、システムは移動距離を4倍にする
             /// （第1の閾値で2倍、第2の閾値で2倍の計4倍）
             /// 詳細は「MOUSEINPUT structure」の定義情報を参照
@@ -183,13 +183,15 @@
             public int X;
 
             /// <summary>
-            /// マウスの絶対位置の Y 座標 又は、最後のマウス操作イベント発生位置からの Y 方向の移動ピクセル数
-            /// <see cref="OperateFlag"/> メンバーの値に応じて、絶対位置 又は、相対位置のどちらかの値を設定する
-            /// 相対位置の場合、正の値は下方向の移動、負の値は上方向の移動を示す
+            /// マウスの絶対位置の Y 座標 または、
+            /// 最後のマウス操作イベント発生位置からの Y 方向の移動ピクセル数
+            /// <see cref="OperateFlag"/> の値に応じて、絶対位置 または、相対位置のどちらかの値を設定する
+            /// ・絶対位置の場合、ディスクトップの座標（0～65535）
+            /// ・相対位置の場合、正の値は下方向の移動、負の値は上方向の移動を示す
             /// </summary>
             /// <remarks>
             /// マウスの相対的な移動はOSで設定しているマウスの速度や移動距離の閾値により影響を受ける
-            /// 指定された移動距離が第1の閾値よりも大きくマウス速度がゼロでない場合、システムは移動距離を2倍にする
+            /// 移動距離が第1の閾値よりも大きくマウス速度がゼロでない場合、システムは移動距離を2倍にする
             /// 移動距離が第2の閾値よりも大きくマウス速度が2に等しい場合、システムは移動距離を4倍にする
             /// （第1の閾値で2倍、第2の閾値で2倍の計4倍）
             /// 詳細は「MOUSEINPUT structure」の定義情報を参照
@@ -197,7 +199,8 @@
             public int Y;
 
             /// <summary>
-            /// <see cref="OperateFlag"/> に下記が含まれている場合のみに設定する値（下記以外の場合は 0 を設定する）
+            /// <see cref="OperateFlag"/> に下記が含まれている場合のみに設定する値
+            /// （下記以外の場合は 0 を設定する）
             /// ・<see cref="OperateFlag.MOUSEEVENTF_WHEEL"/>、<see cref="OperateFlag.MOUSEEVENTF_HWHEEL"/>
             /// 　ホリールの回転量を「WHEEL_DELTA：120」単位設定する（1ホイールが120）
             /// 　正の値は前（右）方向への回転、負の値は後（左）方向への回転を示す
@@ -207,7 +210,8 @@
             public int Data;
 
             /// <summary>
-            /// マウスの操作（移動、ボタンクリック等）を示すビットフラグ（<see cref="Mouse.OperateFlag"/>）を設定する
+            /// マウスの操作（移動、ボタンクリック等）を示す
+            /// ビットフラグ（<see cref="Mouse.OperateFlag"/>）を設定する
             /// フラグの設定は状態の変化を示すように設定する
             /// </summary>
             /// <remarks>

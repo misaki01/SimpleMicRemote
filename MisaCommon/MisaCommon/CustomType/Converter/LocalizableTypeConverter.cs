@@ -17,7 +17,7 @@
     /// <typeparam name="TResouces">
     /// プロパティのカテゴリ、説明、表示名に使用するリソースクラスを指定
     /// </typeparam>
-    internal class LocalizableTypeConverter<T, TResouces> : LocalizableConverter<TResouces>
+    public class LocalizableTypeConverter<T, TResouces> : LocalizableConverter<TResouces>
         where T : ITypeConvertable<T>, new()
     {
         /// <summary>
@@ -34,8 +34,8 @@
         #region メソッド
 
         /// <summary>
-        /// コンバーターが引数で指定したコンテキスト（<paramref name="context"/>）を使用して、
-        /// 指定した型（<paramref name="sourceType"/>）のオブジェクトを <see cref="SizePoint"/> 型に変換できるかどうかを示す値を返却する
+        /// 指定した型（<paramref name="sourceType"/>）を
+        /// <typeparamref name="T"/> 型に変換できるかどうかを示す値を返却する
         /// </summary>
         /// <param name="context">
         /// 書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -60,11 +60,15 @@
         }
 
         /// <summary>
-        /// コンバーターが引数で指定したコンテキスト（<paramref name="context"/>）を使用して、
-        /// <see cref="SizePoint"/> 型のオブジェクトを指定した型（<paramref name="destinationType"/>）型に変換できるかどうかを示す値を返却する
+        /// <typeparamref name="T"/> 型を、指定した型（<paramref name="destinationType"/>）に
+        /// 変換できるかどうかを示す値を返却する
         /// </summary>
-        /// <param name="context">書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト</param>
-        /// <param name="destinationType">変換後のデータ型</param>
+        /// <param name="context">
+        /// 書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
+        /// </param>
+        /// <param name="destinationType">
+        /// 変換後のデータ型
+        /// </param>
         /// <returns>
         /// コンバーターで変換が可能な場合は True、それ以外の場合は False
         /// </returns>
@@ -82,7 +86,6 @@
         }
 
         /// <summary>
-        /// 引数で指定したコンテキスト（<paramref name="context"/>）とカルチャ情報（<paramref name="culture"/>）を使用して、
         /// 指定されたオブジェクト（<paramref name="value"/>）を、<typeparamref name="T"/> 型に変換する
         /// </summary>
         /// <param name="context">
@@ -99,9 +102,9 @@
         /// </exception>
         /// <returns>
         /// 変換後の値を表すオブジェクト
-        /// 変換できない場合はNULLを返却
         /// </returns>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override object ConvertFrom(
+            ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             // 引数の型がサポート対象の型の場合、実装している変換処理を呼び出しその結果を返却
             if (value != null)
@@ -124,9 +127,8 @@
         }
 
         /// <summary>
-        /// 引数で指定したコンテキスト（<paramref name="context"/>）とカルチャ情報（<paramref name="culture"/>）を使用して、
         /// <typeparamref name="T"/> 型のオブジェクト（<paramref name="value"/>）を、
-        /// 指定した型（<paramref name="destinationType"/>）に変換する機能を提供するデリゲートの定義
+        /// 指定した型（<paramref name="destinationType"/>）に変換する
         /// </summary>
         /// <param name="context">
         /// 書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -148,9 +150,9 @@
         /// </exception>
         /// <returns>
         /// 変換後の値を表すオブジェクト
-        /// 変換できない場合はNULLを返却
         /// </returns>
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(
+            ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             // 引数の型がサポート対象の型の場合、実装している変換処理を呼び出しその結果を返却
             if (destinationType != null)
@@ -174,9 +176,7 @@
 
         /// <summary>
         /// コンバーターを利用しているオブジェクトの値が変更された場合において、
-        /// 引数で指定したコンテキスト（<paramref name="context"/>）を使用して
-        /// <see cref="CreateInstance(ITypeDescriptorContext, IDictionary)"/>を呼び出し、
-        /// 新しい値を生成する必要があるかどうかを示す値を返却する
+        /// 新しいインスタンスを生成する必要があるかどうかを示す値を返却する
         /// </summary>
         /// <param name="context">
         /// 書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -186,12 +186,12 @@
         /// </returns>
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context)
         {
-            // 常にCreateInstance(ITypeDescriptorContext, IDictionary)を呼び出す必要があるためtrueを返却
+            // 常にCreateInstance(ITypeDescriptorContext, IDictionary)を
+            // 呼び出す必要があるため true を返却
             return true;
         }
 
         /// <summary>
-        /// 引数で指定したコンテキスト（<paramref name="context"/>）と新しいプロパティ値のディクショナリ（<paramref name="propertyValues"/>）を使用して
         /// コンバーターを利用している型（<typeparamref name="T"/>）のインスタンスを生成する
         /// </summary>
         /// <param name="context">
@@ -201,7 +201,8 @@
         /// 新しいプロパティ値のディクショナリ
         /// </param>
         /// <returns>
-        /// 引数の新しいプロパティ値のディクショナリ（<paramref name="propertyValues"/>）の値を格納した<typeparamref name="T"/>型のインスタンス
+        /// 引数の <paramref name="propertyValues"/> の値を格納した
+        /// <typeparamref name="T"/>型のインスタンス
         /// オブジェクトを作成できない場合はNULLを返却
         /// </returns>
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
@@ -248,7 +249,7 @@
         /// <see cref="string"/> 型のオブジェクトを <typeparamref name="T"/> 型に変換する
         /// </summary>
         /// <remarks>
-        /// このメソッドは <see cref="ConverterFromDelegate"/> デリゲートの実装として使用する
+        /// このメソッドは <see cref="ConverterFrom"/> デリゲートの実装として使用する
         /// </remarks>
         /// <param name="context">
         /// 【未使用】書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -263,7 +264,8 @@
         /// 変換後の値を表すオブジェクト
         /// 変換できない場合はNULLを返却
         /// </returns>
-        private object ConverterFromString(ITypeDescriptorContext context, CultureInfo culture, object value)
+        private object ConverterFromString(
+            ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             // 引数の型チェック
             if (!(value is string stringValue))
@@ -280,7 +282,7 @@
         /// <typeparamref name="T"/> 型のオブジェクトを <see cref="string"/> 型に変換する
         /// </summary>
         /// <remarks>
-        /// このメソッドは <see cref="ConverterToDelegate"/> デリゲートの実装として使用する
+        /// このメソッドは <see cref="ConverterTo"/> デリゲートの実装として使用する
         /// </remarks>
         /// <param name="context">
         /// 【未使用】書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -298,7 +300,8 @@
         /// 変換後の値を表すオブジェクト
         /// 変換できない場合はNULLを返却
         /// </returns>
-        private object ConverterToString(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        private object ConverterToString(
+            ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             // 引数の型チェック
             if (!(value is T typeValue))

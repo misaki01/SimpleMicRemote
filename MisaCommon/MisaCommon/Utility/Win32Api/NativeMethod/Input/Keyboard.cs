@@ -110,7 +110,8 @@
 
             /// <summary>
             /// 構造体のサイズを<see cref="Mouse"/>と一致させるためのダミー領域
-            /// Win32ApiのSendInputメソッドは構造体のサイズを<see cref="Mouse"/>に合わせる必要があるため、その調整用の領域
+            /// Win32ApiのSendInputメソッドは構造体のサイズを <see cref="Mouse"/> に
+            /// 合わせる必要があるため、その調整用の領域
             /// </summary>
             public int SizingDummyData;
         }

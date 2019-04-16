@@ -2,8 +2,6 @@
 {
     using System.ComponentModel;
 
-    #region enum CategoryAttributeの定義済みカテゴリ
-
     /// <summary>
     /// <see cref="CategoryAttribute"/> にて既に定義されているカテゴリの列挙
     /// ここに登録されているカテゴリは <see cref="CategoryAttribute"/> にて、
@@ -95,10 +93,6 @@
         /// </summary>
         WindowStyle
     }
-
-    #endregion
-
-    #region class CategoryAttributeの定義済みカテゴリ
 
     /// <summary>
     /// <see cref="CategoryAttribute"/> にて既に定義されているカテゴリの文字列の定義クラス
@@ -255,6 +249,4 @@
             return value;
         }
     }
-
-    #endregion
 }

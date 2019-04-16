@@ -11,6 +11,7 @@
     using MisaCommon.Exceptions;
     using MisaCommon.Utility.Win32Api.NativeMethod;
     using MisaCommon.Utility.Win32Api.NativeMethod.Input;
+
     using Win32Api = NativeMethod.Input.NativeMethods;
 
     /// <summary>
@@ -28,14 +29,14 @@
         /// <summary>
         /// マウスの入力から次の入力までの間隔のデフォルト値（ミリ秒単位）
         /// </summary>
-        private static int _mouseInputInterval = DefaultInputInterval;
+        private static int mouseInputInterval = DefaultInputInterval;
 
         /// <summary>
         /// キーボード及び文字の入力から次の入力までの間隔のデフォルト値（ミリ秒単位）
         /// （同じ文字を高速で連続してシステムに送信すると、
         /// 　1回の入力として判定されてしまうためそれを防ぐために空ける間隔）
         /// </summary>
-        private static int _keybordInputInterval = DefaultInputInterval;
+        private static int keybordInputInterval = DefaultInputInterval;
 
         #endregion
 
@@ -99,8 +100,8 @@
         /// </remarks>
         public static int MouseInputInterval
         {
-            get => _mouseInputInterval;
-            set => _mouseInputInterval = value < 0 ? 0 : value;
+            get => mouseInputInterval;
+            set => mouseInputInterval = value < 0 ? 0 : value;
         }
 
         /// <summary>
@@ -113,8 +114,8 @@
         /// </remarks>
         public static int KeybordInputInterval
         {
-            get => _keybordInputInterval;
-            set => _keybordInputInterval = value < 0 ? 0 : value;
+            get => keybordInputInterval;
+            set => keybordInputInterval = value < 0 ? 0 : value;
         }
 
         /// <summary>
@@ -130,17 +131,17 @@
         /// 引数の <paramref name="point"/> 座標をクリック（左）する
         /// </summary>
         /// <param name="point">クリックする座標</param>
-        /// <param name="screen">ディスプレイの情報</param>
+        /// <param name="screenSize">ディスプレイのサイズ</param>
         /// <exception cref="PlatformInvokeException">
         /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の呼び出しに失敗した場合に発生
         /// </exception>
         /// <exception cref="Win32OperateException">
         /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
-        public static void MouseClick(Point point, Screen screen)
+        public static void MouseClick(Point point, Size screenSize)
         {
             // マウス操作の座標に変換する
-            Point mousePoint = Mouse.ToMousePoint(point, screen);
+            Point mousePoint = Mouse.ToMousePoint(point, screenSize);
 
             // マウス操作情報の構造体を生成
             Mouse.INPUT[] input = new Mouse.INPUT[0];
@@ -358,7 +359,7 @@
             }
 
             // 入力対象のキーコードがマウスに関するものか判定
-            if (TryToMouseKey(inputKey.KeyCode, out MouseKeys mouseKey))
+            if (TryToMouseKey(inputKey.KeyCode, out MouseKeys _))
             {
                 // マウスの場合
                 // マウスの操作処理を行う
@@ -468,7 +469,8 @@
         /// <exception cref="Win32OperateException">
         /// Win32Apiの処理「DLL：user32.dll、メソッド：SendInput」の処理に失敗した場合に発生
         /// </exception>
-        public static void TextInput(string inputText, bool isEnter, bool isConfirmConvert, int inputInterval)
+        public static void TextInput(
+            string inputText, bool isEnter, bool isConfirmConvert, int inputInterval)
         {
             // 引数チェック
             if (inputText == null)
@@ -789,14 +791,30 @@
         /// 引数の <paramref name="inputMouseKey"/> のマウスのボタンをクリックする
         /// （Shift、Ctrl、Alt、Winキーの修飾子も含んでマウスをクリックする）
         /// </summary>
-        /// <param name="inputMouseKey">マウスのキー入力の情報</param>
-        /// <param name="wheelAmount">ホイール量（120単位設定する（1ホイールが120））</param>
-        /// <param name="isShift">Shiftキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isCtrl">Ctrlキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isAlt">Altキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isWindowsLogo">Windowsロゴキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isKeepPressing">キーを押しっぱなしにする場合：True、押しっぱなしにしない場合：False</param>
-        /// <param name="inputInterval">マウスの入力から次の入力までの間隔（ミリ秒単位）</param>
+        /// <param name="inputMouseKey">
+        /// マウスのキー入力の情報
+        /// </param>
+        /// <param name="wheelAmount">
+        /// ホイール量（120単位設定する（1ホイールが120））
+        /// </param>
+        /// <param name="isShift">
+        /// Shiftキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isCtrl">
+        /// Ctrlキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isAlt">
+        /// Altキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isWindowsLogo">
+        /// Windowsロゴキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isKeepPressing">
+        /// キーを押しっぱなしにする場合：True、押しっぱなしにしない場合：False
+        /// </param>
+        /// <param name="inputInterval">
+        /// マウスの入力から次の入力までの間隔（ミリ秒単位）
+        /// </param>
         private static void MouseClick(
             MouseKeys inputMouseKey,
             int wheelAmount,
@@ -851,7 +869,8 @@
         /// <param name="wheelAmount">ホイール量（120単位設定する（1ホイールが120））</param>
         /// <param name="isPress">押下する場合：True、離す場合：False</param>
         /// <returns>マウスの操作情報</returns>
-        private static Mouse.INPUT[] CreateMouseInputData(MouseKeys mouseKey, int wheelAmount, bool isPress)
+        private static Mouse.INPUT[] CreateMouseInputData(
+            MouseKeys mouseKey, int wheelAmount, bool isPress)
         {
             // マウス情報を格納する配列を宣言
             Mouse.INPUT[] mouseInputData;
@@ -966,7 +985,8 @@
         /// <param name="data">ホイール及びXボタンに関する場合に設定するデータ</param>
         /// <param name="setOperateFlag">設定するマウス操作</param>
         /// <param name="mouseInput">設定対象のマウス操作情報の構造体</param>
-        private static void SetMouseData(int x, int y, int data, Mouse.OperateFlag setOperateFlag, ref Mouse.INPUT mouseInput)
+        private static void SetMouseData(
+            int x, int y, int data, Mouse.OperateFlag setOperateFlag, ref Mouse.INPUT mouseInput)
         {
             mouseInput.InputType = Mouse.InputType;
             mouseInput.Mouse.X = x;
@@ -984,15 +1004,32 @@
         /// <summary>
         /// 引数のキーボード操作の内容をキーボード操作情報の構造体に設定し返却する
         /// </summary>
-        /// <param name="key">押下するキー</param>
-        /// <param name="isShift">Shiftキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isCtrl">Ctrlキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isAlt">Altキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isWindowsLogo">Windowsロゴキーを押している場合：True、押していない場合：False</param>
-        /// <param name="isKeepPressing">キーを押しっぱなしにする場合：True、押しっぱなしにしない場合：False</param>
+        /// <param name="key">
+        /// 押下するキー
+        /// </param>
+        /// <param name="isShift">
+        /// Shiftキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isCtrl">
+        /// Ctrlキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isAlt">
+        /// Altキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isWindowsLogo">
+        /// Windowsロゴキーを押している場合：True、押していない場合：False
+        /// </param>
+        /// <param name="isKeepPressing">
+        /// キーを押しっぱなしにする場合：True、押しっぱなしにしない場合：False
+        /// </param>
         /// <returns>引数のキーボード操作の内容を設定したキーボード操作情報の構造体の配列</returns>
         private static Keyboard.INPUT[] GetKeybordInputData(
-            VirtualKey.Keys key, bool isShift, bool isCtrl, bool isAlt, bool isWindowsLogo, bool isKeepPressing)
+            VirtualKey.Keys key,
+            bool isShift,
+            bool isCtrl,
+            bool isAlt,
+            bool isWindowsLogo,
+            bool isKeepPressing)
         {
             // 引数のキーが押下するキーか判定
             bool isPressKey = key != VirtualKey.Keys.VK_NONE;
@@ -1106,7 +1143,6 @@
                 if (isShift)
                 {
                     SetKeyboardInputData(VirtualKey.Keys.VK_SHIFT, false, ref input[index]);
-                    index++;
                 }
             }
             else
@@ -1176,7 +1212,8 @@
         /// <param name="inputKey">対象とするキー</param>
         /// <param name="isPress">押下する場合：True、離す場合：False</param>
         /// <param name="keyboardInput">設定対象のキーボード操作情報の構造体</param>
-        private static void SetKeyboardInputData(VirtualKey.Keys inputKey, bool isPress, ref Keyboard.INPUT keyboardInput)
+        private static void SetKeyboardInputData(
+            VirtualKey.Keys inputKey, bool isPress, ref Keyboard.INPUT keyboardInput)
         {
             keyboardInput.InputType = Keyboard.InputType;
             keyboardInput.Keyboard.VirtualKeyCode = (short)inputKey;

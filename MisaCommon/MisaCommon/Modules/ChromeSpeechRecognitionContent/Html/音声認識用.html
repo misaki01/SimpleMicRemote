@@ -97,6 +97,7 @@
 		(function () {
 			var flgSpeech = false;
 			var recognition;
+			var errorCount = 0;
 			var $areaRecognition = document.querySelector('#area_recognition');
 			var $spanRecognition = document.querySelector('#span_recognition');
 			var $preResponse = document.querySelector('#pre_response');
@@ -109,6 +110,7 @@
 				recognition.interimResults = true;
 
 				recognition.onstart = function () {
+					errorCount = 0;
 					console.debug('[onstart]');
 				};
 				recognition.onaudiostart = function () {
@@ -150,6 +152,16 @@
 				};
 				recognition.onerror = function () {
 					console.debug('★★[onerror]');
+					if (flgSpeech) {
+						if (errorCount < 9) {
+							errorCount++;
+						} else {
+							errorCount = 0;
+							buttonOn();
+							$preResponse.textContent = '音声認識を開始できません。 \nChromeにおいてマイクがブロックされている可能性があります。';
+							stop();
+						}
+					}
 				};
 
 				recognition.onspeechend = function () {

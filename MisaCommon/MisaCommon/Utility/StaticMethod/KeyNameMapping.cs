@@ -17,17 +17,17 @@
         /// <summary>
         /// <see cref="Keys"/> と <see cref="KeyName"/> のマッピングDictionary
         /// </summary>
-        private static IReadOnlyDictionary<Keys, string> _keyNameDictionary = null;
+        private static IReadOnlyDictionary<Keys, string> keyNameDictionary = null;
 
         /// <summary>
         /// <see cref="KeyName"/> が使用する言語
         /// </summary>
-        private static CultureInfo _resourceCultureInfo = null;
+        private static CultureInfo resourceCultureInfo = null;
 
         /// <summary>
         /// スレッドに設定されているユーザインターフェースが使用する言語
         /// </summary>
-        private static CultureInfo _currentUICulture = null;
+        private static CultureInfo currentUICulture = null;
 
         #endregion
 
@@ -43,22 +43,22 @@
                 // マッピングが既に設定されており、使用する言語に変更がない場合
                 // 設定されているマッピングをそのまま返却
                 bool isChange = IsChangeCulture(
-                    beforeResourceCulture: _resourceCultureInfo,
-                    beforeCurrentUICulture: _currentUICulture,
+                    beforeResourceCulture: resourceCultureInfo,
+                    beforeCurrentUICulture: currentUICulture,
                     nowResourceCulture: KeyName.Culture,
                     nowCurrentUICulture: CultureInfo.CurrentUICulture);
-                if (_keyNameDictionary != null && !isChange)
+                if (keyNameDictionary != null && !isChange)
                 {
-                    return _keyNameDictionary;
+                    return keyNameDictionary;
                 }
 
                 // マッピングが未設定又は言語に変更があった場合は、
                 // 現在の言語を保持しマッピングを再生成して返却
-                _resourceCultureInfo = KeyName.Culture;
-                _currentUICulture = CultureInfo.CurrentUICulture;
-                _keyNameDictionary = CreateMapping();
+                resourceCultureInfo = KeyName.Culture;
+                currentUICulture = CultureInfo.CurrentUICulture;
+                keyNameDictionary = CreateMapping();
 
-                return _keyNameDictionary;
+                return keyNameDictionary;
             }
         }
 

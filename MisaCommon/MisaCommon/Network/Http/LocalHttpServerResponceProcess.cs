@@ -31,7 +31,8 @@
         /// <exception cref="ArgumentException">
         /// 引数の <paramref name="processName"/> が正規表現として不正な値の場合に発生
         /// </exception>
-        public LocalHttpServerResponceProcess(HttpMethod method, string processName, HttpResponseData responseData)
+        public LocalHttpServerResponceProcess(
+            HttpMethod method, string processName, HttpResponseData responseData)
         {
             // 各プロパティに値を設定
 

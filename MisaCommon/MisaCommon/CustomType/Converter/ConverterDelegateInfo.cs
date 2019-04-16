@@ -8,8 +8,7 @@
     #region デリゲートの定義
 
     /// <summary>
-    /// 引数で指定したコンテキスト（<paramref name="context"/>）とカルチャ情報（<paramref name="culture"/>）を使用して、
-    /// 指定されたオブジェクト（<paramref name="value"/>）を、コンバーターが対象とする型に変換する機能を提供するデリゲートの定義
+    /// コンバーターが対象とする型に変換する機能を提供するデリゲートの定義
     /// </summary>
     /// <param name="context">
     /// 書式指定コンテキストを提供する <see cref="ITypeDescriptorContext"/> オブジェクト
@@ -21,11 +20,10 @@
     /// 変換対象のオブジェクト
     /// </param>
     /// <returns>変換後の値を表すオブジェクト</returns>
-    public delegate object ConverterFromDelegate(ITypeDescriptorContext context, CultureInfo culture, object value);
+    public delegate object ConverterFrom(
+        ITypeDescriptorContext context, CultureInfo culture, object value);
 
     /// <summary>
-    /// 引数で指定したコンテキスト（<paramref name="context"/>）とカルチャ情報（<paramref name="culture"/>）を使用して、
-    /// コンバーターが対象とする型のオブジェクト（<paramref name="value"/>）を、
     /// 指定した型（<paramref name="destinationType"/>）に変換する機能を提供するデリゲートの定義
     /// </summary>
     /// <param name="context">
@@ -41,7 +39,8 @@
     /// 変換先の型
     /// </param>
     /// <returns>変換後の値を表すオブジェクト</returns>
-    public delegate object ConverterToDelegate(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType);
+    public delegate object ConverterTo(
+        ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType);
 
     #endregion
 
@@ -58,7 +57,7 @@
         /// </summary>
         /// <param name="from">コンバーターが対象とする型に変換する機能</param>
         /// <param name="to">指定の型に変換する機能</param>
-        public ConverterDelegateInfo(ConverterFromDelegate from, ConverterToDelegate to)
+        public ConverterDelegateInfo(ConverterFrom from, ConverterTo to)
         {
             From = from;
             To = to;
@@ -71,12 +70,12 @@
         /// <summary>
         /// コンバーターが対象とする型に変換する機能を取得する
         /// </summary>
-        public ConverterFromDelegate From { get; private set; }
+        public ConverterFrom From { get; private set; }
 
         /// <summary>
         /// 指定の型に変換する機能を取得する
         /// </summary>
-        public ConverterToDelegate To { get; private set; }
+        public ConverterTo To { get; private set; }
 
         #endregion
     }

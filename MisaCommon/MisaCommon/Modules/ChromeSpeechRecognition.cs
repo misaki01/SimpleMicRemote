@@ -210,22 +210,25 @@
         /// 　<see cref="Path.InvalidPathChars"/> で定義される 1 つ以上の正しくない文字を含む
         /// ・引数の <paramref name="postRegex"/> が正規表現として不正な値の場合
         /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合に発生
-        /// たとえば、Windowsベースのプラットフォームでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
+        /// <exception cref="SpeechRecognitionException">
+        /// Chromeが使用不可能な場合に発生
+        /// （<see cref="ChromePath"/> の指定が間違ってる 又は、Chromeがインストールされていない場合）
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合に発生
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// ・引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（たとえば、Windowsでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある）
+        /// ・引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// ・引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合
+        /// 　[<see cref="FileNotFoundException"/>]
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 引数の <paramref name="htmlFilePath"/> がファイルを指定しないない（ディレクトリを指定）場合、
         /// 又は、呼び出し元に必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="FileNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
         /// </exception>
         /// <exception cref="Win32Exception">
         /// 下記の要因で。指定ファイルを開いているときにエラーが発生した場合に発生
@@ -287,22 +290,25 @@
         /// 　<see cref="Path.InvalidPathChars"/> で定義される 1 つ以上の正しくない文字を含む
         /// ・引数の <paramref name="postRegex"/> が正規表現として不正な値の場合
         /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合に発生
-        /// たとえば、Windowsベースのプラットフォームでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
+        /// <exception cref="SpeechRecognitionException">
+        /// Chromeが使用不可能な場合に発生
+        /// （<see cref="ChromePath"/> の指定が間違ってる 又は、Chromeがインストールされていない場合）
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合に発生
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// ・引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（たとえば、Windowsでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある）
+        /// ・引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// ・引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合
+        /// 　[<see cref="FileNotFoundException"/>]
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 引数の <paramref name="htmlFilePath"/> がファイルを指定しないない（ディレクトリを指定）場合、
         /// 又は、呼び出し元に必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="FileNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
         /// </exception>
         /// <exception cref="Win32Exception">
         /// 下記の要因で。指定ファイルを開いているときにエラーが発生した場合に発生
@@ -369,22 +375,25 @@
         /// 　<see cref="Path.InvalidPathChars"/> で定義される 1 つ以上の正しくない文字を含む
         /// ・引数の <paramref name="postRegex"/> が正規表現として不正な値の場合
         /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合に発生
-        /// たとえば、Windowsベースのプラットフォームでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
+        /// <exception cref="SpeechRecognitionException">
+        /// Chromeが使用不可能な場合に発生
+        /// （<see cref="ChromePath"/> の指定が間違ってる 又は、Chromeがインストールされていない場合）
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合に発生
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// ・引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（たとえば、Windowsでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある）
+        /// ・引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// ・引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合
+        /// 　[<see cref="FileNotFoundException"/>]
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 引数の <paramref name="htmlFilePath"/> がファイルを指定しないない（ディレクトリを指定）場合、
         /// 又は、呼び出し元に必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="FileNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
         /// </exception>
         /// <exception cref="Win32Exception">
         /// 下記の要因で。指定ファイルを開いているときにエラーが発生した場合に発生
@@ -444,10 +453,6 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="htmlFilePath"/> 又は <paramref name="postRegex"/> がNULLの場合に発生
         /// </exception>
-        /// <exception cref="SpeechRecognitionException">
-        /// Chromeが使用不可能な場合に発生
-        /// （<see cref="ChromePath"/> の指定が間違ってる 又は、Chromeがインストールされていない場合）
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// 下記の場合に発生する
         /// ・引数の <paramref name="htmlFilePath"/> が下記の場合
@@ -456,22 +461,25 @@
         /// 　<see cref="Path.InvalidPathChars"/> で定義される 1 つ以上の正しくない文字を含む
         /// ・引数の <paramref name="postRegex"/> が正規表現として不正な値の場合
         /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合に発生
-        /// たとえば、Windowsベースのプラットフォームでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
+        /// <exception cref="SpeechRecognitionException">
+        /// Chromeが使用不可能な場合に発生
+        /// （<see cref="ChromePath"/> の指定が間違ってる 又は、Chromeがインストールされていない場合）
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合に発生
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// ・引数の <paramref name="htmlFilePath"/> がシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（たとえば、Windowsでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある）
+        /// ・引数の <paramref name="htmlFilePath"/> が存在しないディレクトリを示している場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// ・引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合
+        /// 　[<see cref="FileNotFoundException"/>]
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 引数の <paramref name="htmlFilePath"/> がファイルを指定しないない（ディレクトリを指定）場合、
         /// 又は、呼び出し元に必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="FileNotFoundException">
-        /// 引数の <paramref name="htmlFilePath"/> で指定されたファイルが存在しない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
         /// </exception>
         /// <exception cref="Win32Exception">
         /// 下記の要因で。指定ファイルを開いているときにエラーが発生した場合に発生
@@ -510,11 +518,12 @@
                     break;
                 case ChromeState.NoInstall:
                     // NG：メッセージを表示して処理を中止する
-                    throw new SpeechRecognitionException(ErrorMessage.ChromeSpeechRecognitionNoInstall);
+                    throw new SpeechRecognitionException(ErrorMessage.ChromeSpeechRecognitionMessageNoInstall);
                 case ChromeState.ChromePathIsWrong:
                 default:
                     // NG：メッセージを表示して処理を中止する
-                    throw new SpeechRecognitionException(ErrorMessage.ChromeSpeechRecognitionChromePathIsWrong);
+                    throw new SpeechRecognitionException(
+                        ErrorMessage.ChromeSpeechRecognitionMessageChromePathIsWrong);
             }
 
             // 開始前の既にローカルHTTPサーバが起動している場合は落とす
@@ -548,8 +557,8 @@
             Server.Start(localHttpServerPort);
 
             // 起動パラメータを設定
-            string startUpParam
-                = string.Format(CultureInfo.InvariantCulture, ChromeStartUpParamFormat, Server.Url.ToString());
+            string startUpParam = string.Format(
+                CultureInfo.InvariantCulture, ChromeStartUpParamFormat, Server.Url.ToString());
 
             // Chromeを起動する
             long? key = StartProcess.Start(ChromePath, startUpParam, sizePoint);
@@ -580,7 +589,7 @@
             if (ChromeProcessInfoKey.HasValue)
             {
                 // 閉じるChromeのウィンドウサイズ位置情報を取得
-                foreach (var info in StartProcess.StartProcessList)
+                foreach (ProcessInfo info in StartProcess.StartProcessList)
                 {
                     // 起動したChromeのウィンドウハンドルを取得しサイズ位置情報を取得する
                     if (info.StartNumId == ChromeProcessInfoKey.Value && info.HasWindowInfo)
@@ -617,7 +626,8 @@
         #region プライベートメソッド
 
         /// <summary>
-        /// 引数 <paramref name="responceFunctions"/> からローカルHTTPサーバで動作させるレスポンス処理を生成し取得する
+        /// 引数 <paramref name="responceFunctions"/> からローカルHTTPサーバで動作させる
+        /// レスポンス処理を生成し取得する
         /// </summary>
         /// <param name="responceFunctions">
         /// 音声認識した文字に対する処理の指定（複数指定可、優先順位は上から）
@@ -629,7 +639,8 @@
         /// （「音声認識用.html」と整合性をとる必要があるパラメータ）
         /// </param>
         /// <param name="postParamName">
-        /// 「音声認識用.html」において、音声認識認識した文字列をPOSTする際に使用するPOSTデータのパラメータ名
+        /// 「音声認識用.html」において、音声認識認識した文字列をPOSTする際に使用する
+        /// POSTデータのパラメータ名
         /// （「音声認識用.html」と整合性をとる必要があるパラメータ）
         /// </param>
         /// <exception cref="ArgumentNullException">

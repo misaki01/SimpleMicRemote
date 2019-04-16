@@ -8,7 +8,7 @@
     using System.Text;
 
     using MisaCommon.CustomType.Converter;
-    using MisaCommon.CustomType.UiEditor;
+    using MisaCommon.CustomType.UIEditor;
     using MisaCommon.MessageResources.Type;
 
     /// <summary>
@@ -18,13 +18,14 @@
     /// このクラスの公開プロパティにおける表示名と説明は、
     /// <see cref="LocalizableTypeConverter{T, TResouces}"/>にてマッピングしている
     /// <list type="bullet">
-    ///     <item>
-    ///         <term>string型への変換</term>
-    ///         <description>
-    ///         ４つの数値をカンマ区切りの文字列で表現する
-    ///         【例】サイズ‗幅：100、サイズ‗高さ：200、位置‗X：300、位置Y：400 の場合 ⇒ 「100, 200, 300, 400」と表現する
-    ///         </description>
-    ///     </item>
+    /// <item>
+    /// <term>string型への変換</term>
+    /// <description>
+    /// ４つの数値をカンマ区切りの文字列で表現する
+    /// 【例】サイズ‗幅：100、サイズ‗高さ：200、位置‗X：300、位置Y：400 の場合
+    /// 　　　⇒ 「100, 200, 300, 400」と表現する
+    /// </description>
+    /// </item>
     /// </list>
     /// </remarks>
     [Serializable]
@@ -37,19 +38,19 @@
         /// <summary>
         /// フォームのサイズ_幅
         /// </summary>
-        private int _sizeWidth;
+        private int sizeWidth;
 
         /// <summary>
         /// フォームのサイズ_高さ
         /// </summary>
-        private int _sizeHeight;
+        private int sizeHeight;
 
         #endregion
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 引数の値で初期化する
         /// </summary>
         /// <param name="sizeWidth">フォームのサイズ‗幅</param>
@@ -132,8 +133,8 @@
         [DefaultValue(0)]
         public int SizeWidth
         {
-            get => _sizeWidth;
-            set => _sizeWidth = value < 0 ? 0 : value;
+            get => sizeWidth;
+            set => sizeWidth = value < 0 ? 0 : value;
         }
 
         /// <summary>
@@ -142,8 +143,8 @@
         [DefaultValue(0)]
         public int SizeHeight
         {
-            get => _sizeHeight;
-            set => _sizeHeight = value < 0 ? 0 : value;
+            get => sizeHeight;
+            set => sizeHeight = value < 0 ? 0 : value;
         }
 
         /// <summary>

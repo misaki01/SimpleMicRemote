@@ -95,10 +95,7 @@
         /// </remarks>
         [ReadOnly(true)]
         [Browsable(false)]
-        public SpeechRecognitionSettingInfo SettingSpeechRecognitionSettingInfo
-        {
-            get => SettingInfo?.DeepCopy();
-        }
+        public SpeechRecognitionSettingInfo SettingSpeechRecognitionSettingInfo => SettingInfo?.DeepCopy();
 
         #endregion
 

@@ -34,14 +34,15 @@
         /// <summary>
         /// スクロールバーのサイズの定義
         /// </summary>
-        private readonly Size _scrollBarSize = new Size(30, 30);
+        private readonly Size scrollBarSize = new Size(30, 30);
 
         #region マウス用のコンボボックスのデータ
 
         /// <summary>
         /// マウス用のコンボボックスデータ
         /// </summary>
-        private IReadOnlyDictionary<Keys, string> _comboBoxDataMouse = new ReadOnlyDictionary<Keys, string>(
+        private IReadOnlyDictionary<Keys, string> comboBoxDataMouse
+            = new ReadOnlyDictionary<Keys, string>(
             new Dictionary<Keys, string>()
             {
                 // なし
@@ -70,7 +71,8 @@
         /// <summary>
         /// 入力キー用のコンボボックスデータ
         /// </summary>
-        private IReadOnlyDictionary<Keys, string> _comboBoxDataInputKey = new ReadOnlyDictionary<Keys, string>(
+        private IReadOnlyDictionary<Keys, string> comboBoxDataInputKey
+            = new ReadOnlyDictionary<Keys, string>(
             new Dictionary<Keys, string>()
             {
                 // なし
@@ -285,7 +287,8 @@
         /// <summary>
         /// 操作キー用のコンボボックスデータ
         /// </summary>
-        private IReadOnlyDictionary<Keys, string> _comboBoxDataOperateKey = new ReadOnlyDictionary<Keys, string>(
+        private IReadOnlyDictionary<Keys, string> comboBoxDataOperateKey
+            = new ReadOnlyDictionary<Keys, string>(
             new Dictionary<Keys, string>()
             {
                 // なし
@@ -425,7 +428,8 @@
         /// <summary>
         /// IMEモード等に関連するキーのコンボボックスデータ
         /// </summary>
-        private IReadOnlyDictionary<Keys, string> _comboBoxDataImeKey = new ReadOnlyDictionary<Keys, string>(
+        private IReadOnlyDictionary<Keys, string> comboBoxDataImeKey
+            = new ReadOnlyDictionary<Keys, string>(
             new Dictionary<Keys, string>()
             {
                 // なし
@@ -460,7 +464,8 @@
         /// <summary>
         /// 特殊キーのコンボボックスデータ
         /// </summary>
-        private IReadOnlyDictionary<Keys, string> _comboBoxDataSpecialKey = new ReadOnlyDictionary<Keys, string>(
+        private IReadOnlyDictionary<Keys, string> comboBoxDataSpecialKey
+            = new ReadOnlyDictionary<Keys, string>(
             new Dictionary<Keys, string>()
             {
                 // なし
@@ -509,48 +514,48 @@
         /// <summary>
         /// マウスのコンボボックス領域の表示・非表示の設定
         /// </summary>
-        private bool _visibleMouse = true;
+        private bool visibleMouse = true;
 
         /// <summary>
         /// 入力キーのコンボボックス領域の表示・非表示の設定
         /// </summary>
-        private bool _visibleInputKey = true;
+        private bool visibleInputKey = true;
 
         /// <summary>
         /// 操作キーのコンボボックス領域の表示・非表示の設定
         /// </summary>
-        private bool _visibleOperateKey = true;
+        private bool visibleOperateKey = true;
 
         /// <summary>
         /// IMEキーのコンボボックス領域の表示・非表示の設定
         /// </summary>
-        private bool _visibleImeKey = true;
+        private bool visibleImeKey = true;
 
         /// <summary>
         /// 特殊キーのコンボボックス領域の表示・非表示の設定
         /// </summary>
-        private bool _visibleSpecialKey = true;
+        private bool visibleSpecialKey = true;
 
         /// <summary>
         /// コントロールが、その内容に合わせて自動的に幅を変更するかどうかの設定
         /// </summary>
-        private bool _autoSizeWidth;
+        private bool autoSizeWidth;
 
         /// <summary>
         /// コントロールが、その内容に合わせて自動的に高さを変更するかどうかの設定
         /// </summary>
-        private bool _autoSizeHeight;
+        private bool autoSizeHeight;
 
         /// <summary>
         /// 自動高さ調整時におけるコンボボックス領域の表示行数の設定
         /// 0を指定した場合は全てを表示するサイズに調整する
         /// </summary>
-        private int _autoSizeHeightDisplayLines = 1;
+        private int autoSizeHeightDisplayLines = 1;
 
         /// <summary>
         /// コンボボックスエリアのコンボボックスのリスト
         /// </summary>
-        private IList<ComboBoxControl> _comboBoxList = null;
+        private IList<ComboBoxControl> comboBoxList = null;
 
         #endregion
 
@@ -573,7 +578,8 @@
             // 引数1：comboBox     設定対象のコンボボックス
             // 引数2：parent       設定対象のコンボボックスの親のパネル
             // 引数3：dataList     設定するデータ
-            void SetComboBoxData(ComboBox comboBox, Panel parent, IReadOnlyDictionary<Keys, string> dataList)
+            void SetComboBoxData(
+                ComboBox comboBox, Panel parent, IReadOnlyDictionary<Keys, string> dataList)
             {
                 // コンボボックスにデータを設定する
                 // 同時に設定するデータの表示サイズを取得し、その最大値をコンボボックスの幅に設定する
@@ -586,7 +592,8 @@
                         comboBox.Items.Add(data);
 
                         // 設定したデータの表示サイズを取得
-                        SizeF valueSize = graphics.MeasureString(data.Value, comboBox.Font, MaxComboBoxWidth);
+                        SizeF valueSize = graphics.MeasureString(
+                            data.Value, comboBox.Font, MaxComboBoxWidth);
 
                         // 表示サイズが以前の値より大きい場合は値を更新する
                         width = width < valueSize.Width ? valueSize.Width : width;
@@ -617,11 +624,11 @@
 
             // 各コンボボックスにデータを設定する
             // また設定データに合わせてサイズの調整も行う
-            SetComboBoxData(CmbBoxMouse, PlMouse, _comboBoxDataMouse);
-            SetComboBoxData(CmbBoxInputKey, PlInputKey, _comboBoxDataInputKey);
-            SetComboBoxData(CmbBoxOperateKey, PlOperateKey, _comboBoxDataOperateKey);
-            SetComboBoxData(CmbBoxImeKey, PlImeKey, _comboBoxDataImeKey);
-            SetComboBoxData(CmbBoxSpecialKey, PlSpecialKey, _comboBoxDataSpecialKey);
+            SetComboBoxData(CmbBoxMouse, PlMouse, comboBoxDataMouse);
+            SetComboBoxData(CmbBoxInputKey, PlInputKey, comboBoxDataInputKey);
+            SetComboBoxData(CmbBoxOperateKey, PlOperateKey, comboBoxDataOperateKey);
+            SetComboBoxData(CmbBoxImeKey, PlImeKey, comboBoxDataImeKey);
+            SetComboBoxData(CmbBoxSpecialKey, PlSpecialKey, comboBoxDataSpecialKey);
         }
 
         /// <summary>
@@ -685,7 +692,7 @@
             set
             {
                 PlMouse.Enabled = value;
-                PlMouse.Visible = value ? _visibleMouse : value;
+                PlMouse.Visible = value ? visibleMouse : value;
                 SetPlComboBoxVisible();
             }
         }
@@ -702,13 +709,13 @@
             set
             {
                 PlInputKey.Enabled = value;
-                PlInputKey.Visible = value ? _visibleInputKey : value;
+                PlInputKey.Visible = value ? visibleInputKey : value;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -724,13 +731,13 @@
             set
             {
                 PlOperateKey.Enabled = value;
-                PlOperateKey.Visible = value ? _visibleOperateKey : value;
+                PlOperateKey.Visible = value ? visibleOperateKey : value;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -746,13 +753,13 @@
             set
             {
                 PlImeKey.Enabled = value;
-                PlImeKey.Visible = value ? _visibleImeKey : value;
+                PlImeKey.Visible = value ? visibleImeKey : value;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -768,13 +775,13 @@
             set
             {
                 PlSpecialKey.Enabled = value;
-                PlSpecialKey.Visible = value ? _visibleSpecialKey : value;
+                PlSpecialKey.Visible = value ? visibleSpecialKey : value;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -786,17 +793,17 @@
         [DefaultValue(true)]
         public bool VisibleMouse
         {
-            get => _visibleMouse;
+            get => visibleMouse;
             set
             {
-                _visibleMouse = value;
+                visibleMouse = value;
                 PlMouse.Visible = PlMouse.Enabled ? value : false;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -808,17 +815,17 @@
         [DefaultValue(true)]
         public bool VisibleInputKey
         {
-            get => _visibleInputKey;
+            get => visibleInputKey;
             set
             {
-                _visibleInputKey = value;
+                visibleInputKey = value;
                 PlInputKey.Visible = PlInputKey.Enabled ? value : false;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -830,17 +837,17 @@
         [DefaultValue(true)]
         public bool VisibleOperateKey
         {
-            get => _visibleOperateKey;
+            get => visibleOperateKey;
             set
             {
-                _visibleOperateKey = value;
+                visibleOperateKey = value;
                 PlOperateKey.Visible = PlOperateKey.Enabled ? value : false;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -852,17 +859,17 @@
         [DefaultValue(true)]
         public bool VisibleImeKey
         {
-            get => _visibleImeKey;
+            get => visibleImeKey;
             set
             {
-                _visibleImeKey = value;
+                visibleImeKey = value;
                 PlImeKey.Visible = PlImeKey.Enabled ? value : false;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -874,17 +881,17 @@
         [DefaultValue(true)]
         public bool VisibleSpecialKey
         {
-            get => _visibleSpecialKey;
+            get => visibleSpecialKey;
             set
             {
-                _visibleSpecialKey = value;
+                visibleSpecialKey = value;
                 PlSpecialKey.Visible = PlSpecialKey.Enabled ? value : false;
 
                 // コンボボックス領域の表示設定
                 SetPlComboBoxVisible();
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -898,14 +905,14 @@
         public bool AutoSizeWidth
         {
             // AutoSizeプロパティがTrueの場合は常にFalseを返却
-            get => AutoSize ? false : _autoSizeWidth;
+            get => AutoSize ? false : autoSizeWidth;
             set
             {
                 // AutoSizeプロパティがTrueの場合は常にFalseを設定
-                _autoSizeWidth = AutoSize ? false : value;
+                autoSizeWidth = AutoSize ? false : value;
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -919,14 +926,14 @@
         public bool AutoSizeHeight
         {
             // AutoSizeプロパティがTrueの場合は常にFalseを返却
-            get => AutoSize ? false : _autoSizeHeight;
+            get => AutoSize ? false : autoSizeHeight;
             set
             {
                 // AutoSizeプロパティがTrueの場合は常にFalseを設定
-                _autoSizeHeight = AutoSize ? false : value;
+                autoSizeHeight = AutoSize ? false : value;
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -939,13 +946,13 @@
         [DefaultValue(1)]
         public int AutoSizeHeightDisplayLines
         {
-            get => _autoSizeHeightDisplayLines;
+            get => autoSizeHeightDisplayLines;
             set
             {
-                _autoSizeHeightDisplayLines = value;
+                autoSizeHeightDisplayLines = value;
 
                 // 自動幅調を行う
-                SetAutoSize(AutoSizeMode, _autoSizeWidth, _autoSizeHeight);
+                SetAutoSize(AutoSizeMode, autoSizeWidth, autoSizeHeight);
             }
         }
 
@@ -967,10 +974,7 @@
         /// </remarks>
         [ReadOnly(true)]
         [Browsable(false)]
-        public InputKey SettingInputKey
-        {
-            get => KeyData?.DeepCopy();
-        }
+        public InputKey SettingInputKey => KeyData?.DeepCopy();
 
         #endregion
 
@@ -983,9 +987,9 @@
         {
             get
             {
-                if (_comboBoxList == null)
+                if (comboBoxList == null)
                 {
-                    _comboBoxList = new List<ComboBoxControl>
+                    comboBoxList = new List<ComboBoxControl>
                     {
                         new ComboBoxControl(PlMouse, CmbBoxMouse),
                         new ComboBoxControl(PlInputKey, CmbBoxInputKey),
@@ -995,7 +999,7 @@
                     };
                 }
 
-                return _comboBoxList;
+                return comboBoxList;
             }
         }
 
@@ -1073,10 +1077,14 @@
         }
 
         /// <summary>
-        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で初期化したコントロールを取得する
+        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で
+        /// 初期化したコントロールを取得する
         /// </summary>
         /// <param name="settingData">設定データ</param>
-        /// <returns> 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で初期化したコントロール</returns>
+        /// <returns>
+        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で
+        /// 初期化したコントロール
+        /// </returns>
         public Control GetInitializeControl(string settingData)
         {
             // 引数の設定データから入力キー情報を生成する
@@ -1200,7 +1208,8 @@
             }
 
             // 操作されたコンボボックスにおいて0番目が選択された場合は処理を行わない
-            // ただし、全てのコンボボックスにおいて0番目が選択状態となる場合はテキストボックスの表示を更新する
+            // ただし、全てのコンボボックスにおいて0番目が選択状態となる場合は
+            // テキストボックスの表示を更新する
             if (comboBox.Items.Count == 0 || comboBox.SelectedIndex == 0)
             {
                 if (isAllZero)
@@ -1341,7 +1350,7 @@
             {
                 // 拡大の場合
                 // スクロールバーの分を加算した値に設定してから、その後本来の値に縮小する
-                Width = width + _scrollBarSize.Width;
+                Width = width + scrollBarSize.Width;
                 Width = width;
             }
             else if (autoSizeMode == AutoSizeMode.GrowAndShrink)
@@ -1407,10 +1416,12 @@
 
             // 自動設定する高さに、表示行数分の行毎の高さを加算する
             // プロパティ「表示行数」の値が 0 の場合は全ての行数分高さを加算する
-            int tmpDisplayLines = AutoSizeHeightDisplayLines == 0 ? linesHeight.Count : AutoSizeHeightDisplayLines;
-            int loopCount = linesHeight.Count < tmpDisplayLines ? linesHeight.Count : tmpDisplayLines;
+            int tmpDisplayLines = AutoSizeHeightDisplayLines == 0
+                ? linesHeight.Count : AutoSizeHeightDisplayLines;
+            int loopCount = linesHeight.Count < tmpDisplayLines
+                ? linesHeight.Count : tmpDisplayLines;
             int tmpCount = 0;
-            foreach (var data in linesHeight)
+            foreach (KeyValuePair<int, int> data in linesHeight)
             {
                 // ループカウントを超える場合は処理を抜ける
                 tmpCount++;
@@ -1428,7 +1439,7 @@
             {
                 // 拡大の場合
                 // スクロールバーの分を加算した値に設定してから、その後本来の値に縮小する
-                Height = height + _scrollBarSize.Height;
+                Height = height + scrollBarSize.Height;
                 Height = height;
             }
             else if (autoSizeMode == AutoSizeMode.GrowAndShrink)

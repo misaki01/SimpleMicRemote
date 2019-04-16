@@ -12,7 +12,7 @@
 
         /// <summary>
         /// システムでのデフォルトのカーソルの定義
-        /// （<see cref="NativeMethods.GetIconInfo(IntPtr, out ICONINFO)"/> において、
+        /// （<see cref="NativeMethods.GetIconInfo(SafeCopyIconHandle, out ICONINFO)"/> において、
         /// 　システムのデフォルトのカーソル情報を取得したい場合に、第１引数に設定してする）
         /// </summary>
         public enum SYSTEM_CURSOR : uint
@@ -90,7 +90,7 @@
 
         /// <summary>
         /// システムでのデフォルトのアイコンの定義
-        /// （<see cref="NativeMethods.GetIconInfo(IntPtr, out ICONINFO)"/> において、
+        /// （<see cref="NativeMethods.GetIconInfo(SafeCopyIconHandle, out ICONINFO)"/> において、
         /// 　システムのデフォルトのアイコン情報を取得したい場合に、第１引数に設定してする）
         /// </summary>
         public enum SYSTEM_ICON : uint

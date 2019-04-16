@@ -6,6 +6,7 @@
     using MisaCommon.Exceptions;
     using MisaCommon.MessageResources;
     using MisaCommon.Utility.Win32Api.NativeMethod;
+
     using Win32Api = NativeMethod.Message.NativeMethods;
 
     /// <summary>
@@ -41,7 +42,8 @@
         /// 閉じるだけの処理であるため失敗しても良いと判断される場合は False を設定、
         /// 閉じる処理の成功の保証がいる場合は Ture を設定
         /// 失敗するパターンとしては下記のパターンが考えられる
-        /// ・メモ帳等を閉じる際に表示される「保存しますか？」のダイアログが表示され待機が発生しタイムアウトが発生した
+        /// ・メモ帳等を閉じる際に表示される「保存しますか？」のダイアログが表示され、
+        /// 　待機となりタイムアウトが発生した場合
         /// </param>
         /// <param name="isExcludeTimeoutExceptions">
         /// 発生させる例外のうち、タイムアウトに関する例外は除外するかどうかを指定するフラグ
@@ -62,7 +64,7 @@
         /// ・「DLL：user32.dll、メソッド：SendMessage」
         /// </exception>
         public static void SendMessage(
-            IntPtr windowHandle,
+            HandleRef windowHandle,
             int message,
             IntPtr wParam,
             IntPtr lParam,
@@ -122,12 +124,14 @@
                         Win32OperateException ex;
                         if (result.ErrorCode == (int)ErrorCode.NO_ERROR)
                         {
-                            string timeoutMessage = ErrorMessage.Win32OperateTimeoutMessage;
-                            ex = Win32ApiCommon.GetWin32OperateException(dllName, methodName, timeoutMessage);
+                            string timeoutMessage = ErrorMessage.Win32OperateErrorTimeout;
+                            ex = Win32ApiCommon.GetWin32OperateException(
+                                dllName, methodName, timeoutMessage);
                         }
                         else
                         {
-                            ex = Win32ApiCommon.GetWin32OperateException(dllName, methodName, result.ErrorCode);
+                            ex = Win32ApiCommon.GetWin32OperateException(
+                                dllName, methodName, result.ErrorCode);
                         }
 
                         // タイムアウトに関する例外をスロー

@@ -32,12 +32,22 @@
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティの初期化を行う
         /// </summary>
         public ConfigXmlUserSettings()
         {
             Settings = new Collection<ConfigXmlSetting>();
+        }
+
+        /// <summary>
+        /// コンストラクタ
+        /// 各プロパティを引数の値で初期化する
+        /// </summary>
+        /// <param name="settings">設定Element</param>
+        public ConfigXmlUserSettings(Collection<ConfigXmlSetting> settings)
+        {
+            Settings = settings;
         }
 
         #endregion
@@ -47,6 +57,9 @@
         /// <summary>
         /// 設定Elementを取得・設定する
         /// </summary>
+        /// <remarks>
+        /// Xmlでシリアライズするために、リストではなくコレクションである必要がある
+        /// </remarks>
         [XmlElement("setting")]
         public Collection<ConfigXmlSetting> Settings { get; }
 

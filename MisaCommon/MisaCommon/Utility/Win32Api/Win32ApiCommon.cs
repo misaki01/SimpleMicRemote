@@ -24,8 +24,15 @@
         /// <exception cref="ArgumentNullException">
         /// 引数の <paramref name="runFunction"/> がNULLの場合に発生する
         /// </exception>
+        /// <exception cref="PlatformInvokeException">
+        /// Win32Apiの処理の呼び出しに失敗した場合に発生
+        /// </exception>
+        /// <exception cref="Win32OperateException">
+        /// Win32Apiの内部処理で例外が発生した場合に発生
+        /// </exception>
         /// <returns>実行したWin32Apiの実行結果を返却</returns>
-        public static Win32ApiResult Run(Func<Win32ApiResult> runFunction, string dllName, string methodName)
+        public static Win32ApiResult Run(
+            Func<Win32ApiResult> runFunction, string dllName, string methodName)
         {
             try
             {
@@ -43,10 +50,11 @@
                 // メソッド内部から例外がスローされた場合、Win32OperateExceptionにラップしてスロー
                 throw GetWin32OperateException(dllName, methodName, ex);
             }
-            catch (Exception ex)
+            catch (TypeLoadException ex)
             {
-                // メソッドの呼び出しで例外がスローされた場合、PlatformInvokeExceptionにラップしスロー
-                string format = ErrorMessage.Win32OperateFailDllImportMessageFormat;
+                // メソッドの呼び出しにおいて例外がスローされた場合、
+                // PlatformInvokeExceptionにラップしスロー
+                string format = ErrorMessage.Win32OperateErrorFailDllImportFormat;
                 string message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName);
                 throw new PlatformInvokeException(message, ex);
             }
@@ -63,9 +71,10 @@
         /// <param name="dllName">実行したWin32Apiが使用しているDLLの名称</param>
         /// <param name="methodName">実行したWin32Apiのメソッド名</param>
         /// <returns><see cref="Win32OperateException"/> オブジェクト</returns>
-        public static Win32OperateException GetWin32OperateException(string dllName, string methodName)
+        public static Win32OperateException GetWin32OperateException(
+            string dllName, string methodName)
         {
-            string format = ErrorMessage.Win32OperateFailMessageFormat;
+            string format = ErrorMessage.Win32OperateErrorFormat;
             string message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName);
             return new Win32OperateException(message, null);
         }
@@ -78,10 +87,23 @@
         /// <param name="methodName">実行したWin32Apiのメソッド名</param>
         /// <param name="ex">内部例外</param>
         /// <returns><see cref="Win32OperateException"/> オブジェクト</returns>
-        public static Win32OperateException GetWin32OperateException(string dllName, string methodName, Exception ex)
+        public static Win32OperateException GetWin32OperateException(
+            string dllName, string methodName, Exception ex)
         {
-            string format = ErrorMessage.Win32OperateFailMessageFormat;
-            string message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName);
+            string message;
+            if (ex is RuntimeWrappedException)
+            {
+                // 発生した例外が RuntimeWrappedException の場合、それ用のメッセージを生成する
+                string format = ErrorMessage.Win32OperateErrorRuntimeWrappedExceptionFormat;
+                message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName);
+            }
+            else
+            {
+                // 上記以外の場合、汎用のメッセージを生成する
+                string format = ErrorMessage.Win32OperateErrorFormat;
+                message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName);
+            }
+
             return new Win32OperateException(message, ex);
         }
 
@@ -93,11 +115,13 @@
         /// <param name="methodName">実行したWin32Apiのメソッド名</param>
         /// <param name="errorCode">実行したWin32Apiのエラーコード</param>
         /// <returns>エラーコード付きの <see cref="Win32OperateException"/> オブジェクト</returns>
-        public static Win32OperateException GetWin32OperateException(string dllName, string methodName, int errorCode)
+        public static Win32OperateException GetWin32OperateException(
+            string dllName, string methodName, int errorCode)
         {
             Win32Exception ex = new Win32Exception(errorCode);
-            string format = ErrorMessage.Win32OperateFailMessageFormatWithErrorCode;
-            string message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName, ex.Message);
+            string format = ErrorMessage.Win32OperateErrorFormatWithErrorCode;
+            string message = string.Format(
+                CultureInfo.InvariantCulture, format, dllName, methodName, ex.Message);
             return new Win32OperateException(message, ex);
         }
 
@@ -109,10 +133,12 @@
         /// <param name="methodName">実行したWin32Apiのメソッド名</param>
         /// <param name="errorMessage"><see cref="Win32OperateException"/> に追加するエラーメッセージ</param>
         /// <returns>エラーコード付きの <see cref="Win32OperateException"/> オブジェクト</returns>
-        public static Win32OperateException GetWin32OperateException(string dllName, string methodName, string errorMessage)
+        public static Win32OperateException GetWin32OperateException(
+            string dllName, string methodName, string errorMessage)
         {
-            string format = ErrorMessage.Win32OperateFailMessageFormatWithErrorCode;
-            string message = string.Format(CultureInfo.InvariantCulture, format, dllName, methodName, errorMessage);
+            string format = ErrorMessage.Win32OperateErrorFormatWithErrorCode;
+            string message = string.Format(
+                CultureInfo.InvariantCulture, format, dllName, methodName, errorMessage);
             return new Win32OperateException(message);
         }
 

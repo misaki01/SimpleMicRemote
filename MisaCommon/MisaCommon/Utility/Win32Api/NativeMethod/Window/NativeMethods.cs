@@ -5,7 +5,9 @@
     using System.Security;
 
     /// <summary>
-    /// 【注意：このクラスのメソッドは直接呼び出さず、<see cref="WindowOperate"/> クラスを経由して呼び出すこと】
+    /// 【注意】
+    /// このクラスのメソッドは直接呼び出さず、<see cref="WindowOperate"/> クラスを経由して呼び出すこと
+    /// 【概要】
     /// プラットフォーム呼び出しサービスを使用してアンマネージ コードへのアクセスを提供するためのクラス
     /// このクラスではWin32APIのウィンドウに関する機能を扱う
     /// </summary>
@@ -43,11 +45,11 @@
         /// </summary>
         /// <remarks>
         /// このメソッドを呼び出すと、下記の動作を繰り返し実行しトップレベルウィンドウの列挙を行う
-        /// 　1) トップレベルウィンドウを取得
-        /// 　2) トップレベルウィンドウのハンドルを引数のコールバック関数（<paramref name="callBack"/>）に渡す
-        /// 　3) コールバック関数（<paramref name="callBack"/>）を実行する
+        /// 1. トップレベルウィンドウを取得
+        /// 2. トップレベルウィンドウのハンドルを引数のコールバック関数（<paramref name="callBack"/>）に渡す
+        /// 3. コールバック関数（<paramref name="callBack"/>）を実行する
         ///
-        /// 上記処理は全てのトップレベルウィンドウを列挙し終えるか、
+        /// 上記処理を全てのトップレベルウィンドウを列挙し終えるか、
         /// コールバック関数（<paramref name="callBack"/>）から 0（False）が返却されるまで繰り返す
         /// </remarks>
         /// <param name="callBack">
@@ -94,7 +96,7 @@
         /// <returns>ウィンドウが存在する場合：True、存在しない場合：False</returns>
         [DllImport("user32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsWindow(IntPtr windowHandle);
+        internal static extern bool IsWindow(HandleRef windowHandle);
 
         /// <summary>
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウが、
@@ -104,7 +106,7 @@
         /// <returns>ウィンドウが有効な場合：True、無効な場合：False</returns>
         [DllImport("user32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsWindowEnabled(IntPtr windowHandle);
+        internal static extern bool IsWindowEnabled(HandleRef windowHandle);
 
         /// <summary>
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウが、
@@ -114,7 +116,7 @@
         /// <returns>ウィンドウが表示されている場合：True、表示されていない場合：False</returns>
         [DllImport("user32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsWindowVisible(IntPtr windowHandle);
+        internal static extern bool IsWindowVisible(HandleRef windowHandle);
 
         /// <summary>
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウが、
@@ -124,7 +126,7 @@
         /// <returns>ウィンドウが最小化されている場合：True、最小化されていない場合：False</returns>
         [DllImport("user32.dll", SetLastError = false, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsIconic(IntPtr windowHandle);
+        internal static extern bool IsIconic(HandleRef windowHandle);
 
         #endregion
 
@@ -138,7 +140,7 @@
         /// <param name="processId">ウィンドウのプロセスIDを格納</param>
         /// <returns>ウィンドウを作成したスレッドのID（処理が失敗した場合は 0 を返却）</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
-        internal static extern int GetWindowThreadProcessId(IntPtr windowHandle, out int processId);
+        internal static extern int GetWindowThreadProcessId(HandleRef windowHandle, out int processId);
 
         /// <summary>
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウにおいて、
@@ -149,7 +151,7 @@
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetWindowRect(IntPtr windowHandle, out RECT windowRect);
+        internal static extern bool GetWindowRect(HandleRef windowHandle, out RECT windowRect);
 
         /// <summary>
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウにおいて、
@@ -161,7 +163,7 @@
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetClientRect(IntPtr windowHandle, out RECT clientRect);
+        internal static extern bool GetClientRect(HandleRef windowHandle, out RECT clientRect);
 
         #endregion
 
@@ -174,17 +176,17 @@
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool CloseWindow(IntPtr windowHandle);
+        internal static extern bool CloseWindow(HandleRef windowHandle);
 
         /// <summary>
-        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウを最小化状態から元に戻す
-        /// 元に戻したウィンドウはアクティブにする
+        /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウを
+        /// 最小化状態から元に戻す（元に戻したウィンドウはアクティブになる）
         /// </summary>
         /// <param name="windowHandle">最小化状態を戻す対象のウィンドウのハンドル</param>
         /// <returns>正常終了：True、異常終了：False</returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool OpenIcon(IntPtr windowHandle);
+        internal static extern bool OpenIcon(HandleRef windowHandle);
 
         /// <summary>
         /// 引数（<paramref name="windowHandle"/>）のウインドウハンドルを持つウィンドウの、
@@ -195,8 +197,9 @@
         /// </param>
         /// <param name="windowHandleOrder">
         /// Zオーダーに関する配置順序を設定するためのウィンドウハンドル
-        /// 引数（<paramref name="windowHandle"/>）のウィンドウはこのパラメータで指定したウィンドウの後ろに配置する
-        /// 又は、このパラメータに指定したコマンドに従ってZオーダの配置を行う
+        /// 引数（<paramref name="windowHandle"/>）のウィンドウを、
+        /// このパラメータで指定したウィンドウの後ろに配置する
+        /// または、このパラメータに指定したコマンドに従ってZオーダの配置を行う
         /// </param>
         /// <param name="pointX">
         /// 設定するウィンドウの左上のX座標
@@ -218,7 +221,14 @@
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool SetWindowPos(IntPtr windowHandle, IntPtr windowHandleOrder, int pointX, int pointY, int sizeWidth, int sizeHeight, uint optionFlag);
+        internal static extern bool SetWindowPos(
+            HandleRef windowHandle,
+            IntPtr windowHandleOrder,
+            int pointX,
+            int pointY,
+            int sizeWidth,
+            int sizeHeight,
+            uint optionFlag);
 
         #endregion
 
@@ -356,9 +366,11 @@
                 SWP_DRAWFRAME = 0x0020,
 
                 /// <summary>
-                /// ウィンドウを囲む枠を描画する（SetWindowLong 関数を使って新しいフレームスタイルの設定を適用する）
+                /// ウィンドウを囲む枠を描画する
+                /// （SetWindowLong 関数を使って新しいフレームスタイルの設定を適用する）
                 /// ウィンドウサイズが変更されない場合にも、ウィンドウに WM_NCCALCSIZE メッセージを送る
-                /// このフラグを設定しなかった場合、ウィンドウサイズが変更される場合のみ WM_NCCALCSIZE メッセージを送る
+                /// このフラグを設定しなかった場合、ウィンドウサイズが変更される場合のみ
+                /// WM_NCCALCSIZE メッセージを送る
                 /// </summary>
                 /// <remarks>
                 /// 結果として <see cref="SWP_DRAWFRAME"/>と同じ動作となるため同じ値となる
@@ -392,7 +404,8 @@
 
                 /// <summary>
                 /// WM_WINDOWPOSCHANGING メッセージを送信させない
-                /// （WM_WINDOWPOSCHANGING：Zオーダーのサイズ、位置が変更されようとしているウィンドウに送信されるメッセージ）
+                /// （WM_WINDOWPOSCHANGING：Zオーダーのサイズ、位置が
+                /// 　変更されようとしているウィンドウに送信されるメッセージ）
                 /// </summary>
                 SWP_NOSENDCHANGING = 0x0400,
 
@@ -403,8 +416,8 @@
                 SWP_DEFERERASE = 0x2000,
 
                 /// <summary>
-                /// この関数を呼び出したスレッドとウィンドウを所有するスレッドが異なる入力キューに関連付けられている場合に、
-                /// ウィンドウを所有するスレッドにも非同期に要求を送信する
+                /// この関数を呼び出したスレッドとウィンドウを所有するスレッドが異なる入力キューに
+                /// 関連付けられている場合に、ウィンドウを所有するスレッドにも非同期に要求を送信する
                 /// こうした場合、要求を受け取ったウィンドウスレッドが要求を処理している間も、
                 /// 関数を呼び出したスレッドの実行が止まることはなくなる
                 /// </summary>

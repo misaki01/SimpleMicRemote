@@ -118,38 +118,38 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoSizeHeightDescription" xml:space="preserve">
-    <value>コントロールが、その内容に合わせて自動的に高さを変更するかどうかを指定する
+    <value>コントロールが、その内容に合わせて自動的に高さを変更するかどうかを指定する。
 AutoSizeプロパティがFalseの場合のみ指定が可能</value>
     <comment>プロパティ「自動高さ調整」の説明</comment>
   </data>
   <data name="AutoSizeHeightDisplayLinesDescription" xml:space="preserve">
-    <value>自動高さ調整時におけるコンボボックス領域の表示行数を指定する
+    <value>自動高さ調整時におけるコンボボックス領域の表示行数を指定する。
 0を指定した場合は全てを表示するサイズに調整する</value>
     <comment>プロパティ「コンボボックス領域の表示行数」の説明</comment>
   </data>
   <data name="AutoSizeWidthDescription" xml:space="preserve">
-    <value>コントロールが、その内容に合わせて自動的に幅を変更するかどうかを指定する
+    <value>コントロールが、その内容に合わせて自動的に幅を変更するかどうかを指定する。
 AutoSizeプロパティがFalseの場合のみ指定が可能</value>
     <comment>プロパティ「自動幅調整」の説明</comment>
   </data>
   <data name="EnabledImeKeyDescription" xml:space="preserve">
-    <value>IMEキーのコンボボックスの有効・無効を指定する</value>
+    <value>IMEキーのコンボボックスの有効・無効を指定する。</value>
     <comment>プロパティ「IMEキーのコンボボックスの有効・無効」の説明</comment>
   </data>
   <data name="EnabledInputKeyDescription" xml:space="preserve">
-    <value>入力キーのコンボボックスの有効・無効を指定する</value>
+    <value>入力キーのコンボボックスの有効・無効を指定する。</value>
     <comment>プロパティ「入力キーのコンボボックスの有効・無効」の説明</comment>
   </data>
   <data name="EnabledMouseDescription" xml:space="preserve">
-    <value>マウスのコンボボックスの有効・無効を指定する</value>
+    <value>マウスのコンボボックスの有効・無効を指定する。</value>
     <comment>プロパティ「マウスのコンボボックスの有効・無効」の説明</comment>
   </data>
   <data name="EnabledOperateKeyDescription" xml:space="preserve">
-    <value>操作キーのコンボボックスの有効・無効を指定する</value>
+    <value>操作キーのコンボボックスの有効・無効を指定する。</value>
     <comment>プロパティ「操作キーのコンボボックスの有効・無効」の説明</comment>
   </data>
   <data name="EnabledSpecialKeyDescription" xml:space="preserve">
-    <value>特殊キーのコンボボックスの有効・無効を指定する</value>
+    <value>特殊キーのコンボボックスの有効・無効を指定する。</value>
     <comment>プロパティ「特殊キーのコンボボックスの有効・無効」の説明</comment>
   </data>
   <data name="LayoutCategory" xml:space="preserve">
@@ -161,7 +161,7 @@ AutoSizeプロパティがFalseの場合のみ指定が可能</value>
     <comment>プロパティに設定する「プロパティ変更」カテゴリ</comment>
   </data>
   <data name="SettingDataChangedDescription" xml:space="preserve">
-    <value>設定データを変更した時に発生する</value>
+    <value>設定データを変更した時に発生する。</value>
     <comment>イベント「設定データ変更イベント」の説明</comment>
   </data>
   <data name="SummaryTextFormat" xml:space="preserve">
@@ -173,23 +173,23 @@ AutoSizeプロパティがFalseの場合のみ指定が可能</value>
     <comment>概要文字列において、押しっぱなしの場合に出力するメッセージ</comment>
   </data>
   <data name="VisibleImeKeyDescription" xml:space="preserve">
-    <value>IMEキーのコンボボックスの表示・非表示を指定する</value>
+    <value>IMEキーのコンボボックスの表示・非表示を指定する。</value>
     <comment>プロパティ「IMEキーのコンボボックスの表示・非表示」の説明</comment>
   </data>
   <data name="VisibleInputKeyDescription" xml:space="preserve">
-    <value>入力キーのコンボボックスの表示・非表示を指定する</value>
+    <value>入力キーのコンボボックスの表示・非表示を指定する。</value>
     <comment>プロパティ「入力キーのコンボボックスの表示・非表示」の説明</comment>
   </data>
   <data name="VisibleMouseDescription" xml:space="preserve">
-    <value>マウスのコンボボックスの表示・非表示を指定する</value>
+    <value>マウスのコンボボックスの表示・非表示を指定する。</value>
     <comment>プロパティ「マウスのコンボボックスの表示・非表示」の説明</comment>
   </data>
   <data name="VisibleOperateKeyDescription" xml:space="preserve">
-    <value>操作キーのコンボボックスの表示・非表示を指定する</value>
+    <value>操作キーのコンボボックスの表示・非表示を指定する。</value>
     <comment>プロパティ「操作キーのコンボボックスの表示・非表示」の説明</comment>
   </data>
   <data name="VisibleSpecialKeyDescription" xml:space="preserve">
-    <value>特殊キーのコンボボックスの表示・非表示を指定する</value>
+    <value>特殊キーのコンボボックスの表示・非表示を指定する。</value>
     <comment>プロパティ「特殊キーのコンボボックスの表示・非表示」の説明</comment>
   </data>
 </root>

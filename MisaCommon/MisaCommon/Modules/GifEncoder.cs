@@ -33,35 +33,29 @@
         /// 保存処理で使用する閾値（10M）
         /// 保存していないデータのデータサイズがこの閾値を超えた場合に都度保存を行う
         /// </summary>
-        private const long _defaultThresholdForSave = 10 * 1024 * 1024;
-
-        /// <summary>
-        /// 呼び出し元で生成したGif形式へエンコードしたデータの出力用ストリーム
-        /// （コンストラクタの引数として渡される）
-        /// </summary>
-        private readonly Stream _callerGeneratedOutputStream = null;
+        private const long DefaultThresholdForSave = 10 * 1024 * 1024;
 
         /// <summary>
         /// このクラスで生成したGif形式へエンコードしたデータの出力用ストリーム
         /// （コンストラクタの引数として渡された保存先のパスからコンストラクタで生成）
         /// </summary>
-        private Stream _thisClassGeneratedOutputStream = null;
+        private Stream thisClassGeneratedOutputStream = null;
 
         /// <summary>
         /// 出力先のストリームへバイナリデータを書き込むためのWriter
         /// </summary>
-        private BinaryWriter _writer = null;
+        private BinaryWriter writer = null;
 
         /// <summary>
         /// このクラスに追加された画像データをGif形式に変換したデータ
         /// 1行が 1フレーム（画像1枚分）のデータに相当する
         /// </summary>
-        private List<GifFrameData> _gifData;
+        private List<GifFrameData> gifData;
 
         /// <summary>
         /// Dispose処理済みかどうかのフラグ
         /// </summary>
-        private bool _isDisposed = false;
+        private bool isDisposed = false;
 
         #endregion
 
@@ -88,7 +82,7 @@
         public GifEncoder(Stream outputStream, bool isRoop, short roopCount)
         {
             // 出力用のストリームに関する設定
-            _callerGeneratedOutputStream
+            CallerGeneratedOutputStream
                 = outputStream ?? throw new ArgumentNullException(nameof(outputStream));
             SavePath = null;
             IsWriting = false;
@@ -177,7 +171,7 @@
         public GifEncoder(string savePath, bool isAppend, bool isRoop, short roopCount)
         {
             // 出力用のストリームに関する設定
-            _callerGeneratedOutputStream = null;
+            CallerGeneratedOutputStream = null;
             SavePath = savePath ?? throw new ArgumentNullException(nameof(savePath));
 
             // 追記を行う かつ、追記するファイルが存在する場合は、出力中フラグを ON にする
@@ -286,8 +280,10 @@
         /// <summary>
         /// 都度保存を行うかのフラグを取得・設定する（デフォルト：False）
         /// True：
-        /// 　メモリの消費を抑えるため、Gifデータのデータサイズが閾値（<see cref="ThresholdForSave"/>）を超える度に保存を行う
-        /// 　都度保存する場合でも最後のデータは保存しないため <see cref="Save()"/> メソッドの呼び出しは必要である
+        /// 　メモリの消費を抑えるため、Gifデータのデータサイズが
+        /// 　閾値（<see cref="ThresholdForSave"/>）を超える度に保存を行う
+        /// 　都度保存する場合でも最後のデータは保存しないため
+        /// 　<see cref="Save()"/> メソッドの呼び出しは必要である
         /// 　（閾値のデフォルト値は10M）
         /// False：
         /// 　<see cref="Save()"/>メソッドを明示的に呼び出さないと保存しない
@@ -298,12 +294,18 @@
         /// 都度の保存処理に使用する閾値を取得・設定する（デフォルト：10M）
         /// 保存していないGifデータのデータサイズがこの閾値に設定した値を超えた場合に都度保存を行う
         /// </summary>
-        public long ThresholdForSave { get; set; } = _defaultThresholdForSave;
+        public long ThresholdForSave { get; set; } = DefaultThresholdForSave;
 
         /// <summary>
         /// 現在このクラスで保持している保存していないデータのデータサイズを取得する
         /// </summary>
         public long NotSaveDataSize { get; private set; } = 0;
+
+        /// <summary>
+        /// 呼び出し元で生成したGif形式へエンコードしたデータの出力用ストリーム
+        /// （コンストラクタの引数として渡される）
+        /// </summary>
+        private Stream CallerGeneratedOutputStream { get; set; }
 
         /// <summary>
         /// Gif形式へエンコードしたデータの出力用ストリームを取得する
@@ -318,15 +320,16 @@
         /// 保存先のパス（<see name="SavePath"/>）にドライブラベル（C:\）の一部ではない
         /// コロン文字（:）が含まれている場合に発生
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
-        /// 保存先のパス（<see name="SavePath"/>）が示すディレクトリが正しくない場合に発生
-        /// (マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
-        /// 保存先のパス（<see name="SavePath"/>）がシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// <exception cref="IOException">
+        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、下記の場合に発生
+        /// ・保存先のパス（<see name="SavePath"/>）がシステム定義の最大長を超えている場合
+        /// 　（Windowsでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// 　[<see cref="PathTooLongException"/>]
+        /// ・保存先のパス（<see name="SavePath"/>）が示すディレクトリが正しくない場合
+        /// 　（マップされていないドライブ名が指定されている場合等）
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
@@ -337,42 +340,38 @@
         /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
-        /// I/O エラーが発生した場合に発生
-        /// </exception>
         private Stream OutputStream
         {
             get
             {
-                if (_callerGeneratedOutputStream != null)
+                if (CallerGeneratedOutputStream != null)
                 {
                     // 呼び出し元から出力ストリームが渡されている場合は、
                     // その出力ストリームを返す
-                    return _callerGeneratedOutputStream;
+                    return CallerGeneratedOutputStream;
                 }
-                else if (_thisClassGeneratedOutputStream != null)
+                else if (thisClassGeneratedOutputStream != null)
                 {
                     // 呼び出し元から保存先のパスを渡されている場合で、
                     // 既にそのパスから出力ストリームを生成済みの場合
                     // その出力ストリームを返す
-                    return _thisClassGeneratedOutputStream;
+                    return thisClassGeneratedOutputStream;
                 }
 
                 // 呼び出し元から保存先のパスを渡されている場合で、
                 // 出力ストリームを生成していない場合そのパスから出力ストリームを生成し返す
                 // （追記する場合は Open、追記しない場合は Create モードでストリームを生成する）
-                _thisClassGeneratedOutputStream
+                thisClassGeneratedOutputStream
                     = new FileStream(SavePath, IsWriting ? FileMode.Open : FileMode.Create);
 
                 // 追記の場合は現在位置を最後にする
                 if (IsWriting)
                 {
-                    _thisClassGeneratedOutputStream.Seek(
-                        _thisClassGeneratedOutputStream.Length - 1, SeekOrigin.Current);
+                    thisClassGeneratedOutputStream.Seek(
+                        thisClassGeneratedOutputStream.Length - 1, SeekOrigin.Current);
                 }
 
-                return _thisClassGeneratedOutputStream;
+                return thisClassGeneratedOutputStream;
             }
         }
 
@@ -395,15 +394,16 @@
         /// 保存先のパス（<see name="SavePath"/>）にドライブラベル（C:\）の一部ではない
         /// コロン文字（:）が含まれている場合に発生
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
-        /// 保存先のパス（<see name="SavePath"/>）が示すディレクトリが正しくない場合に発生
-        /// (マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
-        /// 保存先のパス（<see name="SavePath"/>）がシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// <exception cref="IOException">
+        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、下記の場合に発生
+        /// ・保存先のパス（<see name="SavePath"/>）がシステム定義の最大長を超えている場合
+        /// 　（Windowsでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// 　[<see cref="PathTooLongException"/>]
+        /// ・保存先のパス（<see name="SavePath"/>）が示すディレクトリが正しくない場合
+        /// 　（マップされていないドライブ名が指定されている場合等）
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
@@ -414,20 +414,16 @@
         /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// 呼び出し元から保存先のパス（<see name="SavePath"/>）を渡された場合において、
-        /// I/O エラーが発生した場合に発生
-        /// </exception>
         private BinaryWriter Writer
         {
             get
             {
-                if (_writer == null)
+                if (writer == null)
                 {
-                    _writer = new BinaryWriter(OutputStream);
+                    writer = new BinaryWriter(OutputStream);
                 }
 
-                return _writer;
+                return writer;
             }
         }
 
@@ -466,12 +462,12 @@
         {
             get
             {
-                if (_gifData == null)
+                if (gifData == null)
                 {
-                    _gifData = new List<GifFrameData>();
+                    gifData = new List<GifFrameData>();
                 }
 
-                return _gifData;
+                return gifData;
             }
         }
 
@@ -496,13 +492,14 @@
         /// <exception cref="ArgumentOutOfRangeException">
         /// 1フレームあたりのディレイ（<paramref name="delay"/>）が0未満の値の場合に発生
         /// </exception>
-        /// <exception cref="System.Runtime.InteropServices.ExternalException">
-        /// 引数の画像データ（<paramref name="image"/>）が正しくないイメージ形式の場合に発生
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
         /// ・出力用ストリームが書き込みをサポートしていない または、既に閉じられている場合
-        /// ・保存先パスが空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合
+        /// ・保存先パスが空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される
+        /// 　無効な文字が含まれている場合
+        /// </exception>
+        /// <exception cref="System.Runtime.InteropServices.ExternalException">
+        /// 引数の画像データ（<paramref name="image"/>）が正しくないイメージ形式の場合に発生
         /// </exception>
         /// <exception cref="ObjectDisposedException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
@@ -513,15 +510,16 @@
         /// ・出力用ストリームがシーク・書き込みをサポートしていない場合
         /// ・保存先のパスにドライブラベル（C:\）の一部ではないコロン文字（:）が含まれている場合
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
+        /// <exception cref="IOException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
-        /// ・保存先のパスが示すディレクトリが正しくない場合に発生
+        /// ・保存先のパスがシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（Windowsでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// ・保存先のパスが示すディレクトリが正しくない場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
         /// 　(マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
-        /// ・保存先のパスがシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
@@ -529,9 +527,6 @@
         /// </exception>
         /// <exception cref="System.Security.SecurityException">
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
         /// </exception>
         /// <exception cref="GifEncoderException">
         /// Gifデータへのエンコードに失敗した場合に発生
@@ -550,82 +545,67 @@
                     paramName: nameof(delay),
                     actualValue: delay,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionLessThan, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatLessThan,
+                        0));
             }
 
-            // BitmapFrameを破棄するために try-finally を実行
-            BitmapFrame bitmapFrame = null;
-            GifBitmapEncoder gifBitmapEncoder = null;
-            try
+            // BitmapFrameを生成するために使用する、画像データ用のStreamを生成
+            MemoryStream imageStream;
+            MemoryStream gifStream;
+            using (imageStream = new MemoryStream())
+            using (gifStream = new MemoryStream())
             {
-                // BitmapFrameを生成するために使用する、画像データ用のStreamを生成
-                using (MemoryStream imageStream = new MemoryStream())
-                using (MemoryStream gifStream = new MemoryStream())
+                // 画像データをメモリに書き出す
+                image.Save(imageStream, ImageFormat.Png);
+
+                // メモリから呼び出す位置を設定
+                imageStream.Seek(0, SeekOrigin.Begin);
+
+                // BitmapFrameを生成
+                BitmapFrame bitmapFrame = BitmapFrame.Create(
+                    imageStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+
+                // エンコーダーにBitmapFrameを追加する
+                GifBitmapEncoder gifBitmapEncoder = new GifBitmapEncoder();
+                gifBitmapEncoder.Frames.Add(bitmapFrame);
+
+                // Gifデータにエンコードをする
+                try
                 {
-                    // 画像データをメモリに書き出す
-                    image.Save(imageStream, ImageFormat.Png);
+                    // エンコードを行いGif形式のデータをバイナリ形式で取得する
+                    // （メモリーストリームを利用してバイナリデータを取得）
+                    gifBitmapEncoder.Save(gifStream);
+                    byte[] gif = gifStream.ToArray();
 
-                    // メモリから呼び出す位置を設定
-                    imageStream.Seek(0, SeekOrigin.Begin);
+                    // Gifデータのbyte配列からGifのフレーム単位のデータを生成する
+                    GifFrameData frameData = new GifFrameData(gif, delay);
 
-                    // BitmapFrameを生成
-                    bitmapFrame = BitmapFrame.Create(imageStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    // 生成したデータのデータサイズを保存していないデータのデータサイズに加算する
+                    NotSaveDataSize += frameData.DataSize;
 
-                    // エンコーダーにBitmapFrameを追加する
-                    gifBitmapEncoder = new GifBitmapEncoder();
-                    gifBitmapEncoder.Frames.Add(bitmapFrame);
+                    // Gifデータのリストに追加する
+                    GifData.Add(new GifFrameData(gif, delay));
 
-                    // Gifデータにエンコードをする
-                    try
+                    // 自動保存を行う場合 かつ 保存していないデータが閾値を超えている場合、
+                    // 保存を行う
+                    if (IsEachTimeSave && NotSaveDataSize > ThresholdForSave)
                     {
-                        // エンコードを行いGif形式のデータをバイナリ形式で取得する
-                        // （メモリーストリームを利用してバイナリデータを取得）
-                        gifBitmapEncoder.Save(gifStream);
-                        byte[] gifData = gifStream.ToArray();
-
-                        // Gifデータのbyte配列からGifのフレーム単位のデータを生成する
-                        GifFrameData frameData = new GifFrameData(gifData, delay);
-
-                        // 生成したデータのデータサイズを保存していないデータのデータサイズに加算する
-                        NotSaveDataSize += frameData.DataSize;
-
-                        // Gifデータのリストに追加する
-                        GifData.Add(new GifFrameData(gifData, delay));
-
-                        // 自動保存を行う場合 かつ 保存していないデータが閾値を超えている場合、
-                        // 保存を行う
-                        if (IsEachTimeSave && NotSaveDataSize > ThresholdForSave)
-                        {
-                            Save();
-                        }
-                    }
-                    catch (Exception ex)
-                        when (ex is InvalidOperationException
-                            || ex is ArgumentException)
-                    {
-                        // Gifのデータへのエンコードが失敗
-                        // または、生成したデータが不正な場合、例外をスローする
-                        throw new GifEncoderException(ErrorMessage.GifEncoderErrorEncodingFailed, ex);
+                        Save();
                     }
                 }
-            }
-            finally
-            {
-                // BitmapFrameを破棄
-                if (bitmapFrame != null)
+                catch (Exception ex)
+                    when (ex is InvalidOperationException
+                        || ex is ArgumentException)
                 {
-                    bitmapFrame = null;
+                    // Gifのデータへのエンコードが失敗
+                    // または、生成したデータが不正な場合、例外をスローする
+                    throw new GifEncoderException(ErrorMessage.GifEncoderErrorEncodingFailed, ex);
                 }
-
-                // GifBitmapEncoderを破棄
-                if (gifBitmapEncoder != null)
+                finally
                 {
-                    if (gifBitmapEncoder.Frames != null)
-                    {
-                        gifBitmapEncoder.Frames.Clear();
-                    }
-
-                    gifBitmapEncoder = null;
+                    // GifBitmapEncoderを破棄
+                    gifBitmapEncoder.Frames.Clear();
                 }
             }
         }
@@ -636,7 +616,8 @@
         /// <exception cref="ArgumentException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
         /// ・出力用ストリームが書き込みをサポートしていない または、既に閉じられている場合
-        /// ・保存先パスが空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合
+        /// ・保存先パスが空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される
+        /// 　無効な文字が含まれている場合
         /// </exception>
         /// <exception cref="ObjectDisposedException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
@@ -647,15 +628,16 @@
         /// ・出力用ストリームがシーク・書き込みをサポートしていない場合
         /// ・保存先のパスにドライブラベル（C:\）の一部ではないコロン文字（:）が含まれている場合
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
+        /// <exception cref="IOException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
-        /// ・保存先のパスが示すディレクトリが正しくない場合に発生
+        /// ・保存先のパスがシステム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（Windowsでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// ・保存先のパスが示すディレクトリが正しくない場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
         /// 　(マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
-        /// ・保存先のパスがシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// ・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// コンストラクタで指定した 出力用ストリーム または、保存先パスが以下の場合に発生する
@@ -663,9 +645,6 @@
         /// </exception>
         /// <exception cref="System.Security.SecurityException">
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
         /// </exception>
         /// <returns>
         /// 保存に成功した場合：True、
@@ -687,7 +666,7 @@
 
             // Gifデータをファイルに書き出す
             bool isFirst = true;
-            foreach (GifFrameData gifData in GifData)
+            foreach (GifFrameData gifFrameData in GifData)
             {
                 // 初回の出力処理の場合 かつ 初回データの場合ヘッダー情報を書き込む
                 if (!IsWriting && isFirst)
@@ -696,7 +675,7 @@
                     isFirst = false;
 
                     // ヘッダー情報を書き込む
-                    Writer.Write(gifData.GetHeader());
+                    Writer.Write(gifFrameData.GetHeader());
 
                     // ループをする場合、ループの情報を書き込む
                     if (IsRoop)
@@ -706,7 +685,7 @@
                 }
 
                 // ブロックデータの書き込む
-                Writer.Write(gifData.GetBlock());
+                Writer.Write(gifFrameData.GetBlock());
             }
 
             // 末端データの書き込む
@@ -751,32 +730,32 @@
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!_isDisposed)
+            if (!isDisposed)
             {
                 if (disposing)
                 {
                     // マネージドオブジェクトの解放
                     // バイナリデータを書き込むための Writerを解放する
-                    if (_writer != null)
+                    if (writer != null)
                     {
-                        _writer.Dispose();
+                        writer.Dispose();
                     }
 
                     // このクラスで生成した出力用ストリームを解放する
-                    if (_thisClassGeneratedOutputStream != null)
+                    if (thisClassGeneratedOutputStream != null)
                     {
-                        _thisClassGeneratedOutputStream.Dispose();
+                        thisClassGeneratedOutputStream.Dispose();
                     }
                 }
 
                 // アンマネージドオブジェクトの解放
 
                 // 大きなフィールドの解放（NULLの設定）
-                _gifData?.Clear();
-                _gifData = null;
+                gifData?.Clear();
+                gifData = null;
 
                 // Dispose済みのフラグを立てる
-                _isDisposed = true;
+                isDisposed = true;
             }
         }
 
@@ -839,33 +818,33 @@
             /// <summary>
             /// ヘッダーデータの最小データ長
             /// </summary>
-            private const long _minHeaderLength = 13;
+            public const long MinHeaderLength = 13;
 
             /// <summary>
             /// ブロックデータの最小データ長
             /// </summary>
-            private const long _minBlockLength = 8;
+            public const long MinBlockLength = 8;
 
             /// <summary>
             /// 末端データのデータ長
             /// </summary>
-            private const long _lastLength = 1;
+            public const long LastLength = 1;
 
             /// <summary>
             /// Gifのヘッダー情報
             /// </summary>
-            private byte[] _header;
+            private byte[] header;
 
             /// <summary>
             /// Gifのヘッダー情報
             /// </summary>
-            private byte[] _block;
+            private byte[] block;
 
             /// <summary>
             /// Gifの末端データ
             /// （基本的には 1 Byte のデータ）
             /// </summary>
-            private byte[] _last;
+            private byte[] last;
 
             #endregion
 
@@ -879,11 +858,12 @@
             /// <exception cref="ArgumentNullException">
             /// 引数のGifのフレーム単位のデータ（<paramref name="frameData"/>）がNULLの場合に発生
             /// </exception>
-            /// <exception cref="ArgumentException">
-            /// 引数のGifのフレーム単位のデータ（<paramref name="frameData"/>）がGifとして不正な形式の場合に発生
-            /// </exception>
             /// <exception cref="ArgumentOutOfRangeException">
             /// 1フレームあたりのディレイ（<paramref name="delay"/>）が0未満の値の場合に発生
+            /// </exception>
+            /// <exception cref="ArgumentException">
+            /// 引数のGifのフレーム単位のデータ（<paramref name="frameData"/>）が
+            /// Gifとして不正な形式の場合に発生
             /// </exception>
             public GifFrameData(byte[] frameData, short delay)
             {
@@ -921,11 +901,6 @@
             #region プロパティ
 
             /// <summary>
-            /// 末端データのデータ長
-            /// </summary>
-            public static long LastLength => _lastLength;
-
-            /// <summary>
             /// 保持しているデータのデータサイズ
             /// </summary>
             public long DataSize { get; private set; }
@@ -938,20 +913,29 @@
             /// Gifのヘッダー情報を取得する
             /// </summary>
             /// <returns>Gifのヘッダー情報</returns>
-            public byte[] GetHeader() => _header;
+            public byte[] GetHeader()
+            {
+                return header;
+            }
 
             /// <summary>
             /// Gifのブロックデータを取得する
             /// </summary>
             /// <returns>Gifのブロックデータ</returns>
-            public byte[] GetBlock() => _block;
+            public byte[] GetBlock()
+            {
+                return block;
+            }
 
             /// <summary>
             /// Gifの末端データを取得する
             /// （基本的には 1 Byte のデータ）
             /// </summary>
             /// <returns>Gifの末端データ</returns>
-            public byte[] GetLast() => _last;
+            public byte[] GetLast()
+            {
+                return last;
+            }
 
             #endregion
 
@@ -965,11 +949,12 @@
             /// <exception cref="ArgumentNullException">
             /// 引数のGifのフレーム単位のデータ（<paramref name="frameData"/>）がNULLの場合に発生
             /// </exception>
-            /// <exception cref="ArgumentException">
-            /// 引数のGifのフレーム単位のデータ（<paramref name="frameData"/>）がGifとして不正な形式の場合に発生
-            /// </exception>
             /// <exception cref="ArgumentOutOfRangeException">
             /// 1フレームあたりのディレイ（<paramref name="delay"/>）が0未満の値の場合に発生
+            /// </exception>
+            /// <exception cref="ArgumentException">
+            /// 引数のGifのフレーム単位のデータ（<paramref name="frameData"/>）が
+            /// Gifとして不正な形式の場合に発生
             /// </exception>
             private void Initialize(byte[] frameData, short delay)
             {
@@ -978,7 +963,7 @@
                 {
                     throw new ArgumentNullException(nameof(frameData));
                 }
-                else if (frameData.LongLength < (_minHeaderLength + _minBlockLength + _lastLength))
+                else if (frameData.LongLength < (MinHeaderLength + MinBlockLength + LastLength))
                 {
                     // 引数のフレームデータが最小長よりも短い場合、例外をスローする
                     throw new ArgumentException(ErrorMessage.GifEncoderErrorBadData, nameof(frameData));
@@ -990,7 +975,9 @@
                         paramName: nameof(delay),
                         actualValue: delay,
                         message: string.Format(
-                            CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionLessThan, 0));
+                            CultureInfo.InvariantCulture,
+                            CommonMessage.ArgumentOutOfRangeExceptionMessageFormatLessThan,
+                            0));
                 }
 
                 // ループで使用する制御変数の定義
@@ -1025,14 +1012,16 @@
                     {
                         // 現在の値から 1 byte 前～ 2 byte 先までのデータが「[00][21][F9][04]」の場合
                         // ブロックデータと判定する
-                        // （透過、ディレイ設定に 5 byte 先までのデータを使用するため、長さが足りるかの判定も行っている）
+                        // （透過、ディレイ設定に 5 byte 先までのデータを使用するため、
+                        // 　長さが足りるかの判定も行っている）
                         nowType = GifFrameDataType.Block;
 
                         // 既にブロックデータが存在する場合、
                         // 引数のデータがフレーム単位のデータでないため例外を発生させる
                         if (blockCount > 0)
                         {
-                            throw new ArgumentException(ErrorMessage.GifEncoderErrorNotSingleFrame, nameof(frameData));
+                            throw new ArgumentException(
+                                ErrorMessage.GifEncoderErrorNotSingleFrame, nameof(frameData));
                         }
                     }
                     else if (i == (frameData.LongLength - 1))
@@ -1061,7 +1050,7 @@
                 }
 
                 // データのカウントをチェックする
-                if (headerCount < _minHeaderLength)
+                if (headerCount < MinHeaderLength)
                 {
                     // ヘッダーデータが最小長よりも短い場合、例外をスローする
                     throw new ArgumentException(ErrorMessage.GifEncoderErrorBadHeader, nameof(frameData));
@@ -1071,26 +1060,26 @@
                     // ブロックデータが存在しない場合、例外をスローする
                     throw new ArgumentException(ErrorMessage.GifEncoderErrorNoBlock, nameof(frameData));
                 }
-                else if (blockCount < _minBlockLength)
+                else if (blockCount < MinBlockLength)
                 {
                     // ブロックデータが最小長よりも短い場合、例外をスローする
                     throw new ArgumentException(ErrorMessage.GifEncoderErrorBadBlock, nameof(frameData));
                 }
-                else if (lastCount < _lastLength)
+                else if (lastCount < LastLength)
                 {
                     // 末端データが最小長よりも短い場合、例外をスローする
                     throw new ArgumentException(ErrorMessage.GifEncoderErrorBadLast, nameof(frameData));
                 }
 
                 // ヘッダーデータを設定
-                byte[] header = new byte[headerCount];
+                byte[] headerData = new byte[headerCount];
                 for (long i = 0; i < headerCount; i++)
                 {
-                    header[i] = frameData[i];
+                    headerData[i] = frameData[i];
                 }
 
                 // ブロックデータを設定
-                byte[] block = new byte[blockCount];
+                byte[] blockData = new byte[blockCount];
                 long blockIndex = 0;
                 bool isFirst = true;
                 for (long i = headerCount; i < (headerCount + blockCount); i++)
@@ -1103,42 +1092,42 @@
                         isFirst = false;
 
                         // ブロックデータの区切りを示すデータの設定
-                        block[blockIndex++] = frameData[i++]; // 21
-                        block[blockIndex++] = frameData[i++]; // F9
-                        block[blockIndex++] = frameData[i++]; // 04
+                        blockData[blockIndex++] = frameData[i++]; // 21
+                        blockData[blockIndex++] = frameData[i++]; // F9
+                        blockData[blockIndex++] = frameData[i++]; // 04
 
                         // 透過処理の値を設定
-                        block[blockIndex++] = 0x09;
+                        blockData[blockIndex++] = 0x09;
                         i++;
 
                         // ディレイの設定
                         byte[] delayByte = delay.GetByte();
-                        block[blockIndex++] = delayByte[0];
+                        blockData[blockIndex++] = delayByte[0];
                         i++;
-                        block[blockIndex++] = delayByte[1];
+                        blockData[blockIndex++] = delayByte[1];
                         i++;
                     }
 
-                    block[blockIndex] = frameData[i];
+                    blockData[blockIndex] = frameData[i];
                     blockIndex++;
                 }
 
                 // 末端データを設定
-                byte[] last = new byte[lastCount];
+                byte[] lastData = new byte[lastCount];
                 long lastIndex = 0;
                 for (long i = (headerCount + blockCount); i < (headerCount + blockCount + lastCount); i++)
                 {
-                    last[lastIndex] = frameData[i];
+                    lastData[lastIndex] = frameData[i];
                     lastIndex++;
                 }
 
                 // クラス変数に値を設定し保持する
-                _header = header;
-                _block = block;
-                _last = last;
+                header = headerData;
+                block = blockData;
+                last = lastData;
 
                 // データサイズを保持する
-                DataSize = _header.LongLength + _block.LongLength + _last.LongLength;
+                DataSize = header.LongLength + block.LongLength + last.LongLength;
             }
 
             #endregion

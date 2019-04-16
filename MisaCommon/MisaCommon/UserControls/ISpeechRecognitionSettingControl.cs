@@ -4,7 +4,8 @@
     using System.Windows.Forms;
 
     /// <summary>
-    /// 音声認識に対するマッチングパターンと操作を設定するためのユーザコントロール（<see cref="SpeechRecognitionSetting"/>）における、
+    /// 音声認識に対するマッチングパターンと操作を設定するためのユーザコントロール
+    /// （<see cref="SpeechRecognitionSetting"/>）において、
     /// 操作設定のコントロールとして使用可能とするためのインターフェース
     /// </summary>
     public interface ISpeechRecognitionSettingControl
@@ -28,10 +29,14 @@
         string GetSummaryText(string settingData);
 
         /// <summary>
-        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で初期化したコントロールを取得する
+        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で
+        /// 初期化したコントロールを取得する
         /// </summary>
         /// <param name="settingData">設定データ</param>
-        /// <returns> 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で初期化したコントロール</returns>
+        /// <returns>
+        /// 操作設定のコントロールを引数の設定データ（<paramref name="settingData"/>）で
+        /// 初期化したコントロール
+        /// </returns>
         Control GetInitializeControl(string settingData);
     }
 }

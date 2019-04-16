@@ -19,7 +19,7 @@ namespace MisaCommon.MessageResources.UserControl {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class KeyInputSettingMessage {
@@ -61,7 +61,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   コントロールが、その内容に合わせて自動的に高さを変更するかどうかを指定する
+        ///   コントロールが、その内容に合わせて自動的に高さを変更するかどうかを指定する。
         ///AutoSizeプロパティがFalseの場合のみ指定が可能 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string AutoSizeHeightDescription {
@@ -71,7 +71,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   自動高さ調整時におけるコンボボックス領域の表示行数を指定する
+        ///   自動高さ調整時におけるコンボボックス領域の表示行数を指定する。
         ///0を指定した場合は全てを表示するサイズに調整する に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string AutoSizeHeightDisplayLinesDescription {
@@ -81,7 +81,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   コントロールが、その内容に合わせて自動的に幅を変更するかどうかを指定する
+        ///   コントロールが、その内容に合わせて自動的に幅を変更するかどうかを指定する。
         ///AutoSizeプロパティがFalseの場合のみ指定が可能 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string AutoSizeWidthDescription {
@@ -91,7 +91,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   IMEキーのコンボボックスの有効・無効を指定する に類似しているローカライズされた文字列を検索します。
+        ///   IMEキーのコンボボックスの有効・無効を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EnabledImeKeyDescription {
             get {
@@ -100,7 +100,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   入力キーのコンボボックスの有効・無効を指定する に類似しているローカライズされた文字列を検索します。
+        ///   入力キーのコンボボックスの有効・無効を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EnabledInputKeyDescription {
             get {
@@ -109,7 +109,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   マウスのコンボボックスの有効・無効を指定する に類似しているローカライズされた文字列を検索します。
+        ///   マウスのコンボボックスの有効・無効を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EnabledMouseDescription {
             get {
@@ -118,7 +118,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   操作キーのコンボボックスの有効・無効を指定する に類似しているローカライズされた文字列を検索します。
+        ///   操作キーのコンボボックスの有効・無効を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EnabledOperateKeyDescription {
             get {
@@ -127,7 +127,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   特殊キーのコンボボックスの有効・無効を指定する に類似しているローカライズされた文字列を検索します。
+        ///   特殊キーのコンボボックスの有効・無効を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EnabledSpecialKeyDescription {
             get {
@@ -154,7 +154,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   設定データを変更した時に発生する に類似しているローカライズされた文字列を検索します。
+        ///   設定データを変更した時に発生する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string SettingDataChangedDescription {
             get {
@@ -181,7 +181,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   IMEキーのコンボボックスの表示・非表示を指定する に類似しているローカライズされた文字列を検索します。
+        ///   IMEキーのコンボボックスの表示・非表示を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string VisibleImeKeyDescription {
             get {
@@ -190,7 +190,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   入力キーのコンボボックスの表示・非表示を指定する に類似しているローカライズされた文字列を検索します。
+        ///   入力キーのコンボボックスの表示・非表示を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string VisibleInputKeyDescription {
             get {
@@ -199,7 +199,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   マウスのコンボボックスの表示・非表示を指定する に類似しているローカライズされた文字列を検索します。
+        ///   マウスのコンボボックスの表示・非表示を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string VisibleMouseDescription {
             get {
@@ -208,7 +208,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   操作キーのコンボボックスの表示・非表示を指定する に類似しているローカライズされた文字列を検索します。
+        ///   操作キーのコンボボックスの表示・非表示を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string VisibleOperateKeyDescription {
             get {
@@ -217,7 +217,7 @@ namespace MisaCommon.MessageResources.UserControl {
         }
         
         /// <summary>
-        ///   特殊キーのコンボボックスの表示・非表示を指定する に類似しているローカライズされた文字列を検索します。
+        ///   特殊キーのコンボボックスの表示・非表示を指定する。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string VisibleSpecialKeyDescription {
             get {

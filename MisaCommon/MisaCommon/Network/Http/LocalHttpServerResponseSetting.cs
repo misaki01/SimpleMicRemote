@@ -70,7 +70,8 @@
         public HttpResponseData DefaultResponse { get; private set; }
 
         /// <summary>
-        /// GET favicon.icoのリクエスト処理で呼び出されるHttpレスポンスの処理の情報を格納したクラスを取得する
+        /// GET favicon.icoのリクエスト処理で呼び出される
+        /// Httpレスポンスの処理の情報を格納したクラスを取得する
         /// </summary>
         public HttpResponseData FaviconResponse { get; private set; }
 
@@ -117,7 +118,9 @@
             // 引数に合致するHttpレスポンスの処理のクラスを取得
             // 取得できなかった場合は、NULL
             LocalHttpServerResponceProcess responceProcess =
-                ResponceProcesses?.FirstOrDefault((x) => x.MethodString.Equals(method) && x.ProcessNameRegex.IsMatch(processName));
+                ResponceProcesses?.FirstOrDefault(
+                    (x) => x.MethodString.Equals(method, StringComparison.Ordinal)
+                        && x.ProcessNameRegex.IsMatch(processName));
 
             // 取得したHttpレスポンスの処理のクラスを返却
             return responceProcess;
@@ -153,7 +156,9 @@
 
             // 引数に合致するHttpレスポンスの処理のクラスを取得
             IEnumerable<LocalHttpServerResponceProcess> processes =
-                ResponceProcesses?.Where((x) => x.MethodString.Equals(method) && x.ProcessNameRegex.IsMatch(processName));
+                ResponceProcesses?.Where(
+                    (x) => x.MethodString.Equals(method, StringComparison.Ordinal)
+                        && x.ProcessNameRegex.IsMatch(processName));
             if (processes == null || !processes.Any())
             {
                 // 取得できなかった場合は、NULL返却

@@ -31,12 +31,22 @@
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティの初期化を行う
         /// </summary>
         public ConfigXmlRoot()
         {
             UserSettings = new ConfigXmlUserSettings();
+        }
+
+        /// <summary>
+        /// コンストラクタ
+        /// 各プロパティを引数の値で初期化する
+        /// </summary>
+        /// <param name="userSettings">ユーザ設定Element</param>
+        public ConfigXmlRoot(ConfigXmlUserSettings userSettings)
+        {
+            UserSettings = userSettings;
         }
 
         #endregion

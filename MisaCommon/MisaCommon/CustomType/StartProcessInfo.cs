@@ -16,18 +16,18 @@
     /// このクラスの公開プロパティにおける表示名と説明は、
     /// <see cref="LocalizableTypeConverter{T, TResouces}"/>にてマッピングしている
     /// <list type="bullet">
-    ///     <item>
-    ///         <term>string型への変換</term>
-    ///         <description>
-    ///         各パラメータを下記の順番でパイプ区切りの文字列で表現する
-    ///         １．起動するexeファイルのパス
-    ///         ２．起動したプロセスのウィンドウのサイズと位置
-    ///         ３．プロセス起動後、処理を待つ間隔（ミリ秒）
-    ///         ４．起動パラメータ
-    ///         【例】c\xxx\xxx\abc.exe|0, 0, 1200, 800|500|--abe="xxxx"
-    ///         ※省略したパラメータは空欄となる
-    ///         </description>
-    ///     </item>
+    /// <item>
+    /// <term>string型への変換</term>
+    /// <description>
+    /// 各パラメータを下記の順番でパイプ区切りの文字列で表現する
+    /// １．起動するexeファイルのパス
+    /// ２．起動したプロセスのウィンドウのサイズと位置
+    /// ３．プロセス起動後、処理を待つ間隔（ミリ秒）
+    /// ４．起動パラメータ
+    /// 【例】c\xxx\xxx\abc.exe|0, 0, 1200, 800|500|--abe="xxxx"
+    /// ※省略したパラメータは空欄となる
+    /// </description>
+    /// </item>
     /// </list>
     /// </remarks>
     [Serializable]
@@ -39,14 +39,14 @@
         /// <summary>
         /// プロセス起動後、処理を待つ間隔（ミリ秒）のシリアル化用のフィールド
         /// </summary>
-        private string _waitDelaySerialized;
+        private string waitDelaySerialized;
 
         #endregion
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティを初期化する
         /// </summary>
         /// <param name="processPath">
@@ -66,7 +66,8 @@
         /// 値を大きくしすぎると他の操作で起動したプロセスを誤って検出してしまう
         /// 起動が遅いプロセスについてのみ、大きい値を設定すること
         /// </param>
-        public StartProcessInfo(string processPath, string startupParam, SizePoint sizePoint, int? waitDelay)
+        public StartProcessInfo(
+            string processPath, string startupParam, SizePoint sizePoint, int? waitDelay)
         {
             ProcessPath = processPath;
             StartupParam = startupParam;
@@ -191,19 +192,17 @@
                 // 文字列から数値に変換して返却
                 bool canParse = false;
                 int waitDelay = 0;
-                if (!string.IsNullOrWhiteSpace(_waitDelaySerialized))
+                if (!string.IsNullOrWhiteSpace(waitDelaySerialized))
                 {
-                    canParse = int.TryParse(_waitDelaySerialized, out waitDelay);
+                    canParse = int.TryParse(waitDelaySerialized, out waitDelay);
                 }
 
                 return canParse ? waitDelay : (int?)null;
             }
 
-            set
-            {
-                // シリアル化のため内部では文字列で保持する
-                _waitDelaySerialized = value?.ToString(CultureInfo.InvariantCulture);
-            }
+            // シリアル化のため内部では文字列で保持する
+            set =>
+                waitDelaySerialized = value?.ToString(CultureInfo.InvariantCulture);
         }
 
         #endregion

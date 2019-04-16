@@ -15,7 +15,8 @@
 
     /// <summary>
     /// Exe実行パスにてユーザに関するアプリケーション設定情報を管理するための、
-    /// <see cref="IApplicationSettingsProvider"/> インターフェースを実装する <see cref="SettingsProvider"/> の派生クラス
+    /// <see cref="IApplicationSettingsProvider"/> インターフェースを実装する
+    /// <see cref="SettingsProvider"/> の派生クラス
     /// </summary>
     public class UserSettingsProvider : SettingsProvider, IApplicationSettingsProvider
     {
@@ -29,20 +30,20 @@
         /// <summary>
         /// 現在実行中のアプリケーションの名前
         /// </summary>
-        private string _applicationName;
+        private string applicationName;
 
         #endregion
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// <see cref="ExecuteEnvironment"/> からアプリケーションの名称を取得し初期化する
         /// </summary>
         public UserSettingsProvider()
         {
             // アセンブリのファイル名を設定
-            _applicationName = ExecuteEnvironment.AssemblyFileNameWithoutExtension ?? string.Empty;
+            applicationName = ExecuteEnvironment.AssemblyFileNameWithoutExtension ?? string.Empty;
         }
 
         /// <summary>
@@ -52,7 +53,7 @@
         /// <param name="applicationName">現在実行中のアプリケーションの名前</param>
         public UserSettingsProvider(string applicationName)
         {
-            _applicationName = string.IsNullOrEmpty(applicationName) ? string.Empty : applicationName;
+            this.applicationName = string.IsNullOrEmpty(applicationName) ? string.Empty : applicationName;
         }
 
         #endregion
@@ -66,85 +67,11 @@
         /// <remarks>
         /// 基底クラスとの競合を避けるため、このプロパティは自動プロパティにしない
         /// </remarks>
-        public override string ApplicationName { get => _applicationName; set => _applicationName = value; }
+        public override string ApplicationName { get => applicationName; set => applicationName = value; }
 
         #endregion
 
         #region メソッド
-
-        /// <summary>
-        /// ユーザコンフィグのデフォルトの設定情報（ディクショナリ_Key：名称、Value：設定値）を取得する
-        /// </summary>
-        /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
-        /// </param>
-        /// <exception cref="AmbiguousMatchException">
-        /// 引数のコンテキスト情報（<see cref="SettingsContext"/>）から取得したプロパティにおいて、
-        /// 下記の属性が重複して設定されている場合に発生
-        /// ・<see cref="UserScopedSettingAttribute"/> 属性
-        /// ・<see cref="DefaultSettingValueAttribute"/> 属性
-        /// </exception>
-        /// <exception cref="TypeLoadException">
-        /// 引数のコンテキスト情報（<see cref="SettingsContext"/>）から取得したプロパティが、
-        /// カスタム属性の型であり読み込むことができない場合に発生
-        /// </exception>
-        /// <returns>
-        /// ユーザコンフィグのデフォルトの設定情報（ディクショナリ_Key：名称、Value：設定値）
-        /// </returns>
-        public static IDictionary<string, string> GetDefaultUserSettings(SettingsContext context)
-        {
-            IDictionary<string, string> settings = new Dictionary<string, string>();
-
-            // AppコンフィグのuserSettingを読み込む
-            IDictionary<string, SettingElement> userSettings = GetAppConfigSettings(context, true);
-
-            // Contextが示すクラスからプロパティリストを取得
-            PropertyInfo[] properties;
-            if (GetSettingsContextData<TypeInfo>(context, "SettingsClassType") is TypeInfo contextTypeInfo)
-            {
-                BindingFlags dindingAttr = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
-                properties = contextTypeInfo.GetProperties(dindingAttr);
-            }
-            else
-            {
-                properties = new PropertyInfo[0];
-            }
-
-            // 取得したプロパティリスト分ループ
-            foreach (PropertyInfo info in properties)
-            {
-                // プロパティの属性が「ユーザ設定」のプロパティのみリセットを行う
-                if (info.GetCustomAttribute(typeof(UserScopedSettingAttribute)) != null)
-                {
-                    // プロパティメンバーの名称がNULL又は空の場合は次のループへ行く
-                    if (string.IsNullOrEmpty(info.Name))
-                    {
-                        continue;
-                    }
-
-                    // デフォルト値を取得
-                    string defaultValue = string.Empty;
-                    if (userSettings.TryGetValue(info.Name, out SettingElement element)
-                        && element?.Value?.ValueXml?.InnerXml != null)
-                    {
-                        // userSettinsの値が存在する場合、その値を取得
-                        defaultValue = userSettings[info.Name].Value.ValueXml.InnerXml;
-                    }
-                    else if (info.GetCustomAttribute(typeof(DefaultSettingValueAttribute))
-                        is DefaultSettingValueAttribute defaultArrtibute)
-                    {
-                        // userSettinsに値が存在しない場合かつ、デフォルト属性の指定が存在する場合、そのデフォルト値を取得
-                        defaultValue = defaultArrtibute.Value;
-                    }
-
-                    // ユーザコンフィグの値を既定値のデータを追加する
-                    settings.Add(info.Name, defaultValue);
-                }
-            }
-
-            // 取得した設定情報を返却
-            return settings;
-        }
 
         #region SettingsProviderの実装
 
@@ -172,6 +99,7 @@
             }
             catch (InvalidOperationException ex)
             {
+                // 下記のエラーの場合は想定しているエラーのため個別に処理を行う
                 // [InvalidOperationException]
                 // ・プロバイダーが既に初期化されていた場合に発生（Initializeの2重実行の場合）
 
@@ -186,93 +114,107 @@
         /// 値を含む設定プロパティ（<see cref="SettingsPropertyValue"/>）のコレクションを生成して返却
         /// </summary>
         /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
+        /// 現在のアプリケーションの設定情報を格納した、コンテキストオブジェクト
         /// </param>
         /// <param name="collection">
         /// 値の取得対象となる設定プロパティ（<see cref="SettingsProperty"/>）のコレクション
         /// </param>
         /// <returns>
-        /// 対象のアプリケーションの app.config、user.config から生成した <see cref="SettingsPropertyValue"/> のコレクション
+        /// 対象のアプリケーションの app.config、user.config から生成した
+        /// <see cref="SettingsPropertyValue"/> のコレクション
         /// </returns>
-        public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context, SettingsPropertyCollection collection)
+        public override SettingsPropertyValueCollection GetPropertyValues(
+            SettingsContext context, SettingsPropertyCollection collection)
         {
+            // 引数の設定プロパティのコレクションが NULL の場合は、空のコレクションを返却する
+            if (collection == null)
+            {
+                return new SettingsPropertyValueCollection();
+            }
+
+            // App.config からアプリケーション設定セクション、ユーザ設定セクションの情報を読み込む
+            AppConfig appConfig = new AppConfig();
+            IDictionary<string, string> applicationSettings = appConfig.GetApplicationSettings(context);
+            IDictionary<string, string> userSettings = appConfig.GetUserSettings(context);
+
+            // ユーザコンフィグを読み込む
+            // （Exeファイルが存在するフォルダに存在するuser.configを使用する）
+            IDictionary<string, ConfigXmlSetting> userConfigData = new UserConfig().SettingData;
+
             // 戻り値のコレクション生成
             SettingsPropertyValueCollection propertyValueCollection = new SettingsPropertyValueCollection();
 
             try
             {
-                // AppコンフィグのapplicationSettingを読み込む
-                IDictionary<string, SettingElement> applicationSettings = GetAppConfigSettings(context, false);
-
-                // AppコンフィグのuserSettingsを読み込む
-                IDictionary<string, SettingElement> userSettings = GetAppConfigSettings(context, true);
-
-                // ユーザコンフィグを読み込む（Exeファイルが存在するフォルダに存在するuser.configを使用する）
-                IDictionary<string, ConfigXmlSetting> userConfigSettings = new UserConfig().ConfigXmlSettingData;
-
-                // 引数の設定プロパティのコレクションでループし、Appコンフィグ、ユーザコンフィグから読み込んだ値を設定する
-                if (collection != null)
+                // 引数の設定プロパティのコレクションでループし、
+                // Appコンフィグ、ユーザコンフィグから読み込んだ値を設定する
+                foreach (SettingsProperty setting in collection)
                 {
-                    foreach (SettingsProperty setting in collection)
+                    // 設定対象のSettingsPropertyがNULL又は設定値の名称が存在しない場合は、
+                    // 設定対象が存在しないため無視する
+                    if (setting.Name == null)
                     {
-                        // 設定対象のSettingsPropertyがNULL又は設定値の名称が存在しない場合は、
-                        // 設定対象が存在しないため無視する
-                        if (setting.Name == null)
-                        {
-                            continue;
-                        }
-
-                        // 引数から設定プロパティオブジェクトを生成
-                        SettingsPropertyValue settingsPropertyValue = new SettingsPropertyValue(setting);
-
-                        // 値の設定を行う
-                        if (setting.Attributes?.Contains(typeof(UserScopedSettingAttribute)) ?? false)
-                        {
-                            // ユーザの設定の場合、読み込んだユーザコンフィグ、AppコンフィグのuserSettinsの値を設定する
-                            if (userConfigSettings.TryGetValue(setting.Name, out ConfigXmlSetting userConfigElement)
-                                && userConfigElement != null)
-                            {
-                                // ユーザコンフィグに値が存在する場合、その値を設定する
-                                settingsPropertyValue.SerializedValue = userConfigElement.Value;
-                            }
-                            else if (userSettings.TryGetValue(setting.Name, out SettingElement userSettingElement)
-                                && userSettingElement?.Value?.ValueXml?.InnerXml != null)
-                            {
-                                // ユーザコンフィグに値が存在しないかつ、AppコンフィグのuserSettinsの値が存在する場合、その値を設定する
-                                settingsPropertyValue.SerializedValue = userSettingElement.Value.ValueXml.InnerXml;
-                            }
-                            else
-                            {
-                                // ユーザコンフィグ、AppコンフィグのuserSettinsに値が存在しない場合、デフォルト値を設定する
-                                settingsPropertyValue.SerializedValue = setting.DefaultValue;
-                            }
-                        }
-                        else if (setting.Attributes?.Contains(typeof(ApplicationScopedSettingAttribute)) ?? false)
-                        {
-                            // アプリケーション設定の場合、読み込んだAppコンフィグのapplicationSettingの値を設定する
-                            if (applicationSettings.TryGetValue(setting.Name, out SettingElement appSettingElement)
-                                && appSettingElement?.Value?.ValueXml?.InnerXml != null)
-                            {
-                                // AppコンフィグのapplicationSettingに値が存在する場合、その値を設定する
-                                settingsPropertyValue.SerializedValue = appSettingElement.Value.ValueXml.InnerXml;
-                            }
-                            else
-                            {
-                                // AppコンフィグのapplicationSettingに値が存在しない場合、デフォルト値を設定する
-                                settingsPropertyValue.SerializedValue = setting.DefaultValue;
-                            }
-                        }
-
-                        // 初期取得処理であり値を変更していないため False を設定
-                        settingsPropertyValue.IsDirty = false;
-
-                        // 設定した値をコレクションに格納する
-                        propertyValueCollection.Add(settingsPropertyValue);
+                        continue;
                     }
+
+                    // 引数から設定プロパティオブジェクトを生成
+                    SettingsPropertyValue settingsPropertyValue = new SettingsPropertyValue(setting);
+
+                    // 値の設定を行う
+                    if (setting.Attributes?.Contains(
+                        typeof(UserScopedSettingAttribute)) ?? false)
+                    {
+                        // ユーザの設定の場合
+                        if (userConfigData.TryGetValue(setting.Name, out ConfigXmlSetting userConfigElement)
+                            && userConfigElement != null)
+                        {
+                            // ユーザコンフィグに値が存在する場合、その値を設定する
+                            settingsPropertyValue.SerializedValue = userConfigElement.Value;
+                        }
+                        else if (userSettings.TryGetValue(setting.Name, out string userSettingValue)
+                            && userSettingValue != null)
+                        {
+                            // ユーザコンフィグに値が存在しないかつ
+                            // AppコンフィグのuserSettinsの値が存在する場合、
+                            // その値を設定する
+                            settingsPropertyValue.SerializedValue = userSettingValue;
+                        }
+                        else
+                        {
+                            // ユーザコンフィグ、AppコンフィグのuserSettinsに値が存在しない場合、
+                            // デフォルト値を設定する
+                            settingsPropertyValue.SerializedValue = setting.DefaultValue;
+                        }
+                    }
+                    else if (setting.Attributes?.Contains(
+                        typeof(ApplicationScopedSettingAttribute)) ?? false)
+                    {
+                        // アプリケーション設定の場合
+                        if (applicationSettings.TryGetValue(setting.Name, out string appSettingValue)
+                            && appSettingValue != null)
+                        {
+                            // AppコンフィグのapplicationSettingに値が存在する場合、
+                            // その値を設定する
+                            settingsPropertyValue.SerializedValue = appSettingValue;
+                        }
+                        else
+                        {
+                            // AppコンフィグのapplicationSettingに値が存在しない場合、
+                            // デフォルト値を設定する
+                            settingsPropertyValue.SerializedValue = setting.DefaultValue;
+                        }
+                    }
+
+                    // 初期取得処理であり値を変更していないため False を設定
+                    settingsPropertyValue.IsDirty = false;
+
+                    // 設定した値をコレクションに格納する
+                    propertyValueCollection.Add(settingsPropertyValue);
                 }
             }
             catch (ArgumentException ex)
             {
+                // 下記のエラーの場合は想定しているエラーのため個別に処理を行う
                 // [ArgumentException]
                 // ・SerializedValueプロパティへの値の設定処理において
                 // 　TypeConverterにおいて文字列から元の型への変換機能が提供されていない場合に発生
@@ -287,85 +229,90 @@
         }
 
         /// <summary>
-        /// 引数（<paramref name="collection"/>）の内容をアプリケーションの構成ファイルに設定する
+        /// 引数（<paramref name="collection"/>）の内容を設定プロパティに設定する
         /// </summary>
         /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
+        /// 現在のアプリケーションの設定情報を格納した、コンテキストオブジェクト
         /// </param>
         /// <param name="collection">
-        /// 構成ファイルに設定する内容を含む、設定プロパティ（<see cref="SettingsPropertyValue"/>）のコレクション
+        /// 構成ファイルに設定する内容を含む、
+        /// 設定プロパティ（<see cref="SettingsPropertyValue"/>）のコレクション
         /// </param>
-        public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection collection)
+        public override void SetPropertyValues(
+            SettingsContext context, SettingsPropertyValueCollection collection)
         {
-            try
+            // 引数の設定プロパティのコレクションが NULL の場合は処理を抜ける
+            if (collection == null)
             {
-                // ユーザコンフィグを読み込む（Exeファイルが存在するフォルダに存在するuser.configを使用する）
-                UserConfig userConfig = new UserConfig();
-                IDictionary<string, ConfigXmlSetting> userConfigSettings = userConfig.ConfigXmlSettingData;
+                return;
+            }
 
-                // 引数の設定プロパティのコレクションでループする
-                if (collection != null)
+            // ユーザコンフィグを読み込む
+            // （Exeファイルが存在するフォルダに存在するuser.configを使用する）
+            UserConfig userConfig = new UserConfig();
+
+            // 引数の設定プロパティのコレクションでループする
+            foreach (SettingsPropertyValue setting in collection.OfType<SettingsPropertyValue>())
+            {
+                // 設定プロパティの属性が「ユーザ設定」と指定されているプロパティのみ保存対象とする
+                if (setting.Property?.Attributes?.Contains(typeof(UserScopedSettingAttribute)) ?? false)
                 {
-                    // collectionが2回破棄されるという警告の対応のため一旦配列にコピーしてからループ
-                    SettingsPropertyValue[] settinArray = new SettingsPropertyValue[collection.Count];
-                    collection.CopyTo(settinArray, 0);
-                    foreach (SettingsPropertyValue setting in settinArray)
+                    // プロパティメンバーの名称がNULL又は空の場合は次のループへ行く
+                    if (string.IsNullOrEmpty(setting.Name))
                     {
-                        // 設定プロパティの属性が「ユーザ設定」と指定されているプロパティのみ保存対象とする
-                        if (setting.Property?.Attributes?.Contains(typeof(UserScopedSettingAttribute)) ?? false)
-                        {
-                            // プロパティメンバーの名称がNULL又は空の場合は次のループへ行く
-                            if (string.IsNullOrEmpty(setting.Name))
-                            {
-                                continue;
-                            }
-
-                            // ユーザコンフィグから名称が一致するデータが存在するかチェック
-                            if (userConfigSettings.TryGetValue(setting.Name, out ConfigXmlSetting userConfigElement)
-                                && userConfigElement != null)
-                            {
-                                // ユーザコンフィグに値が存在する場合、その値を更新する
-
-                                // ユーザコンフィグの対象行のインデックスを取得
-                                int index = userConfig.ConfigXmlData.UserSettings.Settings.IndexOf(userConfigElement);
-
-                                // 値の更新
-                                userConfig.ConfigXmlData.UserSettings.Settings[index].SerializeAs
-                                    = setting.Property.SerializeAs.ToString();
-                                userConfig.ConfigXmlData.UserSettings.Settings[index].Value
-                                    = setting.SerializedValue?.ToString();
-                            }
-                            else
-                            {
-                                // ユーザコンフィグに値が存在しない場合、設定を追加する
-                                userConfig.ConfigXmlData.UserSettings.Settings.Add(
-                                    new ConfigXmlSetting(
-                                        name: setting.Name,
-                                        serializeAs: setting.Property.SerializeAs.ToString(),
-                                        value: setting.SerializedValue?.ToString()));
-                            }
-                        }
+                        continue;
                     }
 
-                    // 使い終わったコピー領域を解放
-                    settinArray = null;
-                }
+                    // ユーザコンフィグから名称が一致するデータが存在するかチェック
+                    if (userConfig.SettingData.TryGetValue(
+                        setting.Name, out ConfigXmlSetting userConfigElement)
+                        && userConfigElement != null)
+                    {
+                        // ユーザコンフィグに値が存在する場合、その値を更新する
 
+                        // ユーザコンフィグの対象行のインデックスを取得
+                        int index = userConfig.XmlData.UserSettings.Settings.IndexOf(userConfigElement);
+
+                        // 値の更新
+                        userConfig.XmlData.UserSettings.Settings[index].SerializeAs
+                            = setting.Property.SerializeAs.ToString();
+                        userConfig.XmlData.UserSettings.Settings[index].Value
+                            = setting.SerializedValue?.ToString();
+                    }
+                    else
+                    {
+                        // ユーザコンフィグに値が存在しない場合、設定を追加する
+                        userConfig.XmlData.UserSettings.Settings.Add(
+                            new ConfigXmlSetting(
+                                name: setting.Name,
+                                serializeAs: setting.Property.SerializeAs.ToString(),
+                                value: setting.SerializedValue?.ToString()));
+                    }
+                }
+            }
+
+            try
+            {
                 // ユーザコンフィグの保存を行う
                 userConfig.Write();
             }
             catch (Exception ex)
-                when (ex is UnauthorizedAccessException
-                    || ex is IOException
+                when (ex is IOException
+                    || ex is UnauthorizedAccessException
                     || ex is SecurityException)
             {
                 // 下記のエラーの場合は想定しているエラーのため個別に処理を行う
+                // [IOException]
+                // ・コンフィグの保存パスが、システム定義の最大長を超えている場合に発生
+                // 　[PathTooLongException]
+                // 　（Windowsでは、パスは248文字以下、ファイル名は260文字以下にする必要がある）
+                // ・コンフィグの保存パスが正しくない場合に発生（マップされていないドライブ等）
+                // 　[DirectoryNotFoundException]
+                // ・コンフィグの保存パスにおいてファイル名、ディレクトリ名、またはボリューム ラベル構文が、
+                // 　正しくないか無効な構文の場合に発生
+                // 　[IOException]
                 // [UnauthorizedAccessException]
                 // ・コンフィグの保存先フォルダへのアクセスが拒否された場合に発生
-                // [IOException],[PathTooLongException]
-                // ・コンフィグの保存パスにおいてファイル名、ディレクトリ名、またはボリューム ラベル構文の正しくないか無効な構文の場合に発生
-                // ・コンフィグの保存パスにがシステム定義の最大長を超えている場合に発生
-                // 　Windows ベースのプラットフォームでは、パスは248文字以下、ファイル名は260文字以下にする必要がある
                 // [SecurityException]
                 // ・コンフィグの保存先フォルダへの必要なアクセス許可がない場合に発生
 
@@ -380,10 +327,11 @@
         #region IApplicationSettingsProviderの実装
 
         /// <summary>
-        /// 【未使用のため未実装】引数 <paramref name="property"/> で指定したプロパティにおいて、同じアプリケーションの前のバージョンの値を取得する
+        /// 【未使用のため未実装】引数 <paramref name="property"/> で指定したプロパティにおいて、
+        /// 同じアプリケーションの前のバージョンの値を取得する
         /// </summary>
         /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
+        /// 現在のアプリケーションの設定情報を格納した、コンテキストオブジェクト
         /// </param>
         /// <param name="property">
         /// 取得対象とする設定プロパティ（<see cref="SettingsProperty"/>）
@@ -392,8 +340,9 @@
         /// このメソッドを呼び出した時に発生
         /// </exception>
         /// <returns>
-        /// 引数 <paramref name="property"/> で指定したプロパティにおいて、前のバージョンのアプリケーションで最後に設定されたときの値を格納している
-        /// 値を含む設定プロパティ（<see cref="SettingsPropertyValue"/>）を返却
+        /// 引数 <paramref name="property"/> で指定したプロパティにおいて、
+        /// 前のバージョンのアプリケーションで最後に設定されたときの値を格納している値を含む
+        /// 設定プロパティ（<see cref="SettingsPropertyValue"/>）を返却
         /// 設定が存在しない場合はNULLを返却
         /// </returns>
         [Obsolete("このメソッドは実装されていないため使用できません。", true)]
@@ -407,7 +356,7 @@
         /// アプリケーション構成ファイルを既定値にリセットする
         /// </summary>
         /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
+        /// 現在のアプリケーションの設定情報を格納した、コンテキストオブジェクト
         /// </param>
         /// <exception cref="AmbiguousMatchException">
         /// 引数のコンテキスト情報（<see cref="SettingsContext"/>）から取得したプロパティにおいて、
@@ -423,39 +372,29 @@
         {
             try
             {
-                // ユーザコンフィグを生成する
-                UserConfig userConfig = new UserConfig();
-
-                // リセットの処理のためユーザコンフィグの設定情報をクリアする
-                userConfig.ConfigXmlData.UserSettings.Settings.Clear();
-
                 // ユーザコンフィグのデフォルトの設定情報を取得する
-                IDictionary<string, string> defaultUserSettings = GetDefaultUserSettings(context);
+                UserConfig defaultConfig = UserConfig.CreateDefaultValueConfig(context);
 
-                // 取得したプロパティリスト分ループ
-                foreach (string name in defaultUserSettings.Keys.ToArray())
-                {
-                    // ユーザコンフィグの値を既定値のデータを追加する
-                    string value = defaultUserSettings[name];
-                    userConfig.ConfigXmlData.UserSettings.Settings.Add(
-                        new ConfigXmlSetting(name, "String", value));
-                }
-
-                // リセットしたユーザコンフィグを保存する
-                userConfig.Write();
+                // デフォルトの設定を保存する
+                defaultConfig.Write();
             }
             catch (Exception ex)
-                when (ex is UnauthorizedAccessException
-                    || ex is IOException
+                when (ex is IOException
+                    || ex is UnauthorizedAccessException
                     || ex is SecurityException)
             {
                 // 下記のエラーの場合は想定しているエラーのため個別に処理を行う
+                // [IOException]
+                // ・コンフィグの保存パスが、システム定義の最大長を超えている場合に発生
+                // 　[PathTooLongException]
+                // 　（Windowsでは、パスは248文字以下、ファイル名は260文字以下にする必要がある）
+                // ・コンフィグの保存パスが正しくない場合に発生（マップされていないドライブ等）
+                // 　[DirectoryNotFoundException]
+                // ・コンフィグの保存パスにおいてファイル名、ディレクトリ名、またはボリューム ラベル構文が、
+                // 　正しくないか無効な構文の場合に発生
+                // 　[IOException]
                 // [UnauthorizedAccessException]
                 // ・コンフィグの保存先フォルダへのアクセスが拒否された場合に発生
-                // [IOException],[PathTooLongException]
-                // ・コンフィグの保存パスにおいてファイル名、ディレクトリ名、またはボリューム ラベル構文の正しくないか無効な構文の場合に発生
-                // ・コンフィグの保存パスにがシステム定義の最大長を超えている場合に発生
-                // 　Windows ベースのプラットフォームでは、パスは248文字以下、ファイル名は260文字以下にする必要がある
                 // [SecurityException]
                 // ・コンフィグの保存先フォルダへの必要なアクセス許可がない場合に発生
 
@@ -470,7 +409,7 @@
         /// これにより、プロバイダーは格納している値を必要に応じてアップグレード可能とする
         /// </summary>
         /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
+        /// 現在のアプリケーションの設定情報を格納した、コンテキストオブジェクト
         /// </param>
         /// <param name="properties">
         /// 値の取得対象となる設定プロパティ（<see cref="SettingsProperty"/>）のコレクション
@@ -486,127 +425,6 @@
         }
 
         #endregion
-
-        #endregion
-
-        #region プライベートメソッド
-
-        /// <summary>
-        /// Appコンフィグからアプリケーション設定セクション又はユーザ設定セクションの設定情報を取得する
-        /// </summary>
-        /// <remarks>
-        /// 読み込みに失敗はAppコンフィグが存在しない又は壊れている場合を想定している
-        /// その場合、コンフィグは無いものとして動作させる設計としているため、要素0の設定情報リストを返却する
-        /// </remarks>
-        /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
-        /// </param>
-        /// <param name="isUser">
-        /// ユーザ設定かどうか（Falseの場合、アプリケーション設定）
-        /// </param>
-        /// <returns>
-        /// Appコンフィグからアプリケーション設定セクション又はユーザ設定セクションの設定情報
-        /// 取得できない場合はデータなしとして要素0の設定情報リストを返却する
-        /// </returns>
-        private static IDictionary<string, SettingElement> GetAppConfigSettings(
-            SettingsContext context, bool isUser)
-        {
-            try
-            {
-                // Appコンフィグを読み込む
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-                // 読み込めた場合はそのデータをディクショナリーに設定する
-                IDictionary<string, SettingElement> settings = new Dictionary<string, SettingElement>();
-                if (config.GetSection(GetSectionName(context, isUser) ?? string.Empty) is ClientSettingsSection sectionData)
-                {
-                    foreach (SettingElement setting in sectionData.Settings)
-                    {
-                        settings.Add(setting.Name, setting);
-                    }
-                }
-
-                // 取得した設定情報を返却
-                return settings;
-            }
-            catch (ConfigurationErrorsException)
-            {
-                // Appコンフィグの読み込みに失敗した場合は、データなしとして要素0の設定情報リストを返却
-                // 補足：読み込みに失敗はAppコンフィグが存在しない又は壊れている場合を想定している
-                // 　　　その場合、コンフィグは無いものとして動作させる設計としているため、
-                // 　　　要素0の設定情報リストを返却する
-                return new Dictionary<string, SettingElement>();
-            }
-        }
-
-        /// <summary>
-        /// 引数 <paramref name="context"/> からアプリケーションの構成情報を格納しているセクションの名称を取得する
-        /// </summary>
-        /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
-        /// </param>
-        /// <param name="isUser">
-        /// ユーザ設定かどうか（Falseの場合、アプリケーション設定）
-        /// </param>
-        /// <returns>
-        /// アプリケーションの構成情報を格納しているセクションの名称
-        /// セクションの名称が取得できない場合はNULL
-        /// </returns>
-        private static string GetSectionName(SettingsContext context, bool isUser)
-        {
-            // 引数のcontextがNULLでない場合、セクション名の設定を行う
-            // グループ名、設定キーを取得
-            string groupName = GetSettingsContextData<string>(context, "GroupName");
-            string settingsKey = GetSettingsContextData<string>(context, "SettingsKey");
-
-            // セクション名を設定する
-            string sectionName = string.IsNullOrEmpty(groupName) ? null : groupName;
-            if (sectionName != null && !string.IsNullOrEmpty(settingsKey))
-            {
-                sectionName += "." + settingsKey;
-            }
-
-            // ユーザ設定又はアプリケーション設定のセクション名を付与し返却する
-            string sectionRoot = isUser ? "userSettings" : "applicationSettings";
-            return string.IsNullOrEmpty(sectionName) ? null : sectionRoot + "/" + sectionName;
-        }
-
-        /// <summary>
-        /// 引数 <paramref name="context"/> から指定したキー（<paramref name="key"/>）、
-        /// のデータをobject指定した型（<typeparamref name="T"/>）の条件でデータを取得する
-        /// 取得できない場合はNULLを返却する
-        /// </summary>
-        /// <typeparam name="T">
-        /// 取得するデータの型
-        /// </typeparam>
-        /// <param name="context">
-        /// 現在のアプリケーションのコンテキスト情報を格納した <see cref="SettingsContext"/> オブジェクト
-        /// </param>
-        /// <param name="key">
-        /// 取得するデータのキー
-        /// </param>
-        /// <returns>
-        /// 引数 <paramref name="context"/> から指定したキー（<paramref name="key"/>）、
-        /// 指定した型（<typeparamref name="T"/>）の条件に合致するデータ
-        /// 取得できない場合はNULL
-        /// </returns>
-        private static T GetSettingsContextData<T>(SettingsContext context, string key)
-            where T : class
-        {
-            // NULLチェック
-            if (context == null || key == null)
-            {
-                // 引数がNULLの場合、データを取得できないためNULLを返却
-                return null;
-            }
-
-            // キーに対応するデータを取得
-            object data = context.ContainsKey(key) ? context[key] : null;
-
-            // 取得したデータが指定された型である場合はその型にキャストして返却
-            // そうでない場合はNULLを返却
-            return data is T ? (T)data : null;
-        }
 
         #endregion
     }

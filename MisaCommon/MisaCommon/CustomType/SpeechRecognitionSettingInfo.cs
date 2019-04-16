@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Reflection;
+    using System.Reflection.Emit;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Windows.Forms;
 
@@ -15,9 +18,9 @@
     /// 音声認識に対する操作設定のタイプ
     /// </summary>
     /// <remarks>
-    /// フラグとして管理する
-    /// <see cref="SpeechRecognitionSettingInfo._typeControlMapping"/>にてタイプ毎のユーザコントロールをマッピングする
-    /// また、<see cref="SpeechRecognitionSettingInfo.SetPropertyForControl(Control)"/>にて各ユーザコントロール毎のプロパティの設定を行う
+    /// <see cref="SpeechRecognitionSettingInfo.TypeControlMapping"/>にてタイプ毎のユーザコントロールを
+    /// マッピングし、<see cref="SpeechRecognitionSettingInfo.SetPropertyForControl(Control)"/>にて、
+    /// 各ユーザコントロール毎のプロパティの設定を行う
     /// </remarks>
     [Flags]
     public enum SpeechRecognitionSettingType
@@ -45,29 +48,33 @@
     /// このクラスの公開プロパティにおける表示名と説明は、
     /// <see cref="LocalizableTypeConverter{T, TResouces}"/>にてマッピングしている
     /// <list type="bullet">
-    ///     <item>
-    ///         <term>string型への変換</term>
-    ///         <description>
-    ///         各パラメータを下記の順番でパイプ区切りの文字列で表現する
-    ///         １．音声認識に対する操作設定のタイプ
-    ///         ２．音声認識に対するマッチングメッセージ
-    ///         ３．音声認識に対するマッチングパターン
-    ///         ４．設定データ
-    ///         【例1】未設定の場合           ⇒　StartProcess|||
-    ///         【例2】プロセススタートの場合 ⇒　StartProcess|マッチングメッセージ|exact|c\xxx\xxx\abc.exe|0, 0, 1200, 800|500|--abe="xxxx"
-    ///         ※３個目のパイプ以降は設定データとなる
-    ///         </description>
-    ///     </item>
+    /// <item>
+    /// <term>string型への変換</term>
+    /// <description>
+    /// 各パラメータを下記の順番でパイプ区切りの文字列で表現する
+    /// １．音声認識に対する操作設定のタイプ
+    /// ２．音声認識に対するマッチングメッセージ
+    /// ３．音声認識に対するマッチングパターン
+    /// ４．設定データ
+    /// 　【例1】未設定の場合
+    /// 　　　　　⇒　StartProcess|||
+    /// 　【例2】プロセススタートの場合
+    /// 　　　　　⇒　StartProcess|マッチングメッセージ|exact|c\xxx\xxx\abc.exe
+    ///         　　　|0, 0, 1200, 800|500|--abe="xxxx"
+    /// 　　　　　　　※３個目のパイプ以降は設定データとなる
+    /// </description>
+    /// </item>
     /// </list>
     /// </remarks>
     [Serializable]
-    [TypeConverter(typeof(LocalizableTypeConverter<SpeechRecognitionSettingInfo, SpeechRecognitionSettingInfoPropertyMessage>))]
+    [TypeConverter(typeof(LocalizableTypeConverter<
+        SpeechRecognitionSettingInfo, SpeechRecognitionSettingInfoPropertyMessage>))]
     public class SpeechRecognitionSettingInfo : ITypeConvertable<SpeechRecognitionSettingInfo>
     {
         /// <summary>
-        /// <see cref="SpeechRecognitionSettingType"/>に対応するユーザコントロールを生成する処理とのマッピング定義
+        /// <see cref="SpeechRecognitionSettingType"/>に対応するユーザコントロールとのマッピング定義
         /// </summary>
-        private static readonly IReadOnlyDictionary<SpeechRecognitionSettingType, Type> _typeControlMapping
+        private static readonly IReadOnlyDictionary<SpeechRecognitionSettingType, Type> TypeControlMapping
             = new ReadOnlyDictionary<SpeechRecognitionSettingType, Type>(
                 new Dictionary<SpeechRecognitionSettingType, Type>()
                 {
@@ -79,7 +86,7 @@
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティを初期化する
         /// </summary>
         /// <param name="settingType">音声認識に対する操作の設定のタイプ</param>
@@ -175,11 +182,8 @@
                     return null;
                 }
 
-                // マッピングから操作設定のタイプに紐づくユーザコントロールのタイプを取得する
-                Type controlType = _typeControlMapping[SettingType];
-
                 // ユーザコントロールのインスタンスを生成し概要のテキストを取得、返却する
-                ISpeechRecognitionSettingControl control = GetSettingControlInstance(controlType);
+                ISpeechRecognitionSettingControl control = GetSettingControlInstance(SettingType);
                 return control?.GetSummaryText(SettingData);
             }
         }
@@ -194,11 +198,8 @@
         {
             get
             {
-                // マッピングから操作設定のタイプに紐づくユーザコントロールのタイプを取得する
-                Type controlType = _typeControlMapping[SettingType];
-
                 // ユーザコントロールのインスタンスを生成、初期化を行う
-                ISpeechRecognitionSettingControl settingControl = GetSettingControlInstance(controlType);
+                ISpeechRecognitionSettingControl settingControl = GetSettingControlInstance(SettingType);
                 Control control = settingControl?.GetInitializeControl(SettingData);
 
                 // 生成したユーザコントロールのプロパティ設定を行う
@@ -331,68 +332,79 @@
         }
 
         /// <summary>
-        /// 引数の音声認識に対する操作設定のタイプ（<paramref name="type"/>）に紐づく
-        /// 音声認識に対するマッチングパターンと操作を設定するためのユーザコントロールのインスタンスを取得する
+        /// 引数の音声認識に対する操作設定のタイプ（<paramref name="settingType"/>）に紐づく
+        /// 音声認識に対するマッチングパターンと操作を設定するためのユーザコントロールを取得する
         /// </summary>
-        /// <param name="type">マッピングから取得したユーザコントロールの型</param>
+        /// <param name="settingType">音声認識に対する操作設定のタイプ</param>
         /// <exception cref="ArgumentException">
-        /// 引数の型（<paramref name="type"/>）が RuntimeType でない場合、
-        /// または、オープンジェネリック型（ <see cref="Type.ContainsGenericParameters"/>のプロパティがTrueの場合）に発生
+        /// 下記の場合に発生
+        /// ・引数の型（<paramref name="settingType"/>）が RuntimeType でない場合
+        /// ・オープンジェネリック型の場合
+        /// 　（<see cref="Type.ContainsGenericParameters"/>のプロパティがTrueの場合）
         /// </exception>
         /// <exception cref="NotSupportedException">
-        /// 引数の型（<paramref name="type"/>）を <see cref="System.Reflection.Emit.TypeBuilder"/> にすることができない場合に発生
-        /// 具体的には、引数のタイプ（<paramref name="type"/>）のアセンブリが<see cref="System.Reflection.Emit.AssemblyBuilderAccess.Save"/>を使用して作成された動的アセンブリの場合
-        /// または、下記のサポートされていない型に該当する場合に例外が発生する
-        /// ・<see cref="TypedReference"/>型
-        /// ・<see cref="ArgIterator"/>型
-        /// ・<see cref="void"/>型
-        /// ・<see cref="RuntimeArgumentHandle"/>型
-        /// ・上記型の配列型
-        /// </exception>
-        /// <exception cref="System.Reflection.TargetInvocationException">
-        /// 引数の型（<paramref name="type"/>）において呼び出されるコンストラクターで例外がスローされた場合に発生
-        /// </exception>
-        /// <exception cref="MethodAccessException">
-        /// 呼び出し元に引数の型（<paramref name="type"/>）の引数なしのコンストラクターを呼び出すアクセス許可がない場合に発生
+        /// 引数の型（<paramref name="settingType"/>）を <see cref="TypeBuilder"/> にすることができない場合に発生
+        /// 具体的には下記の場合が該当する
+        /// ・引数のタイプ（<paramref name="settingType"/>）のアセンブリが <see cref="AssemblyBuilderAccess.Save"/>
+        /// 　　を使用して作成された動的アセンブリの場合
+        /// ・下記のサポートされていない型に該当する場合
+        /// 　1. <see cref="TypedReference"/>型
+        /// 　2. <see cref="ArgIterator"/>型
+        /// 　3. <see cref="void"/>型
+        /// 　4. <see cref="RuntimeArgumentHandle"/>型
+        /// 　5. 上記型の配列型
         /// </exception>
         /// <exception cref="MemberAccessException">
-        /// 引数の型（<paramref name="type"/>）が抽象クラスでインスタンスを作成することができない場合、
-        /// または、対象のメンバーが遅延バインドメカニズムでの呼び出しの場合に発生
-        /// </exception>
-        /// <exception cref="System.Runtime.InteropServices.InvalidComObjectException">
-        /// 引数の型（<paramref name="type"/>）がOverload:<see cref="Type.GetTypeFromProgID(string)"/>
-        /// または、Overload:<see cref="Type.GetTypeFromCLSID(Guid)"/>を通じて COM型が取得できない場合に発生
-        /// </exception>
-        /// <exception cref="MissingMethodException">
-        /// 引数の型（<paramref name="type"/>）に引数なしパブリックコンストラクターが存在しない場合に発生
-        /// </exception>
-        /// <exception cref="System.Runtime.InteropServices.COMException">
-        /// 引数の型（<paramref name="type"/>）が COMオブジェクトの場合において、
-        /// 型を取得するために使用されるクラスIDが有効でない、または識別されたクラスが登録されていない場合に発生
+        /// 下記の場合に発生
+        /// ・音声認識に対する操作設定コントロールに引数なしパブリックコンストラクターが存在しない場合
+        /// 　[<see cref="MissingMethodException"/>]
+        /// ・呼び出し元に音声認識に対する操作設定コントロールの引数なしのコンストラクタを
+        /// 　呼び出すアクセス許可がない場合
+        /// 　[<see cref="MethodAccessException"/>]
+        /// ・音声認識に対する操作設定コントロールが抽象クラスでインスタンスを作成することができない場合、
+        /// 　または、対象のメンバーが遅延バインドメカニズムでの呼び出しの場合
+        /// 　[<see cref="MemberAccessException"/>]
         /// </exception>
         /// <exception cref="TypeLoadException">
-        /// 引数の型（<paramref name="type"/>）が有効な型でない場合に発生
+        /// 音声認識に対する操作設定コントロールが有効な型でない場合に発生
+        /// </exception>
+        /// <exception cref="COMException">
+        /// 音声認識に対する操作設定コントロールが COMオブジェクトの場合において、
+        /// 型を取得するために使用されるクラスIDが有効でない
+        /// または、識別されたクラスが登録されていない場合に発生
+        /// </exception>
+        /// <exception cref="InvalidComObjectException">
+        /// 音声認識に対する操作設定コントロールが <see cref="Type.GetTypeFromCLSID(Guid)"/>を通じて、
+        /// COM型が取得できない場合に発生
+        /// </exception>
+        /// <exception cref="TargetInvocationException">
+        /// 引数の型（<paramref name="settingType"/>）において呼び出されるコンストラクタで、
+        /// 例外がスローされた場合に発生
         /// </exception>
         /// <returns>
-        /// 引数の音声認識に対する操作設定のタイプ（<paramref name="type"/>）に紐づく
+        /// 引数の音声認識に対する操作設定のタイプ（<paramref name="settingType"/>）に紐づく
         /// 音声認識に対するマッチングパターンと操作を設定するためのユーザコントロールのインスタンス
         /// </returns>
-        private static ISpeechRecognitionSettingControl GetSettingControlInstance(Type type)
+        private static ISpeechRecognitionSettingControl GetSettingControlInstance(
+            SpeechRecognitionSettingType settingType)
         {
+            // マッピングから操作設定のタイプに紐づくユーザコントロールのタイプを取得する
+            Type controlType = TypeControlMapping[settingType];
+
             // 取得したユーザコントロールのタイプがNULLの場合はNULLを返却
             // （操作設定のタイプがNoneの場合が該当する）
-            if (type == null)
+            if (controlType == null)
             {
                 return null;
             }
 
             // ユーザコントロールのタイプからインスタンスを生成する
             // 引数なしのデフォルトコンストラクタを使用してインスタンスを生成し返却する
-            return Activator.CreateInstance(type) as ISpeechRecognitionSettingControl;
+            return Activator.CreateInstance(controlType) as ISpeechRecognitionSettingControl;
         }
 
         /// <summary>
-        /// 各操作設定用のユーザコントトロールに応じたプロパティの設定を行う
+        /// 各操作設定用のユーザコントロールに応じたプロパティの設定を行う
         /// </summary>
         /// <param name="control">設定対象のコントロール</param>
         private static void SetPropertyForControl(Control control)

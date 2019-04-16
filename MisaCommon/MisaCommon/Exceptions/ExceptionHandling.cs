@@ -32,14 +32,18 @@
         /// </summary>
         /// <param name="processName">処理名</param>
         /// <returns>
-        /// 引数の処理名（<paramref name="processName"/>）を指定した場合は、処理名付きの共通エラーメッセージ
-        /// 引数の処理名（<paramref name="processName"/>）がNULLの場合は処理名無しの共通エラーメッセージ
+        /// 処理名付きの共通エラーメッセージ
+        /// （引数の処理名（<paramref name="processName"/>）がNULLの場合は、
+        /// 処理名無しの共通エラーメッセージ）
         /// </returns>
         public static string GetCommonErrorMessage(string processName)
         {
             return processName == null
                 ? ErrorMessage.ErrorMessageFormatCommon
-                : string.Format(CultureInfo.InvariantCulture, ErrorMessage.ErrorMessageFormatCommonWithProcessName, processName);
+                : string.Format(
+                    CultureInfo.InvariantCulture,
+                    ErrorMessage.ErrorMessageFormatCommonWithProcessName,
+                    processName);
         }
 
         /// <summary>

@@ -33,24 +33,24 @@
         /// <summary>
         /// 名称
         /// </summary>
-        private string _name;
+        private string name;
 
         /// <summary>
         /// シリアル化の型
         /// </summary>
-        private string _serializeAs;
+        private string serializeAs;
 
         /// <summary>
         /// 値
         /// </summary>
-        private string _value;
+        private string settingValue;
 
         #endregion
 
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティを <see cref="string.Empty"/> で初期化する
         /// </summary>
         public ConfigXmlSetting()
@@ -69,9 +69,9 @@
         /// <param name="value">値</param>
         public ConfigXmlSetting(string name, string serializeAs, string value)
         {
-            Name = name ?? string.Empty;
-            SerializeAs = serializeAs ?? string.Empty;
-            Value = value ?? string.Empty;
+            Name = name;
+            SerializeAs = serializeAs;
+            Value = value;
         }
 
         #endregion
@@ -84,8 +84,8 @@
         [XmlAttribute("name")]
         public string Name
         {
-            get => _name;
-            set => _name = value ?? string.Empty;
+            get => name;
+            set => name = value ?? string.Empty;
         }
 
         /// <summary>
@@ -94,8 +94,8 @@
         [XmlAttribute("serializeAs")]
         public string SerializeAs
         {
-            get => _serializeAs;
-            set => _serializeAs = value ?? string.Empty;
+            get => serializeAs;
+            set => serializeAs = value ?? string.Empty;
         }
 
         /// <summary>
@@ -104,8 +104,8 @@
         [XmlElement("value")]
         public string Value
         {
-            get => _value;
-            set => _value = value ?? string.Empty;
+            get => settingValue;
+            set => settingValue = value ?? string.Empty;
         }
 
         #endregion

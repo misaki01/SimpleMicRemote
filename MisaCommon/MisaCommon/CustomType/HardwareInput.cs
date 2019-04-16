@@ -16,16 +16,16 @@
     /// このクラスの公開プロパティにおける表示名と説明は、
     /// <see cref="LocalizableTypeConverter{T, TResouces}"/>にてマッピングしている
     /// <list type="bullet">
-    ///     <item>
-    ///         <term>string型への変換</term>
-    ///         <description>
-    ///         各パラメータを下記の順番でカンマ区切りの16進文字列で表現する
-    ///         １．入力するメッセージ
-    ///         ２．メッセージに対するlParamパラメータ（下位）を設定
-    ///         ３．メッセージに対するlParamパラメータ（上位）を設定
-    ///         【例】0x0001, 0x0002, 0x0003
-    ///         </description>
-    ///     </item>
+    /// <item>
+    /// <term>string型への変換</term>
+    /// <description>
+    /// 各パラメータを下記の順番でカンマ区切りの16進文字列で表現する
+    /// １．入力するメッセージ
+    /// ２．メッセージに対するlParamパラメータ（下位）を設定
+    /// ３．メッセージに対するlParamパラメータ（上位）を設定
+    /// 【例】0x0001, 0x0002, 0x0003
+    /// </description>
+    /// </item>
     /// </list>
     /// </remarks>
     [Serializable]
@@ -35,7 +35,7 @@
         #region コンストラクタ
 
         /// <summary>
-        /// デフォルトコンストラクタ
+        /// コンストラクタ
         /// 各プロパティを初期化する
         /// </summary>
         /// <param name="message">入力するメッセージ</param>
@@ -190,10 +190,12 @@
             string message = Message > 0xFFFF
                 ? Message.ToString("X8", CultureInfo.InvariantCulture)
                 : Message.ToString("X4", CultureInfo.InvariantCulture);
+            string lowlParam = LowlParam.ToString("X4", CultureInfo.InvariantCulture);
+            string highlParam = HighlParam.ToString("X4", CultureInfo.InvariantCulture);
             StringBuilder convertValue = new StringBuilder();
             convertValue.Append("0x").Append(message);
-            convertValue.Append(", ").Append("0x").Append(LowlParam.ToString("X4", CultureInfo.InvariantCulture));
-            convertValue.Append(", ").Append("0x").Append(HighlParam.ToString("X4", CultureInfo.InvariantCulture));
+            convertValue.Append(", ").Append("0x").Append(lowlParam);
+            convertValue.Append(", ").Append("0x").Append(highlParam);
             return convertValue.ToString();
         }
 

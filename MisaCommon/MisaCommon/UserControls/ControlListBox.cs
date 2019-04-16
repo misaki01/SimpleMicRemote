@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
@@ -132,7 +133,8 @@
                 IList<Control> tableControlList = new List<Control>();
                 for (int i = 0; i < PlListTable.RowCount; i++)
                 {
-                    Control control = PlListTable.GetControlFromPosition((int)ListTableColumn.Control, i);
+                    Control control
+                        = PlListTable.GetControlFromPosition((int)ListTableColumn.Control, i);
                     tableControlList.Add(control);
                 }
 
@@ -142,7 +144,8 @@
         }
 
         /// <summary>
-        /// <see cref="TableLayoutPanel"/> においてラジオボタンがチェックされている行のインデックスを取得する
+        /// <see cref="TableLayoutPanel"/> においてラジオボタンがチェックされている行の
+        /// インデックスを取得する
         /// （チェックされている行が存在しない場合はNULLを返却）
         /// </summary>
         /// <remarks>
@@ -157,11 +160,13 @@
                 // 対象のTableLayoutPanelコントロール取得
                 TableLayoutPanel tablePanel = PlListTable;
 
-                // PlTableListの行でループし、ラジオボタン設置用のカラムに存在するラジオボタンがチェックされているか判定
+                // PlTableListの行でループし、ラジオボタン設置用のカラムに存在する
+                // ラジオボタンがチェックされているか判定
                 int? index = null;
                 for (int row = 0; row < tablePanel.RowCount; row++)
                 {
-                    if (tablePanel.GetControlFromPosition((int)ListTableColumn.Radio, row) is TableRadioButton radio
+                    if (tablePanel.GetControlFromPosition(
+                        (int)ListTableColumn.Radio, row) is TableRadioButton radio
                         && radio.Checked)
                     {
                         index = row;
@@ -173,6 +178,18 @@
                 return index;
             }
         }
+
+        /// <summary>
+        /// <see cref="PlListTable"/> に設置しているラジオボタンのリスト
+        /// </summary>
+        private Collection<TableRadioButton> TableRadioButtons { get; }
+            = new Collection<TableRadioButton>();
+
+        /// <summary>
+        /// <see cref="PlListTable"/> に設置しているコントロールを含むパネルのリスト
+        /// </summary>
+        private Collection<TableControlPanel> TableControlPanels { get; }
+            = new Collection<TableControlPanel>();
 
         #endregion
 
@@ -199,7 +216,8 @@
 
             // 対象行のラジオボタンのコントロールを取得しチェックを入れる
             // ラジオボタンのコントロールを取得できなかった場合はなにもしない
-            if (tablePanel.GetControlFromPosition((int)ListTableColumn.Radio, rowIndex) is TableRadioButton radio)
+            if (tablePanel.GetControlFromPosition(
+                (int)ListTableColumn.Radio, rowIndex) is TableRadioButton radio)
             {
                 radio.Checked = true;
             }
@@ -218,7 +236,8 @@
         /// （NULL 又は、要素0行の場合、<see cref="TableLayoutPanel"/> の初期化（クリア）のみを行う）
         /// </param>
         /// <exception cref="Exception">
-        /// 設定するコントロールがトップレベルのコントロール 又は、設定によって循環参照になる場合に発生
+        /// 設定するコントロールがトップレベルのコントロール または、
+        /// 設定によって循環参照になる場合に発生
         /// </exception>
         public void SetTableControlCollection(IList<Control> tableControlList)
         {
@@ -239,7 +258,8 @@
         /// 追加対象のコントロール（NULLの場合、追加対象なしとして処理を終了する）
         /// </param>
         /// <exception cref="Exception">
-        /// 追加するコントロールがトップレベルのコントロール 又は、追加によって循環参照になる場合に発生
+        /// 追加するコントロールがトップレベルのコントロール または、
+        /// 追加によって循環参照になる場合に発生
         /// </exception>
         public void Add(Control control)
         {
@@ -260,7 +280,8 @@
         /// （NULL 又は、要素0の場合、追加対象なしとして処理を終了する）
         /// </param>
         /// <exception cref="Exception">
-        /// 追加するコントロールがトップレベルのコントロール 又は、追加によって循環参照になる場合に発生
+        /// 追加するコントロールがトップレベルのコントロール または、
+        /// 追加によって循環参照になる場合に発生
         /// </exception>
         public void Add(IList<Control> tableControlList)
         {
@@ -279,7 +300,7 @@
             try
             {
                 // 現在の行数が1以下かつコントロールが未配置の状態であるかの判定を取得
-                bool isNoRow = IsNoRow(tablePanel);
+                bool isNoRow = IsNoRow();
 
                 // 現状の行数を取得
                 // （現在の行数が1以下かつコントロールが未配置の状態の場合、現在の行数は0とする）
@@ -299,7 +320,6 @@
                 for (int row = beforeRowCount - 1; row >= 0; row--)
                 {
                     MoveRow(
-                        tablePanel: tablePanel,
                         toRowIndex: row + addRowCount,
                         getControl: (column) => tablePanel.GetControlFromPosition(column, row),
                         rowStyles: ref rowStyles,
@@ -311,9 +331,15 @@
                 foreach (Control control in tableControlList)
                 {
                     // コントロールの設定
-                    TableRadioButton radioButton = TableRadioButton.GetNewRadioPanel(tablePanel, (int)ListTableColumn.Radio, SelectRowBackColor);
-                    ControlPanel controlPanel = ControlPanel.GetNewControlPanel(control);
+                    // ラジオボタン
+                    TableRadioButton radioButton
+                        = new TableRadioButton(tablePanel, (int)ListTableColumn.Radio, SelectRowBackColor);
+                    TableRadioButtons.Add(radioButton);
                     tablePanel.Controls.Add(radioButton, (int)ListTableColumn.Radio, rowIndex);
+
+                    // パネル
+                    TableControlPanel controlPanel = new TableControlPanel(control);
+                    TableControlPanels.Add(controlPanel);
                     tablePanel.Controls.Add(controlPanel, (int)ListTableColumn.Control, rowIndex);
 
                     // スタイルを設定
@@ -324,10 +350,10 @@
                 }
 
                 // スタイルを再設定
-                SetRowStyle(tablePanel, rowStyles);
+                SetRowStyle(rowStyles);
 
                 // Tabインデックスの再設定を行う
-                SetTabIndex(tablePanel);
+                SetTabIndex();
             }
             finally
             {
@@ -346,14 +372,16 @@
         /// </summary>
         /// <param name="removeRowIndex">
         /// 削除対象の行インデックス
-        /// （引数の削除対象行の指定が0未満 又は、最大行数を超えている場合、削除対象なしとして処理を終了する）
+        /// （引数の削除対象行の指定が0未満 または、
+        /// 　最大行数を超えている場合、削除対象なしとして処理を終了する）
         /// </param>
         public void Remove(int removeRowIndex)
         {
             // 対象のTableLayoutPanelコントロール取得
             TableLayoutPanel tablePanel = PlListTable;
 
-            // 引数の削除対象行の指定が0未満 又は、最大行数を超えている場合、削除対象なしとして処理を終了する
+            // 引数の削除対象行の指定が0未満 又は、最大行数を超えている場合、
+            // 削除対象なしとして処理を終了する
             if (removeRowIndex < 0 || removeRowIndex >= tablePanel.RowCount)
             {
                 return;
@@ -368,13 +396,12 @@
                 int beforeRowCount = tablePanel.RowCount;
 
                 // 削除対象行のコントロールを削除
-                RemoveRow(tablePanel, removeRowIndex);
+                RemoveRow(removeRowIndex, true);
 
                 // 削除対象行より先の行のコントロールを一つ上に移動させる
                 for (int row = removeRowIndex + 1; row < beforeRowCount; row++)
                 {
                     MoveRow(
-                        tablePanel: tablePanel,
                         toRowIndex: row - 1,
                         getControl: (column) => tablePanel.GetControlFromPosition(column, row));
                 }
@@ -395,7 +422,7 @@
                 }
 
                 // Tabインデックスの再設定を行う
-                SetTabIndex(tablePanel);
+                SetTabIndex();
             }
             finally
             {
@@ -419,14 +446,17 @@
             try
             {
                 // 全てのコントロールをクリア
-                tablePanel.Controls.Clear();
+                // （下からクリアしていく）
+                for (int row = tablePanel.RowCount - 1; row > -1; row--)
+                {
+                    RemoveRow(row, true);
+                }
 
                 // 最初の1行目を生成（TableLayoutPanelは0行を認めていないため1行目を生成する）
                 tablePanel.RowCount = 1;
-                tablePanel.RowStyles.Clear();
 
                 // 行のスタイル設定を初期化（引数にNULLを指定することで初期化を行わせる）
-                SetRowStyle(tablePanel, null);
+                SetRowStyle(null);
             }
             finally
             {
@@ -498,17 +528,17 @@
                 RowStyle toRowStyle = toRow < styleCount ? rowStyles[toRow] : new RowStyle();
 
                 // 移動先のコントロールをTableLayoutPanelからは削除する
-                RemoveRow(tablePanel, toRow);
+                RemoveRow(toRow, false);
 
                 // 移動元のコントロール・スタイルを移動先に移動する
                 MoveRow(
-                    tablePanel: tablePanel,
                     toRowIndex: toRow,
                     getControl: (column) => tablePanel.GetControlFromPosition(column, fromRow),
                     rowStyles: ref rowStyles,
                     getRowStyle: () => fromRow < styleCount ? rowStyles[fromRow] : new RowStyle());
 
-                // 上への移動か下への移動かによってfrom～toの間のコントロール・スタイルの移動方法を切り分ける
+                // 上への移動か下への移動かによってfrom～toの間の
+                // コントロール・スタイルの移動方法を切り分ける
                 if ((fromRow - toRow) > 0)
                 {
                     // 下に移動の場合
@@ -516,7 +546,6 @@
                     for (int row = fromRow + 1; row < toRow; row++)
                     {
                         MoveRow(
-                            tablePanel: tablePanel,
                             toRowIndex: row - 1,
                             getControl: (column) => tablePanel.GetControlFromPosition(column, row),
                             rowStyles: ref rowStyles,
@@ -543,7 +572,6 @@
                     for (int row = fromRow - 1; row > toRow; row--)
                     {
                         MoveRow(
-                            tablePanel: tablePanel,
                             toRowIndex: row + 1,
                             getControl: (column) => tablePanel.GetControlFromPosition(column, row),
                             rowStyles: ref rowStyles,
@@ -565,10 +593,10 @@
                 }
 
                 // スタイルを再設定
-                SetRowStyle(tablePanel, rowStyles);
+                SetRowStyle(rowStyles);
 
                 // Tabインデックスの再設定を行う
-                SetTabIndex(tablePanel);
+                SetTabIndex();
             }
             finally
             {
@@ -579,254 +607,6 @@
         }
 
         #endregion
-
-        #endregion
-
-        #region プライベート Staticメソッド
-
-        /// <summary>
-        /// 引数の <paramref name="tablePanel"/> に行及びコントロールが存在しないかの判定
-        /// </summary>
-        /// <param name="tablePanel">
-        /// 判定対象とする <see cref="TableLayoutPanel"/> オブジェクト
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="tablePanel"/> がNULLの場合に発生
-        /// </exception>
-        /// <returns>
-        /// <paramref name="tablePanel"/> に行及びコントロールが存在しない場合 True、
-        /// 行及びコントロールが存在する場合 False
-        /// </returns>
-        private static bool IsNoRow(TableLayoutPanel tablePanel)
-        {
-            // 引数のチェック
-            if (tablePanel == null)
-            {
-                // 引数のtablePanelがNULLの場合
-                throw new ArgumentNullException(nameof(tablePanel));
-            }
-
-            // 行が1行以下かつコントロールが存在しない場合はデータなしと判定する
-            return tablePanel.RowCount <= 1 && tablePanel.Controls.Count == 0;
-        }
-
-        /// <summary>
-        /// 引数の <paramref name="tablePanel"/> の対象行に行単位にコントロール及びスタイルを移動する
-        /// </summary>
-        /// <param name="tablePanel">
-        /// 対象とする <see cref="TableLayoutPanel"/> オブジェクト
-        /// </param>
-        /// <param name="toRowIndex">
-        /// 移動先の行インデックス
-        /// </param>
-        /// <param name="getControl">
-        /// 移動元のコントロールを取得する処理
-        /// ・引数1 int：カラムのインデックス
-        /// ・戻り値 Control：移動先に設定するコントロール（NULLを返却した場合はそのカラムでは移動を行わない）
-        /// NULLを指定した場合はコントロールの移動処理を行わない
-        /// </param>
-        /// <param name="rowStyles">
-        /// コントロールの移動に伴い同じく移動する <see cref="RowStyle"/> の配列
-        /// </param>
-        /// <param name="getRowStyle">
-        /// 移動元の <see cref="RowStyle"/> を取得する処理
-        /// ・戻り値 RowStyle：移動先に設定する <see cref="RowStyle"/>（NULLを返却した場合はデフォルト値を設定する）
-        /// NULLを指定した場合はスタイルの移動処理を行わない
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="tablePanel"/> がNULLの場合に発生
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// 引数の <paramref name="toRowIndex"/> が <paramref name="tablePanel"/> コントロールの
-        /// 行の範囲（0以上、行カウント未満の範囲）の値でない場合に発生
-        /// </exception>
-        private static void MoveRow(
-            TableLayoutPanel tablePanel,
-            int toRowIndex,
-            Func<int, Control> getControl,
-            ref RowStyle[] rowStyles,
-            Func<RowStyle> getRowStyle)
-        {
-            // コントロールの移動処理を行う（必要な引数チェックもこのメソッドで実行している）
-            MoveRow(tablePanel, toRowIndex, getControl);
-
-            // スタイルの移動
-            if (getRowStyle != null)
-            {
-                if (toRowIndex < rowStyles.Length)
-                {
-                    rowStyles[toRowIndex] = getRowStyle() ?? new RowStyle();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 引数の <paramref name="tablePanel"/> の対象行に行単位にコントロールを移動する
-        /// </summary>
-        /// <param name="tablePanel">
-        /// 対象とする <see cref="TableLayoutPanel"/> オブジェクト
-        /// </param>
-        /// <param name="toRowIndex">
-        /// 移動先の行インデックス
-        /// </param>
-        /// <param name="getControl">
-        /// 移動元のコントロールを取得する処理
-        /// ・引数1 int：カラムのインデックス
-        /// ・戻り値 Control：移動先に設定するコントロール（NULLを返却した場合はそのカラムでは移動を行わない）
-        /// NULLを指定した場合はコントロールの移動処理を行わない
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="tablePanel"/> がNULLの場合に発生
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// 引数の <paramref name="toRowIndex"/> が <paramref name="tablePanel"/> コントロールの
-        /// 行の範囲（0以上、行カウント未満の範囲）の値でない場合に発生
-        /// </exception>
-        private static void MoveRow(
-            TableLayoutPanel tablePanel,
-            int toRowIndex,
-            Func<int, Control> getControl)
-        {
-            // 引数のチェック
-            if (tablePanel == null)
-            {
-                // 引数のtablePanelがNULLの場合
-                throw new ArgumentNullException(nameof(tablePanel));
-            }
-            else if (toRowIndex < 0 || toRowIndex >= tablePanel.RowCount)
-            {
-                // 引数のtoRowIndexがtablePanelの行の範囲にない場合
-                throw new ArgumentOutOfRangeException(nameof(toRowIndex));
-            }
-
-            // コントロールの移動
-            if (getControl != null)
-            {
-                for (int column = 0; column < tablePanel.ColumnCount; column++)
-                {
-                    Control control = getControl(column);
-                    if (control != null)
-                    {
-                        tablePanel.SetCellPosition(
-                            control: control,
-                            position: new TableLayoutPanelCellPosition(column, toRowIndex));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 引数の <paramref name="tablePanel"/> の対象行に存在する子コントロールを削除する
-        /// </summary>
-        /// <param name="tablePanel">
-        /// 対象とする <see cref="TableLayoutPanel"/> オブジェクト
-        /// </param>
-        /// <param name="removeRowIndex">
-        /// 削除対象の行インデックス
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="tablePanel"/> がNULLの場合に発生
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// 引数の <paramref name="removeRowIndex"/> が <paramref name="tablePanel"/> コントロールの
-        /// 行の範囲（0以上、行カウント未満の範囲）の値でない場合に発生
-        /// </exception>
-        private static void RemoveRow(TableLayoutPanel tablePanel, int removeRowIndex)
-        {
-            // 引数のチェック
-            if (tablePanel == null)
-            {
-                // 引数のtablePanelがNULLの場合
-                throw new ArgumentNullException(nameof(tablePanel));
-            }
-            else if (removeRowIndex < 0 || removeRowIndex >= tablePanel.RowCount)
-            {
-                // 引数のremoveRowIndexがtablePanelの行の範囲にない場合
-                throw new ArgumentOutOfRangeException(nameof(removeRowIndex));
-            }
-
-            // 削除対象行に存在する全てのコントロールを削除する
-            for (int column = 0; column < tablePanel.ColumnCount; column++)
-            {
-                Control removeControl = tablePanel.GetControlFromPosition(column, removeRowIndex);
-                if (removeControl != null)
-                {
-                    tablePanel.Controls.Remove(removeControl);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 引数の <paramref name="tablePanel"/> の行スタイルを、引数の <paramref name="rowStyles"/> の値で設定する
-        /// </summary>
-        /// <param name="tablePanel">
-        /// 対象とする <see cref="TableLayoutPanel"/> オブジェクト
-        /// </param>
-        /// <param name="rowStyles">
-        /// コントロールの移動に伴い同じく移動する <see cref="RowStyle"/> の配列
-        /// NULL又は要素0の配列を指定した場合はスタイルを初期化する
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="tablePanel"/> がNULLの場合に発生
-        /// </exception>
-        private static void SetRowStyle(TableLayoutPanel tablePanel, RowStyle[] rowStyles)
-        {
-            // NULLチェック
-            if (tablePanel == null)
-            {
-                throw new ArgumentNullException(nameof(tablePanel));
-            }
-
-            // TableLayoutPanelの行スタイルをクリア
-            tablePanel.RowStyles.Clear();
-
-            if (rowStyles != null || rowStyles.Length > 0)
-            {
-                // 引数のスタイルの指定が存在する場合、引数の配列の要素で設定を行う
-                foreach (RowStyle style in rowStyles)
-                {
-                    tablePanel.RowStyles.Add(new RowStyle(style.SizeType, style.Height));
-                }
-            }
-            else
-            {
-                // 引数のスタイルの指定がNULL又は要素0の場合、初期設定を行う
-                // 最初の1行目を生成（TableLayoutPanelは0行を認めていないため1行目を生成する）
-                tablePanel.RowStyles.Add(new RowStyle());
-            }
-        }
-
-        /// <summary>
-        /// 引数の <paramref name="tablePanel"/> の子コントロールのTabインデックスを設定する
-        /// </summary>
-        /// <param name="tablePanel">
-        /// Tabインデックスを設定する <see cref="TableLayoutPanel"/> オブジェクト
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// 引数の <paramref name="tablePanel"/> がNULLの場合に発生
-        /// </exception>
-        private static void SetTabIndex(TableLayoutPanel tablePanel)
-        {
-            // NULLチェック
-            if (tablePanel == null)
-            {
-                throw new ArgumentNullException(nameof(tablePanel));
-            }
-
-            // TableLayoutPanelを左上から右、下に向かってTabインデックスを設定する
-            int tabIndex = 0;
-            for (int row = 0; row < tablePanel.RowCount; row++)
-            {
-                for (int column = 0; column < tablePanel.ColumnCount; column++)
-                {
-                    Control control = tablePanel.GetControlFromPosition(column, row);
-                    if (control != null)
-                    {
-                        control.TabIndex = tabIndex++;
-                    }
-                }
-            }
-        }
 
         #endregion
 
@@ -870,7 +650,7 @@
             // メッセージ表示フラグが立っている場合のみ表示する
             if (IsShowDeleteConfirmMessage)
             {
-                string confirmMessage = ControlListBoxMessage.BtMinusConfirmDeletionMessage;
+                string confirmMessage = ControlListBoxMessage.BtMinusConfirmDeleteMessage;
                 if (!(DialogResult.OK | DialogResult.Yes).HasFlag(MessageBox.ShowConfirm(confirmMessage)))
                 {
                     // 確認でOK・Yes以外を押下した場合は処理を終了する
@@ -923,24 +703,233 @@
 
         #endregion
 
-        #region 内部プライベートクラス
-
-        #region TableLayoutPanelに設置するラジオボタン
+        #region プライベートメソッド
 
         /// <summary>
-        /// <see cref="TableLayoutPanel"/> コントロールに設置するラジオボタン
+        /// <see cref="PlListTable"/> に行及びコントロールが存在しないかの判定
+        /// </summary>
+        /// <returns>
+        /// <see cref="PlListTable"/>  に行及びコントロールが存在しない場合 True、
+        /// 行及びコントロールが存在する場合 False
+        /// </returns>
+        private bool IsNoRow()
+        {
+            // 対象のTableLayoutPanelコントロール取得
+            TableLayoutPanel tablePanel = PlListTable;
+
+            // 行が1行以下かつコントロールが存在しない場合はデータなしと判定する
+            return tablePanel.RowCount <= 1 && tablePanel.Controls.Count == 0;
+        }
+
+        /// <summary>
+        /// <see cref="PlListTable"/> の対象行に行単位にコントロール及びスタイルを移動する
+        /// </summary>
+        /// <param name="toRowIndex">
+        /// 移動先の行インデックス
+        /// </param>
+        /// <param name="getControl">
+        /// 移動元のコントロールを取得する処理
+        /// ・引数1 int：カラムのインデックス
+        /// ・戻り値 Control：移動先に設定するコントロール
+        /// 　（NULLを返却した場合はそのカラムでは移動を行わない）
+        /// NULLを指定した場合はコントロールの移動処理を行わない
+        /// </param>
+        /// <param name="rowStyles">
+        /// コントロールの移動に伴い同じく移動する <see cref="RowStyle"/> の配列
+        /// </param>
+        /// <param name="getRowStyle">
+        /// 移動元の <see cref="RowStyle"/> を取得する処理
+        /// ・戻り値 RowStyle：移動先に設定する <see cref="RowStyle"/>
+        /// 　（NULLを返却した場合はデフォルト値を設定する）
+        /// NULLを指定した場合はスタイルの移動処理を行わない
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// 引数の <paramref name="toRowIndex"/> が <see cref="PlListTable"/> コントロールの
+        /// 行の範囲（0以上、行カウント未満の範囲）の値でない場合に発生
+        /// </exception>
+        private void MoveRow(
+            int toRowIndex,
+            Func<int, Control> getControl,
+            ref RowStyle[] rowStyles,
+            Func<RowStyle> getRowStyle)
+        {
+            // コントロールの移動処理を行う（必要な引数チェックもこのメソッドで実行している）
+            MoveRow(toRowIndex, getControl);
+
+            // スタイルの移動
+            if (getRowStyle != null)
+            {
+                if (toRowIndex < rowStyles.Length)
+                {
+                    rowStyles[toRowIndex] = getRowStyle() ?? new RowStyle();
+                }
+            }
+        }
+
+        /// <summary>
+        /// <see cref="PlListTable"/> の対象行のコントロールを行単位に移動する
+        /// </summary>
+        /// <param name="toRowIndex">
+        /// 移動先の行インデックス
+        /// </param>
+        /// <param name="getControl">
+        /// 移動元のコントロールを取得する処理
+        /// ・引数1 int：カラムのインデックス
+        /// ・戻り値 Control：移動先に設定するコントロール
+        /// 　（NULLを返却した場合はそのカラムでは移動を行わない）
+        /// NULLを指定した場合はコントロールの移動処理を行わない
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// 引数の <paramref name="toRowIndex"/> が <see cref="PlListTable"/> コントロールの
+        /// 行の範囲（0以上、行カウント未満の範囲）の値でない場合に発生
+        /// </exception>
+        private void MoveRow(int toRowIndex, Func<int, Control> getControl)
+        {
+            // 対象のTableLayoutPanelコントロール取得
+            TableLayoutPanel tablePanel = PlListTable;
+
+            // 引数のチェック
+            if (toRowIndex < 0 || toRowIndex >= tablePanel.RowCount)
+            {
+                // 引数のtoRowIndexがtablePanelの行の範囲にない場合
+                throw new ArgumentOutOfRangeException(nameof(toRowIndex));
+            }
+
+            // コントロールの移動
+            if (getControl != null)
+            {
+                for (int column = 0; column < tablePanel.ColumnCount; column++)
+                {
+                    Control control = getControl(column);
+                    if (control != null)
+                    {
+                        tablePanel.SetCellPosition(
+                            control: control,
+                            position: new TableLayoutPanelCellPosition(column, toRowIndex));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// <see cref="PlListTable"/> の対象行に存在する子コントロールを削除する
+        /// </summary>
+        /// <param name="removeRowIndex">
+        /// 削除対象の行インデックス
+        /// </param>
+        /// <param name="isDelete">
+        /// 削除処理かどうかのフラグ
+        /// 削除の場合：True、移動の場合：False
+        /// （削除の場合は対象のコントロールの Dispose を行う）
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// 引数の <paramref name="removeRowIndex"/> が <see cref="PlListTable"/> コントロールの
+        /// 行の範囲（0以上、行カウント未満の範囲）の値でない場合に発生
+        /// </exception>
+        private void RemoveRow(int removeRowIndex, bool isDelete)
+        {
+            // 対象のTableLayoutPanelコントロール取得
+            TableLayoutPanel tablePanel = PlListTable;
+
+            // 引数のチェック
+            if (removeRowIndex < 0 || removeRowIndex >= tablePanel.RowCount)
+            {
+                // 引数のremoveRowIndexがtablePanelの行の範囲にない場合
+                throw new ArgumentOutOfRangeException(nameof(removeRowIndex));
+            }
+
+            // 削除対象行に存在する全てのコントロールを削除する
+            for (int column = 0; column < tablePanel.ColumnCount; column++)
+            {
+                Control removeControl = tablePanel.GetControlFromPosition(column, removeRowIndex);
+                if (removeControl != null)
+                {
+                    tablePanel.Controls.Remove(removeControl);
+
+                    // 削除の場合は対象のコントロールを破棄する
+                    if (isDelete)
+                    {
+                        if (removeControl is TableRadioButton radio)
+                        {
+                            TableRadioButtons.Remove(radio);
+                        }
+                        else if (removeControl is TableControlPanel panel)
+                        {
+                            TableControlPanels.Remove(panel);
+                        }
+
+                        removeControl.Dispose();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// <see cref="PlListTable"/> の行スタイルを、
+        /// 引数の <paramref name="rowStyles"/> の値で設定する
+        /// </summary>
+        /// <param name="rowStyles">
+        /// コントロールの移動に伴い同じく移動する <see cref="RowStyle"/> の配列
+        /// NULL又は要素0の配列を指定した場合はスタイルを初期化する
+        /// </param>
+        private void SetRowStyle(RowStyle[] rowStyles)
+        {
+            // 対象のTableLayoutPanelコントロール取得
+            TableLayoutPanel tablePanel = PlListTable;
+
+            // TableLayoutPanelの行スタイルをクリア
+            tablePanel.RowStyles.Clear();
+
+            if (rowStyles != null || rowStyles.Length > 0)
+            {
+                // 引数のスタイルの指定が存在する場合、引数の配列の要素で設定を行う
+                foreach (RowStyle style in rowStyles)
+                {
+                    tablePanel.RowStyles.Add(new RowStyle(style.SizeType, style.Height));
+                }
+            }
+            else
+            {
+                // 引数のスタイルの指定がNULL又は要素0の場合、初期設定を行う
+                // 最初の1行目を生成（TableLayoutPanelは0行を認めていないため1行目を生成する）
+                tablePanel.RowStyles.Add(new RowStyle());
+            }
+        }
+
+        /// <summary>
+        /// <see cref="PlListTable"/> の子コントロールのTabインデックスを設定する
+        /// </summary>
+        private void SetTabIndex()
+        {
+            // 対象のTableLayoutPanelコントロール取得
+            TableLayoutPanel tablePanel = PlListTable;
+
+            // TableLayoutPanelを左上から右、下に向かってTabインデックスを設定する
+            int tabIndex = 0;
+            for (int row = 0; row < tablePanel.RowCount; row++)
+            {
+                for (int column = 0; column < tablePanel.ColumnCount; column++)
+                {
+                    Control control = tablePanel.GetControlFromPosition(column, row);
+                    if (control != null)
+                    {
+                        control.TabIndex = tabIndex++;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region 内部プライベートクラス
+
+        #region PlListTableに設置するラジオボタン
+
+        /// <summary>
+        /// <see cref="PlListTable"/> に設置するラジオボタン
         /// </summary>
         private class TableRadioButton : RadioButton
         {
-            #region クラス変数・定数
-
-            /// <summary>
-            /// コンポーネントを格納するコンテナーオブジェクト
-            /// </summary>
-            private IContainer _components = null;
-
-            #endregion
-
             #region コンストラクタ
 
             /// <summary>
@@ -955,17 +944,21 @@
             /// このコントロールを配置するカラムのインデックス
             /// </param>
             /// <param name="selectBackColor">
-            /// チェックボックスがチェックされた場合、オーナ <see cref="TableLayoutPanel"/> コントロールの、
-            /// 対象行に設定する色を指定する
+            /// チェックボックスがチェックされた場合、
+            /// オーナ <see cref="TableLayoutPanel"/> コントロールの対象行に設定する色を指定する
             /// </param>
             /// <exception cref="ArgumentNullException">
             /// 引数の <paramref name="owner"/> がNULLの場合に発生
             /// </exception>
             /// <exception cref="ArgumentOutOfRangeException">
-            /// 引数の <paramref name="columnIndex"/> がオーナ <see cref="TableLayoutPanel"/> コントロールの
+            /// 引数の <paramref name="columnIndex"/> が、
+            /// オーナ <see cref="TableLayoutPanel"/> コントロールの
             /// カラムの範囲（0以上、カラムカウント未満の範囲）の値でない場合に発生
             /// </exception>
-            public TableRadioButton(TableLayoutPanel owner, int columnIndex, Color selectBackColor)
+            public TableRadioButton(
+                TableLayoutPanel owner,
+                int columnIndex,
+                Color selectBackColor)
             {
                 // 引数のチェック
                 if (owner == null)
@@ -998,66 +991,16 @@
             private TableLayoutPanel Owner { get; }
 
             /// <summary>
-            /// オーナ <see cref="TableLayoutPanel"/> コントロールおける、このコントロールを配置するカラムのインデックス
+            /// オーナ <see cref="TableLayoutPanel"/> コントロールおける、
+            /// このコントロールを配置するカラムのインデックス
             /// </summary>
             private int ColumnIndex { get; }
 
             /// <summary>
-            /// チェックボックスがチェックされた場合、オーナ <see cref="TableLayoutPanel"/> コントロールの、
-            /// 対象行に設定する背景色を指定する
+            /// チェックボックスがチェックされた場合、
+            /// オーナ <see cref="TableLayoutPanel"/> コントロールの、対象行に設定する背景色を指定する
             /// </summary>
             private Color SelectBackColor { get; }
-
-            #endregion
-
-            #region 公開メソッド（Static）
-
-            /// <summary>
-            /// 引数の <paramref name="owner"/> コントロールに配置する、新しい <see cref="TableRadioButton"/> コントロールを取得
-            /// </summary>
-            /// <param name="owner">
-            /// このコントロールを配置する、オーナ <see cref="TableLayoutPanel"/> コントロール
-            /// </param>
-            /// <param name="columnIndex">
-            /// オーナ <see cref="TableLayoutPanel"/> コントロールにおいて、
-            /// このコントロールを配置するカラムのインデックス
-            /// </param>
-            /// <param name="selectBackColor">
-            /// チェックボックスがチェックされた場合、オーナ <see cref="TableLayoutPanel"/> コントロールの、
-            /// 対象行に設定する色を指定する
-            /// </param>
-            /// <exception cref="ArgumentNullException">
-            /// 引数の <paramref name="owner"/> がNULLの場合に発生
-            /// </exception>
-            /// <exception cref="ArgumentOutOfRangeException">
-            /// 引数の <paramref name="columnIndex"/> がオーナ <see cref="TableLayoutPanel"/> コントロールの
-            /// カラムの範囲（0以上、カラムカウント未満の範囲）の値でない場合に発生
-            /// </exception>
-            /// <returns>生成した <see cref="TableRadioButton"/> コントロール</returns>
-            public static TableRadioButton GetNewRadioPanel(TableLayoutPanel owner, int columnIndex, Color selectBackColor)
-            {
-                return new TableRadioButton(owner, columnIndex, selectBackColor);
-            }
-
-            #endregion
-
-            #region Disposeの実装
-
-            /// <summary>
-            /// 使用中のリソースを全て解放する
-            /// </summary>
-            /// <param name="disposing">
-            /// マネージド リソースを破棄する場合は True 、その他の場合は False
-            /// </param>
-            protected override void Dispose(bool disposing)
-            {
-                if (disposing && (_components != null))
-                {
-                    _components.Dispose();
-                }
-
-                base.Dispose(disposing);
-            }
 
             #endregion
 
@@ -1071,7 +1014,8 @@
             private void RadioCheckedChanged(object sender, EventArgs e)
             {
                 // センダーオブジェクトから変更があったチェックの内容を取得する
-                // センダーオブジェクトがラジオボタンでない場合、後続の処理で全てのチェックを外すため True を設定
+                // センダーオブジェクトがラジオボタンでない場合、
+                // 後続の処理で全てのチェックを外すため True を設定
                 bool isChecked = (sender as RadioButton)?.Checked ?? true;
 
                 // オーナのTableLayoutPanelパネルの行数毎にループを行う
@@ -1133,22 +1077,13 @@
 
         #endregion
 
-        #region TableLayoutPanelに設置するコントロールを含むパネル
+        #region PlListTableに設置するコントロールを含むパネル
 
         /// <summary>
-        /// <see cref="TableLayoutPanel"/>に設置するコントロールを含むパネル
+        /// <see cref="PlListTable"/> に設置するコントロールを含むパネル
         /// </summary>
-        private class ControlPanel : Panel
+        private class TableControlPanel : Panel
         {
-            #region クラス変数・定数
-
-            /// <summary>
-            /// コンポーネントを格納するコンテナーオブジェクト
-            /// </summary>
-            private IContainer _components = null;
-
-            #endregion
-
             #region コンストラクタ
 
             /// <summary>
@@ -1162,9 +1097,10 @@
             /// 引数の <paramref name="control"/> がNULLの場合に発生
             /// </exception>
             /// <exception cref="Exception">
-            /// 追加するコントロールがトップレベルのコントロール 又は、追加によって循環参照になる場合に発生
+            /// 追加するコントロールがトップレベルのコントロール または、
+            /// 追加によって循環参照になる場合に発生
             /// </exception>
-            public ControlPanel(Control control)
+            public TableControlPanel(Control control)
             {
                 // 引数をプロパティに設定して保持する
                 Control = control ?? throw new ArgumentNullException(nameof(control));
@@ -1184,55 +1120,14 @@
 
             #endregion
 
-            #region 公開メソッド（Static）
-
-            /// <summary>
-            /// <see cref="TableLayoutPanel"/> コントロールに配置する、新しいコントロールパネルを取得
-            /// </summary>
-            /// <param name="control">
-            /// <see cref="TableLayoutPanel"/> コントロールに配置するコントロール
-            /// </param>
-            /// <exception cref="ArgumentNullException">
-            /// 引数の <paramref name="control"/> がNULLの場合に発生
-            /// </exception>
-            /// <exception cref="Exception">
-            /// 追加するコントロールがトップレベルのコントロール 又は、追加によって循環参照になる場合に発生
-            /// </exception>
-            /// <returns>引数の <paramref name="control"/> を配置したコントロールパネル</returns>
-            public static ControlPanel GetNewControlPanel(Control control)
-            {
-                return new ControlPanel(control);
-            }
-
-            #endregion
-
-            #region Disposeの実装
-
-            /// <summary>
-            /// 使用中のリソースを全て解放する
-            /// </summary>
-            /// <param name="disposing">
-            /// マネージド リソースを破棄する場合は True 、その他の場合は False
-            /// </param>
-            protected override void Dispose(bool disposing)
-            {
-                if (disposing && (_components != null))
-                {
-                    _components.Dispose();
-                }
-
-                base.Dispose(disposing);
-            }
-
-            #endregion
-
             #region 各コントロールの初期化処理
 
             /// <summary>
             /// 各コントロールの初期化処理
             /// </summary>
             /// <exception cref="Exception">
-            /// 追加するコントロールがトップレベルのコントロール 又は、追加によって循環参照になる場合に発生
+            /// 追加するコントロールがトップレベルのコントロール または、
+            /// 追加によって循環参照になる場合に発生
             /// </exception>
             private void InitializeComponent()
             {
@@ -1245,7 +1140,10 @@
                     Control.Dock = DockStyle.Top;
 
                     // このパネル
-                    Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                    Anchor = AnchorStyles.Top
+                        | AnchorStyles.Bottom
+                        | AnchorStyles.Left
+                        | AnchorStyles.Right;
                     AutoSize = true;
                     AutoSizeMode = AutoSizeMode.GrowAndShrink;
                     Controls.Add(Control);

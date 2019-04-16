@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChromeSpeechRecognitionChromePathIsWrong" xml:space="preserve">
+  <data name="ChromeSpeechRecognitionMessageChromePathIsWrong" xml:space="preserve">
     <value>指定したChromeのEXEのパスが間違っておりChromeの起動ができません。</value>
     <comment>Chromeでの音声認識を開始時にChromeのEXEのファイルパスが取得できなかった場合のメッセージ_パスの誤り</comment>
   </data>
-  <data name="ChromeSpeechRecognitionNoInstall" xml:space="preserve">
+  <data name="ChromeSpeechRecognitionMessageNoInstall" xml:space="preserve">
     <value>当機能を使用するにはChromeのインストールが必要です。</value>
     <comment>Chromeでの音声認識を開始時にChromeのEXEのファイルパスが取得できなかった場合のメッセージ_Chrome未インストール</comment>
   </data>
@@ -170,10 +170,6 @@
     <value>この引数はGifの単一のフレームデータとして不正なデータです。（不正な末端データ）</value>
     <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ（不正な末端データ）</comment>
   </data>
-  <data name="GifEncoderErrorDataBroken" xml:space="preserve">
-    <value>Gifのデータが破損しています。</value>
-    <comment>Gifエンコーダの処理にて、Gifデータが不正な値になっている場合のメッセージ</comment>
-  </data>
   <data name="GifEncoderErrorEncodingFailed" xml:space="preserve">
     <value>Gifのエンコードに失敗しました。</value>
     <comment>Gifエンコーダの処理にて、Gifのエンコードに失敗した場合のメッセージ</comment>
@@ -187,10 +183,32 @@
     <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータが必要な引数に複数フレームのデータを設定した場合のメッセージ</comment>
   </data>
   <data name="LocalHttpServerError" xml:space="preserve">
-    <value>ローカルHTTPサーバでエラーが発生しました。処理を終了します。</value>
+    <value>ローカルHTTPサーバでエラーが発生しました。
+処理を終了します。</value>
     <comment>ローカルHTTPサーバの受信送信処理でエラーが発生した場合のメッセージ</comment>
   </data>
-  <data name="LocalHttpServerErrorResponseHtml" xml:space="preserve">
+  <data name="LocalHttpServerErrorHttpListenerErrorFormat" xml:space="preserve">
+    <value>ローカルHTTPサーバでエラーが発生しました。（エラーコード：{0}）
+処理を終了します。</value>
+    <comment>ローカルHTTPサーバの受信送信処理でエラーが発生した場合のメッセージ　{0}：HttpListenerExceptionのエラーコード</comment>
+  </data>
+  <data name="LocalHttpServerErrorNotStart" xml:space="preserve">
+    <value>ローカルHTTPサーバの起動に失敗しました。</value>
+    <comment>ローカルHTTPサーバの開始処理にて想定外のエラーが発生した場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerErrorNotStartHttpListenerErrorFormat" xml:space="preserve">
+    <value>ローカルHTTPサーバの起動に失敗しました。（エラーコード：{0}）</value>
+    <comment>ローカルHTTPサーバの開始処理にてHttpListenerExceptionが発生した場合のメッセージ　{0}：HttpListenerExceptionのエラーコード</comment>
+  </data>
+  <data name="LocalHttpServerErrorNotSupported" xml:space="preserve">
+    <value>このOSではローカルHTTPサーバを使用することはできません。</value>
+    <comment>ローカルHTTPサーバ処理にて当該OSにおいてHttpListenerの使用が不可の場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerErrorNoUnusedPort" xml:space="preserve">
+    <value>使用可能なポートが存在しないため、ローカルHTTPサーバを使用することはできません。</value>
+    <comment>ローカルHTTPサーバ処理にて使用するTCPポートが取得できない場合のメッセージ</comment>
+  </data>
+  <data name="LocalHttpServerErrorResponseHtmlFormat" xml:space="preserve">
     <value>&lt;!DOCTYPE html&gt;&lt;html&gt;
 &lt;head&gt;&lt;meta charset = \"UTF-8\"&gt;&lt;/head&gt;
 &lt;body&gt;&lt;pre&gt;
@@ -198,22 +216,6 @@
 &lt;/pre&gt;&lt;/body&gt;
 &lt;/html&gt;</value>
     <comment>レスポンスデータの生成処理中にエラーが発生した場合に返却するエラーレスポンスのHTML</comment>
-  </data>
-  <data name="LocalHttpServerNotSupported" xml:space="preserve">
-    <value>このOSではローカルHTTPサーバを使用することはできません。</value>
-    <comment>ローカルHTTPサーバ処理にて当該OSにおいてHttpListenerの使用が不可の場合のメッセージ</comment>
-  </data>
-  <data name="LocalHttpServerNoUnusedPort" xml:space="preserve">
-    <value>使用可能なポートが存在しないため、ローカルHTTPサーバを使用することはできません。</value>
-    <comment>ローカルHTTPサーバ処理にて使用するTCPポートが取得できない場合のメッセージ</comment>
-  </data>
-  <data name="LocalHttpServerStartError" xml:space="preserve">
-    <value>ローカルHTTPサーバの起動に失敗しました。</value>
-    <comment>ローカルHTTPサーバの開始処理にて想定外のエラーが発生した場合のメッセージ</comment>
-  </data>
-  <data name="LocalHttpServerStartHttpListenerError" xml:space="preserve">
-    <value>ローカルHTTPサーバの起動に失敗しました。（エラーコード：{0}）</value>
-    <comment>ローカルHTTPサーバの開始処理にてHttpListenerExceptionが発生した場合のメッセージ　{0}：HttpListenerExceptionのエラーコード</comment>
   </data>
   <data name="TitleAttention" xml:space="preserve">
     <value>注意</value>
@@ -255,25 +257,29 @@
     <value>コンフィグの書き込みに失敗しました。設定した内容は破棄されます。</value>
     <comment>コンフィグの値設定処理でエラーが発生した場合のメッセージ</comment>
   </data>
-  <data name="Win32OperateFailDllImportMessageFormat" xml:space="preserve">
+  <data name="Win32OperateErrorFailDllImportFormat" xml:space="preserve">
     <value>「{0}、{1}」が読み込みでエラーが発生しました。</value>
     <comment>Win32APIを使用した処理で対象のDLL、メソッドの読み込みに失敗した場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称</comment>
   </data>
-  <data name="Win32OperateFailMessageFormat" xml:space="preserve">
+  <data name="Win32OperateErrorFormat" xml:space="preserve">
     <value>「{0}、{1}」の処理に失敗しました。</value>
     <comment>Win32APIを使用した処理で実行したメソッドが処理を失敗した場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称</comment>
   </data>
-  <data name="Win32OperateFailMessageFormatWithErrorCode" xml:space="preserve">
+  <data name="Win32OperateErrorFormatWithErrorCode" xml:space="preserve">
     <value>「{0}、{1}」の処理に失敗しました。
 {2}</value>
     <comment>Win32APIを使用した処理で実行したメソッドが処理を失敗した場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称、{2}：エラーコードに紐づくメッセージ</comment>
   </data>
-  <data name="Win32OperateRuntimeWrappedExceptionMessageFormat" xml:space="preserve">
+  <data name="Win32OperateErrorRuntimeWrappedExceptionFormat" xml:space="preserve">
     <value>「{0}、{1}」の処理において例外「RuntimeWrappedException」が発生しました。</value>
     <comment>Win32APIを使用した処理で実行したメソッドが例外を発生させた場合のメッセージ　{0}：DLLの名称、{1}：メソッドの名称</comment>
   </data>
-  <data name="Win32OperateTimeoutMessage" xml:space="preserve">
+  <data name="Win32OperateErrorTimeout" xml:space="preserve">
     <value>タイムアウトが発生しました。</value>
     <comment>Win32APIを使用した処理で実行したメソッドがタイムアウトした場合のメッセージ</comment>
+  </data>
+  <data name="WindowCaptureError" xml:space="preserve">
+    <value>ウィンドウキャプチャの処理でエラーが発生しました。</value>
+    <comment>ウィンドウキャプチャの処理でエラーが発生した場合のメッセージ</comment>
   </data>
 </root>

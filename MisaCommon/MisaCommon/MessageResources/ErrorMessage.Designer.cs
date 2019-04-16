@@ -19,7 +19,7 @@ namespace MisaCommon.MessageResources {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ErrorMessage {
@@ -63,18 +63,18 @@ namespace MisaCommon.MessageResources {
         /// <summary>
         ///   指定したChromeのEXEのパスが間違っておりChromeの起動ができません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string ChromeSpeechRecognitionChromePathIsWrong {
+        internal static string ChromeSpeechRecognitionMessageChromePathIsWrong {
             get {
-                return ResourceManager.GetString("ChromeSpeechRecognitionChromePathIsWrong", resourceCulture);
+                return ResourceManager.GetString("ChromeSpeechRecognitionMessageChromePathIsWrong", resourceCulture);
             }
         }
         
         /// <summary>
         ///   当機能を使用するにはChromeのインストールが必要です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string ChromeSpeechRecognitionNoInstall {
+        internal static string ChromeSpeechRecognitionMessageNoInstall {
             get {
-                return ResourceManager.GetString("ChromeSpeechRecognitionNoInstall", resourceCulture);
+                return ResourceManager.GetString("ChromeSpeechRecognitionMessageNoInstall", resourceCulture);
             }
         }
         
@@ -169,15 +169,6 @@ namespace MisaCommon.MessageResources {
         }
         
         /// <summary>
-        ///   Gifのデータが破損しています。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string GifEncoderErrorDataBroken {
-            get {
-                return ResourceManager.GetString("GifEncoderErrorDataBroken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Gifのエンコードに失敗しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string GifEncoderErrorEncodingFailed {
@@ -205,11 +196,58 @@ namespace MisaCommon.MessageResources {
         }
         
         /// <summary>
-        ///   ローカルHTTPサーバでエラーが発生しました。処理を終了します。 に類似しているローカライズされた文字列を検索します。
+        ///   ローカルHTTPサーバでエラーが発生しました。
+        ///処理を終了します。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string LocalHttpServerError {
             get {
                 return ResourceManager.GetString("LocalHttpServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ローカルHTTPサーバでエラーが発生しました。（エラーコード：{0}）
+        ///処理を終了します。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string LocalHttpServerErrorHttpListenerErrorFormat {
+            get {
+                return ResourceManager.GetString("LocalHttpServerErrorHttpListenerErrorFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ローカルHTTPサーバの起動に失敗しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string LocalHttpServerErrorNotStart {
+            get {
+                return ResourceManager.GetString("LocalHttpServerErrorNotStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ローカルHTTPサーバの起動に失敗しました。（エラーコード：{0}） に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string LocalHttpServerErrorNotStartHttpListenerErrorFormat {
+            get {
+                return ResourceManager.GetString("LocalHttpServerErrorNotStartHttpListenerErrorFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   このOSではローカルHTTPサーバを使用することはできません。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string LocalHttpServerErrorNotSupported {
+            get {
+                return ResourceManager.GetString("LocalHttpServerErrorNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   使用可能なポートが存在しないため、ローカルHTTPサーバを使用することはできません。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string LocalHttpServerErrorNoUnusedPort {
+            get {
+                return ResourceManager.GetString("LocalHttpServerErrorNoUnusedPort", resourceCulture);
             }
         }
         
@@ -221,45 +259,9 @@ namespace MisaCommon.MessageResources {
         ///&lt;/pre&gt;&lt;/body&gt;
         ///&lt;/html&gt; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string LocalHttpServerErrorResponseHtml {
+        internal static string LocalHttpServerErrorResponseHtmlFormat {
             get {
-                return ResourceManager.GetString("LocalHttpServerErrorResponseHtml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   このOSではローカルHTTPサーバを使用することはできません。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string LocalHttpServerNotSupported {
-            get {
-                return ResourceManager.GetString("LocalHttpServerNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   使用可能なポートが存在しないため、ローカルHTTPサーバを使用することはできません。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string LocalHttpServerNoUnusedPort {
-            get {
-                return ResourceManager.GetString("LocalHttpServerNoUnusedPort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ローカルHTTPサーバの起動に失敗しました。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string LocalHttpServerStartError {
-            get {
-                return ResourceManager.GetString("LocalHttpServerStartError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ローカルHTTPサーバの起動に失敗しました。（エラーコード：{0}） に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string LocalHttpServerStartHttpListenerError {
-            get {
-                return ResourceManager.GetString("LocalHttpServerStartHttpListenerError", resourceCulture);
+                return ResourceManager.GetString("LocalHttpServerErrorResponseHtmlFormat", resourceCulture);
             }
         }
         
@@ -356,18 +358,18 @@ namespace MisaCommon.MessageResources {
         /// <summary>
         ///   「{0}、{1}」が読み込みでエラーが発生しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Win32OperateFailDllImportMessageFormat {
+        internal static string Win32OperateErrorFailDllImportFormat {
             get {
-                return ResourceManager.GetString("Win32OperateFailDllImportMessageFormat", resourceCulture);
+                return ResourceManager.GetString("Win32OperateErrorFailDllImportFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   「{0}、{1}」の処理に失敗しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Win32OperateFailMessageFormat {
+        internal static string Win32OperateErrorFormat {
             get {
-                return ResourceManager.GetString("Win32OperateFailMessageFormat", resourceCulture);
+                return ResourceManager.GetString("Win32OperateErrorFormat", resourceCulture);
             }
         }
         
@@ -375,27 +377,36 @@ namespace MisaCommon.MessageResources {
         ///   「{0}、{1}」の処理に失敗しました。
         ///{2} に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Win32OperateFailMessageFormatWithErrorCode {
+        internal static string Win32OperateErrorFormatWithErrorCode {
             get {
-                return ResourceManager.GetString("Win32OperateFailMessageFormatWithErrorCode", resourceCulture);
+                return ResourceManager.GetString("Win32OperateErrorFormatWithErrorCode", resourceCulture);
             }
         }
         
         /// <summary>
         ///   「{0}、{1}」の処理において例外「RuntimeWrappedException」が発生しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Win32OperateRuntimeWrappedExceptionMessageFormat {
+        internal static string Win32OperateErrorRuntimeWrappedExceptionFormat {
             get {
-                return ResourceManager.GetString("Win32OperateRuntimeWrappedExceptionMessageFormat", resourceCulture);
+                return ResourceManager.GetString("Win32OperateErrorRuntimeWrappedExceptionFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   タイムアウトが発生しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Win32OperateTimeoutMessage {
+        internal static string Win32OperateErrorTimeout {
             get {
-                return ResourceManager.GetString("Win32OperateTimeoutMessage", resourceCulture);
+                return ResourceManager.GetString("Win32OperateErrorTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ウィンドウキャプチャの処理でエラーが発生しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string WindowCaptureError {
+            get {
+                return ResourceManager.GetString("WindowCaptureError", resourceCulture);
             }
         }
     }

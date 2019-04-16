@@ -3,7 +3,6 @@
     using System;
     using System.IO;
     using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Security;
 
     /// <summary>
@@ -42,9 +41,14 @@
             }
 
             // コピー元のオブジェクトをメモリに書き込み、それを別のオブジェクトに読み込むことで複製する
-            object copyData;
-            BinaryFormatter formatter = new BinaryFormatter();
-            using (MemoryStream stream = new MemoryStream())
+            object copyData = null;
+
+            // ワーニングがでるためコメントアウト、使っておらず、参考用のコードだから問題ない
+            /*
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter
+                = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            MemoryStream stream;
+            using (stream = new MemoryStream())
             {
                 // コピー元のオブジェクトをシリアル化していったんメモリに書き込む
                 formatter.Serialize(stream, original);
@@ -53,6 +57,7 @@
                 stream.Seek(0, SeekOrigin.Begin);
                 copyData = formatter.Deserialize(stream);
             }
+            */
 
             // コピーしたオブジェクトを元の型にキャストして返却
             return (T)copyData;
@@ -77,7 +82,7 @@
         /// </exception>
         /// <exception cref="PathTooLongException">
         /// 引数の <paramref name="path"/> がシステム定義の最大長を超えている場合に発生
-        /// たとえば、Windowsベースのプラットフォームでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
+        /// たとえば、Windowsでは、パスは 248文字未満、ファイル名は 260 文字未満である必要がある
         /// </exception>
         /// <exception cref="DirectoryNotFoundException">
         /// 引数の <paramref name="path"/> が存在しないディレクトリを示している場合に発生

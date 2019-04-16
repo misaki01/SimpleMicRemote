@@ -1,11 +1,9 @@
 ﻿namespace MisaCommon.Utility.Win32Api.NativeMethod.Capture
 {
-    using System;
-
     /// <summary>
     /// ラスタオペレーションに関する情報を扱うクラス
-    /// （<see cref="NativeMethods.BitBlt(IntPtr, int, int, int, int, IntPtr, int, int, uint)"/> メソッド等で指定する
-    /// 　ラスタオペレーションに関する情報を扱う）
+    /// （<see cref="NativeMethods.BitBlt(SafeDCHandle, int, int, int, int, SafeDCHandle, int, int, uint)"/>
+    /// 　メソッド等で指定するラスタオペレーションに関する情報を扱う）
     /// </summary>
     internal static class RasterOperation
     {

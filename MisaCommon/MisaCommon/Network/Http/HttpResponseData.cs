@@ -15,7 +15,7 @@
     /// <param name="stream">レスポンスデータを設定する <see cref="Stream"/> オブジェクト</param>
     /// <param name="request">Httpリクエスト</param>
     /// <returns>レスポンスデータのサイズ（バイト単位）</returns>
-    public delegate long SetResponseDataStream(Stream stream, HttpListenerRequest request);
+    public delegate long SetResponseData(Stream stream, HttpListenerRequest request);
 
     #endregion
 
@@ -38,7 +38,7 @@
         /// <exception cref="ArgumentException">
         /// 引数の <paramref name="mimeType"/> が空文字の場合に発生
         /// </exception>
-        public HttpResponseData(string mimeType, SetResponseDataStream setStream)
+        public HttpResponseData(string mimeType, SetResponseData setStream)
         {
             // MIMEタイプのチェック
             // NULL、空の場合は例外をスロー
@@ -68,7 +68,7 @@
         /// <summary>
         /// レスポンスデータに対するStreamを設定する機能を取得する
         /// </summary>
-        public SetResponseDataStream SetStream { get; private set; }
+        public SetResponseData SetStream { get; private set; }
 
         #endregion
 
@@ -84,7 +84,7 @@
         {
             return new HttpResponseData(
                 mimeType: MimeType,
-                setStream: (SetResponseDataStream)SetStream?.Clone());
+                setStream: (SetResponseData)SetStream?.Clone());
         }
 
         #endregion

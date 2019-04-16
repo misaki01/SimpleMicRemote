@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChromeSpeechRecognitionChromePathIsWrong" xml:space="preserve">
+  <data name="ChromeSpeechRecognitionMessageChromePathIsWrong" xml:space="preserve">
     <value>The Chrome EXE path is incorrect and Chrome can not start up.</value>
     <comment>A message when Chrome EXE file path could not be acquired when initiating speech recognition. (Incorrect path)</comment>
   </data>
-  <data name="ChromeSpeechRecognitionNoInstall" xml:space="preserve">
+  <data name="ChromeSpeechRecognitionMessageNoInstall" xml:space="preserve">
     <value>Installing Chrome is necessary to use this function.</value>
     <comment>A message when Chrome EXE file path could not be get when starting speech recognition. (Chrome not installed)</comment>
   </data>
@@ -170,10 +170,6 @@ Double launch is not possible.</value>
     <value>This argument is invalid data as Gif single-frame data. (Bad last data)</value>
     <comment>A message when data set in Gif single-frame data argument is invalid data in Gif encoder processing. (Bad last data)</comment>
   </data>
-  <data name="GifEncoderErrorDataBroken" xml:space="preserve">
-    <value>Gifs data is broken.</value>
-    <comment>A message when Gif data is Broken in Gif encoder processing.</comment>
-  </data>
   <data name="GifEncoderErrorEncodingFailed" xml:space="preserve">
     <value>Gif encoding failed.</value>
     <comment>A message when Gif encoding fails in Gif encoder processing.</comment>
@@ -187,10 +183,32 @@ Double launch is not possible.</value>
     <comment>A message when setting Gif multi-frame data to an argument that requires single-frame data in Gif encoder processing.</comment>
   </data>
   <data name="LocalHttpServerError" xml:space="preserve">
-    <value>An error occurred in the Local HTTP Server. Processing ends.</value>
+    <value>An error occurred in the Local HTTP Server.
+Processing ends.</value>
     <comment>A message when an error occurs in the reception and transmission processing of the Local HTTP Server.</comment>
   </data>
-  <data name="LocalHttpServerErrorResponseHtml" xml:space="preserve">
+  <data name="LocalHttpServerErrorHttpListenerErrorFormat" xml:space="preserve">
+    <value>An error occurred in the Local HTTP Server. (Error code: {0})
+Processing ends.</value>
+    <comment>A message when an error occurs in the reception and transmission processing of the Local HTTP Server. {0}: HttpListenerException error code.</comment>
+  </data>
+  <data name="LocalHttpServerErrorNotStart" xml:space="preserve">
+    <value>Failed to start Local HTTP Server.</value>
+    <comment>A message when an unexpected error occurs in the Local HTTP Server start processing.</comment>
+  </data>
+  <data name="LocalHttpServerErrorNotStartHttpListenerErrorFormat" xml:space="preserve">
+    <value>Failed to start Local HTTP Server. (Error code: {0})</value>
+    <comment>A message when an HttpListenerException occurs in the Local HTTP Server start processing. {0}: HttpListenerException error code.</comment>
+  </data>
+  <data name="LocalHttpServerErrorNotSupported" xml:space="preserve">
+    <value>The Local HTTP Server can not be used with this OS.</value>
+    <comment>A message when the use of "HttpListener" is not allowed in the OS in the local HTTP server process.</comment>
+  </data>
+  <data name="LocalHttpServerErrorNoUnusedPort" xml:space="preserve">
+    <value>Since there is no usable port, you can not use the Local HTTP Server.</value>
+    <comment>A message when there is no TCP port used by the local HTTP server</comment>
+  </data>
+  <data name="LocalHttpServerErrorResponseHtmlFormat" xml:space="preserve">
     <value>&lt;!DOCTYPE html&gt;&lt;html&gt;
 &lt;head&gt;&lt;meta charset = \"UTF-8\"&gt;&lt;/head&gt;
 &lt;body&gt;&lt;pre&gt;
@@ -198,22 +216,6 @@ Double launch is not possible.</value>
 &lt;/pre&gt;&lt;/body&gt;
 &lt;/html&gt;</value>
     <comment>Error response HTML to be returned when an error occurs during response data generation processing.</comment>
-  </data>
-  <data name="LocalHttpServerNotSupported" xml:space="preserve">
-    <value>The Local HTTP Server can not be used with this OS.</value>
-    <comment>A message when the use of "HttpListener" is not allowed in the OS in the local HTTP server process.</comment>
-  </data>
-  <data name="LocalHttpServerNoUnusedPort" xml:space="preserve">
-    <value>Since there is no usable port, you can not use the Local HTTP Server.</value>
-    <comment>A message when there is no TCP port used by the local HTTP server</comment>
-  </data>
-  <data name="LocalHttpServerStartError" xml:space="preserve">
-    <value>Failed to start Local HTTP Server.</value>
-    <comment>A message when an unexpected error occurs in the Local HTTP Server start processing.</comment>
-  </data>
-  <data name="LocalHttpServerStartHttpListenerError" xml:space="preserve">
-    <value>Failed to start Local HTTP Server. (Error code: {0})</value>
-    <comment>A message when an HttpListenerException occurs in the Local HTTP Server start processing. {0}: HttpListenerException error code.</comment>
   </data>
   <data name="TitleAttention" xml:space="preserve">
     <value>Attention !</value>
@@ -255,25 +257,29 @@ Double launch is not possible.</value>
     <value>Failed to write config. The set contents are discarded.</value>
     <comment>A message when an error occurs in setting value processing of config.</comment>
   </data>
-  <data name="Win32OperateFailDllImportMessageFormat" xml:space="preserve">
+  <data name="Win32OperateErrorFailDllImportFormat" xml:space="preserve">
     <value>An error occurred while loading ["{0}", "{1}"].</value>
     <comment>A message when the target DLL and method failed to be load by processing using Win32API. {0}: DLL name, {1}: method name</comment>
   </data>
-  <data name="Win32OperateFailMessageFormat" xml:space="preserve">
+  <data name="Win32OperateErrorFormat" xml:space="preserve">
     <value>Processing of ["{0}", "{1}"] failed.</value>
     <comment>A message when the method executed in processing using Win32 API fails processing. {0}: DLL name, {1}: method name</comment>
   </data>
-  <data name="Win32OperateFailMessageFormatWithErrorCode" xml:space="preserve">
+  <data name="Win32OperateErrorFormatWithErrorCode" xml:space="preserve">
     <value>Processing of ["{0}", "{1}"] failed.
 {2}</value>
     <comment>A message when the method executed in processing using Win32 API fails processing. {0}: DLL name, {1}: method name, {1}: Error code message</comment>
   </data>
-  <data name="Win32OperateRuntimeWrappedExceptionMessageFormat" xml:space="preserve">
+  <data name="Win32OperateErrorRuntimeWrappedExceptionFormat" xml:space="preserve">
     <value>"RuntimeWrappedException" occurred in the processing of ["{0}", "{1}"].</value>
     <comment>A message when a method executed in processing using Win32 API causes an exception. {0}: DLL name, {1}: method name</comment>
   </data>
-  <data name="Win32OperateTimeoutMessage" xml:space="preserve">
+  <data name="Win32OperateErrorTimeout" xml:space="preserve">
     <value>A timeout occurred.</value>
     <comment>A message when the method executed by processing using the Win32 API is timed out</comment>
+  </data>
+  <data name="WindowCaptureError" xml:space="preserve">
+    <value>An error occurred during window capture processing.</value>
+    <comment>A message when an error occurs during window capture processing.</comment>
   </data>
 </root>

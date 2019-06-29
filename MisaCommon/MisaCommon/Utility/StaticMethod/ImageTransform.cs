@@ -299,8 +299,8 @@
                     // 透明画像と元画像の中心点が重なるように合成する
                     graphics.DrawImage(
                         image: image,
-                        x: (int)Math.Truncate((combinedImage.Size.Width / (float)2) - changeCenterPoint.X),
-                        y: (int)Math.Truncate((combinedImage.Size.Height / (float)2) - changeCenterPoint.Y),
+                        x: (int)Math.Truncate((combinedImage.Size.Width / 2F) - changeCenterPoint.X),
+                        y: (int)Math.Truncate((combinedImage.Size.Height / 2F) - changeCenterPoint.Y),
                         width: image.Size.Width,
                         height: image.Size.Height);
                 }

@@ -9,7 +9,7 @@
     using MisaCommon.Exceptions;
     using MisaCommon.MessageResources;
 
-    using Utility = Utility.StaticMethod;
+    using Utility = MisaCommon.Utility.StaticMethod;
 
     /// <summary>
     /// アプリケーションのエントリポイント

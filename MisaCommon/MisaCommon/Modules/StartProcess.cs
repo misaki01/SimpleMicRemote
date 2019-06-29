@@ -530,7 +530,7 @@
             // プロセス情報のリストを生成し、引数のプロセス情報を設定する
             IList<ProcessInfo> processInfoList = new List<ProcessInfo>
             {
-                processInfo
+                processInfo,
             };
 
             // ウィンドウを閉じる処理を実行

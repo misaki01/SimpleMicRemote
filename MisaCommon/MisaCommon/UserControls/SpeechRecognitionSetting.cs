@@ -13,6 +13,10 @@
     /// <summary>
     /// 音声認識に対するマッチングパターンと操作を設定するためのユーザコントロール
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1501",
+        Justification = "元々のUserControlの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
     public partial class SpeechRecognitionSetting : UserControl
     {
         #region コンストラクタ

@@ -7,7 +7,7 @@
     using MisaCommon.MessageResources;
     using MisaCommon.Utility.Win32Api.NativeMethod;
 
-    using Win32Api = NativeMethod.Message.NativeMethods;
+    using Win32Api = MisaCommon.Utility.Win32Api.NativeMethod.Message.NativeMethods;
 
     /// <summary>
     /// Win32APIの機能を使用してメッセージに関する操作を行うクラス
@@ -26,10 +26,10 @@
         /// <param name="message">
         /// 送信するべきメッセージを指定
         /// </param>
-        /// <param name="wParam">
+        /// <param name="wparam">
         /// メッセージ特有の１番目の追加情報を指定
         /// </param>
-        /// <param name="lParam">
+        /// <param name="lparam">
         /// メッセージ特有の２番目の追加情報を指定
         /// </param>
         /// <param name="isSucessFunc">
@@ -66,8 +66,8 @@
         public static void SendMessage(
             HandleRef windowHandle,
             int message,
-            IntPtr wParam,
-            IntPtr lParam,
+            IntPtr wparam,
+            IntPtr lparam,
             Func<IntPtr, bool> isSucessFunc,
             bool isThrowExceptionCloseFail,
             bool isExcludeTimeoutExceptions)
@@ -87,13 +87,13 @@
 
             // Win32Apiの実行処理
             // Win32ApiのMessage共通の呼び出し機能を用いて、ウィンドウへのメッセージ送信処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 IntPtr tmpResult = Win32Api.SendMessageTimeout(
                     windowHandle: windowHandle,
                     message: message,
-                    wParam: wParam,
-                    lParam: lParam,
+                    wParam: wparam,
+                    lParam: lparam,
                     optionFlag: optionFlag,
                     timeoutTime: timeout,
                     messageResult: out IntPtr messageResult);
@@ -107,7 +107,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.SendMessageTimeout);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 例外を発生させる場合のみ、正常終了したかチェックを行う
             if (isThrowExceptionCloseFail && !result.Result)

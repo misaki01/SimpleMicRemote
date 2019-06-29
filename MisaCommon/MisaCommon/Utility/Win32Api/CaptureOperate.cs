@@ -12,9 +12,9 @@
     using MisaCommon.Utility.Win32Api.NativeMethod.Capture;
 
     using Icon = System.Drawing.Icon;
-    using IconInfo = NativeMethod.Capture.Icon;
-    using ROPCode = NativeMethod.Capture.RasterOperation.CommonCode;
-    using Win32Api = NativeMethod.Capture.NativeMethods;
+    using IconInfo = MisaCommon.Utility.Win32Api.NativeMethod.Capture.Icon;
+    using ROPCode = MisaCommon.Utility.Win32Api.NativeMethod.Capture.RasterOperation.CommonCode;
+    using Win32Api = MisaCommon.Utility.Win32Api.NativeMethod.Capture.NativeMethods;
 
     /// <summary>
     /// Win32APIの機能を使用してアイコン、カーソルに対する操作を行うクラス
@@ -140,11 +140,15 @@
                     y: screenPoint.Y - backgroundImageScreenPoint.Y);
 
                 // カーソルの画像を取得
-                Bitmap cursorImage = GetCursorImage(
-                    iconHandle,
-                    iconInfo,
-                    backgroundImage,
-                    backgroundImage != null ? imagePoint : (Point?)null);
+                Bitmap cursorImage;
+                if (backgroundImage != null)
+                {
+                    cursorImage = GetCursorImage(iconHandle, iconInfo, backgroundImage, imagePoint);
+                }
+                else
+                {
+                    cursorImage = GetCursorImage(iconHandle, iconInfo);
+                }
 
                 // カーソルの画像が取得できない場合は NULL を返す
                 if (cursorImage == null)
@@ -198,11 +202,11 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、グローバルのカーソルの情報を取得処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 Cursor.CURSORINFO info = new Cursor.CURSORINFO
                 {
-                    StructureSize = Marshal.SizeOf(typeof(Cursor.CURSORINFO))
+                    StructureSize = Marshal.SizeOf(typeof(Cursor.CURSORINFO)),
                 };
                 bool win32Result = Win32Api.GetCursorInfo(ref info);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -213,7 +217,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetCursorInfo);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -247,7 +251,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、アイコンの情報を取得処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result
                     = Win32Api.GetIconInfo(iconCursorHandle, out IconInfo.ICONINFO info);
@@ -259,7 +263,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetIconInfo);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -295,7 +299,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、アイコンの複製処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 SafeCopyIconHandle win32ReturnValue = Win32Api.CopyIcon(iconCursorHandle);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -307,7 +311,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.CopyIcon);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -343,7 +347,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、メモリデバイスコンテキストの作成処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 SafeDCHandle win32ReturnValue = Win32Api.CreateCompatibleDC(targetDCHandle);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -355,7 +359,7 @@
             // 実行
             string dllName = "gdi32.dll";
             string methodName = nameof(Win32Api.CreateCompatibleDC);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -398,7 +402,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、オブジェクト選択処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 IntPtr win32ReturnValue = Win32Api.SelectObject(targetDCHandle, bitmapHandle);
                 bool win32Result = Win32Api.SelectObjectParameter.IsSuccess(win32ReturnValue, false);
@@ -409,7 +413,7 @@
             // 実行
             string dllName = "gdi32.dll";
             string methodName = nameof(Win32Api.SelectObject);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result)
@@ -457,7 +461,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ビットブロック転送処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.BitBlt(
                     destDCHandle: destDCHandle,
@@ -477,7 +481,7 @@
             // 実行
             string dllName = "gdi32.dll";
             string methodName = nameof(Win32Api.BitBlt);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -514,7 +518,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、オブジェクトの破棄処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.DeleteObject(objectHandle);
 
@@ -524,7 +528,7 @@
             // 実行
             string dllName = "gdi32.dll";
             string methodName = nameof(Win32Api.DeleteObject);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result)
@@ -612,51 +616,56 @@
 
             // 画像に関するリソースの解放用の宣言
             Bitmap cursorImage = null;
+            Graphics cursorImageGraphics = null;
             Bitmap baseImage = null;
             Bitmap maskImage = null;
+            bool isCreateBase = false;
             try
             {
+                // 各画像データの生成
+                // カーソル画像と、グラフィックオブジェクト生成
+                cursorImage = new Bitmap(cursorIcon.Width, cursorIcon.Height);
+                cursorImageGraphics = Graphics.FromImage(cursorImage);
+
+                // 背景画像の生成
+                // 引数で背景画像が与えられていない場合、白一色の背景画像を生成する
+                if (backgroundImage == null)
+                {
+                    baseImage = new Bitmap(cursorIcon.Width, cursorIcon.Height);
+                    using (Graphics graphics = Graphics.FromImage(baseImage))
+                    {
+                        graphics.FillRectangle(Brushes.White, graphics.VisibleClipBounds);
+                    }
+
+                    isCreateBase = true;
+                }
+                else
+                {
+                    isCreateBase = false;
+                }
+
+                // マスク画像の生成
+                maskImage = Image.FromHbitmap(iconInfo.MaskBitmapHandle);
+
                 // アンマネージリソースの解放用の宣言
                 SafeDCHandle cursorHdc = null;
                 SafeDCHandle baseHdc = null;
                 SafeDCHandle maskHdc = null;
-                IntPtr beforeCursor = IntPtr.Zero;
                 IntPtr beforeBase = IntPtr.Zero;
                 IntPtr beforeMask = IntPtr.Zero;
                 RuntimeHelpers.PrepareConstrainedRegions();
                 try
                 {
-                    // カーソル画像の元データ及び描画用のデバイスコンテキストを生成
-                    cursorImage = new Bitmap(cursorIcon.Width, cursorIcon.Height);
-                    cursorHdc = CreateCompatibleDC(IntPtr.Zero);
-                    beforeCursor = SelectBitmap(cursorHdc, cursorImage.GetHbitmap());
+                    // カーソル画像のデバイスコンテキストを取得
+                    cursorHdc = new SafeDCHandle(cursorImageGraphics);
 
-                    // 基本となる背景Bitmapのハンドル及びデバイスコンテキストを取得
-                    // 引数で背景画像が与えられていない場合、白一色の背景画像を生成する
-                    bool isCreateBase = false;
-                    IntPtr baseHBitmap;
-                    if (backgroundImage == null)
-                    {
-                        baseImage = new Bitmap(cursorIcon.Width, cursorIcon.Height);
-                        using (Graphics graphics = Graphics.FromImage(baseImage))
-                        {
-                            graphics.FillRectangle(Brushes.White, graphics.VisibleClipBounds);
-                        }
-
-                        baseHBitmap = baseImage.GetHbitmap();
-                        isCreateBase = true;
-                    }
-                    else
-                    {
-                        baseHBitmap = backgroundImage.GetHbitmap();
-                        isCreateBase = false;
-                    }
-
+                    // 背景画像のデバイスコンテキストを取得
+                    IntPtr baseHBitmap = isCreateBase
+                        ? baseImage.GetHbitmap() : backgroundImage.GetHbitmap();
                     baseHdc = CreateCompatibleDC(IntPtr.Zero);
                     beforeBase = SelectBitmap(baseHdc, baseHBitmap);
 
-                    // マスクBitmapのハンドル及びデバイスコンテキストを取得
-                    maskImage = Bitmap.FromHbitmap(iconInfo.MaskBitmapHandle);
+                    // マスク画像のデバイスコンテキストを取得
                     IntPtr maskHBitmap = maskImage.GetHbitmap();
                     maskHdc = CreateCompatibleDC(IntPtr.Zero);
                     beforeMask = SelectBitmap(maskHdc, maskHBitmap);
@@ -670,36 +679,17 @@
                     BitBlt(cursorHdc, 0, 0, width, height, baseHdc, base1Pt.X, base1Pt.Y, ROPCode.SRCCOPY);
                     BitBlt(cursorHdc, 0, 0, width, height, maskHdc, mask1Pt.X, mask1Pt.Y, ROPCode.SRCAND);
                     BitBlt(cursorHdc, 0, 0, width, height, maskHdc, mask2Pt.X, mask2Pt.Y, ROPCode.SRCINVERT);
-
-                    // 背景画像を白一色で生成した場合、背景を透過する
-                    if (isCreateBase)
-                    {
-                        cursorImage.MakeTransparent(Color.White);
-                    }
-
-                    // カーソル画像を返す
-                    return new Bitmap(cursorImage);
                 }
                 finally
                 {
                     // リソースの解放処理
-
                     // カーソル画像に関するリソースの解放
                     try
                     {
-                        if (cursorHdc != null)
-                        {
-                            IntPtr cursorHandle = SelectBitmap(cursorHdc, beforeCursor);
-
-                            if (cursorHandle != IntPtr.Zero)
-                            {
-                                DeleteObject(cursorHandle);
-                            }
-                        }
                     }
                     finally
                     {
-                        cursorHdc?.Dispose();
+                        cursorHdc.Dispose();
                     }
 
                     // 元となる背景画像に関するリソースの解放
@@ -739,13 +729,30 @@
                     }
                 }
             }
+            catch
+            {
+                // 例外発生時はカーソル画像を破棄する
+                cursorImage.Dispose();
+
+                // 発生した例外はそのままスローする
+                throw;
+            }
             finally
             {
                 // 画像リソースを解放する
-                cursorImage.Dispose();
+                cursorImageGraphics?.Dispose();
                 baseImage?.Dispose();
                 maskImage?.Dispose();
             }
+
+            // 背景画像を白一色で生成した場合、背景を透過する
+            if (isCreateBase)
+            {
+                cursorImage.MakeTransparent(Color.White);
+            }
+
+            // 合成したカーソル画像を返す
+            return cursorImage;
         }
 
         /// <summary>

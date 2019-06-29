@@ -68,7 +68,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、アイコンの破棄処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = NativeMethods.DestroyIcon(handle);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -79,7 +79,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(NativeMethods.DestroyIcon);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)

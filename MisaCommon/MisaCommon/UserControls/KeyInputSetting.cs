@@ -17,6 +17,10 @@
     /// <summary>
     /// キーボード入力の設定を行うためのユーザコントロール
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1501",
+        Justification = "元々のUserControlの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
     public partial class KeyInputSetting : UserControl, ISpeechRecognitionSettingControl
     {
         #region クラス定数
@@ -601,8 +605,7 @@
                 }
 
                 // コンボボックスの表示メンバーを設定
-                KeyValuePair<Keys, string> keyValue = default(KeyValuePair<Keys, string>);
-                comboBox.DisplayMember = nameof(keyValue.Value);
+                comboBox.DisplayMember = nameof(KeyValuePair<Keys, string>.Value);
 
                 // 設定したデータの最大サイズに[▼]の表示領域分幅を追加したものを
                 // コンボボックスのサイズに設定する
@@ -995,7 +998,7 @@
                         new ComboBoxControl(PlInputKey, CmbBoxInputKey),
                         new ComboBoxControl(PlOperateKey, CmbBoxOperateKey),
                         new ComboBoxControl(PlImeKey, CmbBoxImeKey),
-                        new ComboBoxControl(PlSpecialKey, CmbBoxSpecialKey)
+                        new ComboBoxControl(PlSpecialKey, CmbBoxSpecialKey),
                     };
                 }
 

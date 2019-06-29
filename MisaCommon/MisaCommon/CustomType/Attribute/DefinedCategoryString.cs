@@ -91,7 +91,7 @@
         /// ウィンドウスタイルに関連するカテゴリ
         /// 日本語表示：ウィンドウ スタイル
         /// </summary>
-        WindowStyle
+        WindowStyle,
     }
 
     /// <summary>

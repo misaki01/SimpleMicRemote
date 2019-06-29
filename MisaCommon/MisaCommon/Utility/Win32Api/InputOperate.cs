@@ -12,7 +12,7 @@
     using MisaCommon.Utility.Win32Api.NativeMethod;
     using MisaCommon.Utility.Win32Api.NativeMethod.Input;
 
-    using Win32Api = NativeMethod.Input.NativeMethods;
+    using Win32Api = MisaCommon.Utility.Win32Api.NativeMethod.Input.NativeMethods;
 
     /// <summary>
     /// Win32APIの機能を使用して入力操作に関する操作を行うクラス
@@ -613,7 +613,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのInput共通の呼び出し機能を用いて、入力操作の送信処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 uint tmpResult = Win32Api.SendInput(count, input, size);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -625,7 +625,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.SendInput);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -658,7 +658,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのInput共通の呼び出し機能を用いて、入力操作の送信処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 uint tmpResult = Win32Api.SendInput(count, input, size);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -670,7 +670,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.SendInput);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -703,7 +703,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのInput共通の呼び出し機能を用いて、入力操作の送信処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 uint tmpResult = Win32Api.SendInput(count, input, size);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -715,7 +715,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.SendInput);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -1165,9 +1165,9 @@
         /// <returns>Shiftキーの場合：True、Shiftキーでない場合：False</returns>
         private static bool IsShiftKey(VirtualKey.Keys key)
         {
-            return (key == VirtualKey.Keys.VK_SHIFT
+            return key == VirtualKey.Keys.VK_SHIFT
                 || key == VirtualKey.Keys.VK_LSHIFT
-                || key == VirtualKey.Keys.VK_RSHIFT);
+                || key == VirtualKey.Keys.VK_RSHIFT;
         }
 
         /// <summary>
@@ -1178,9 +1178,9 @@
         private static bool IsCtrlKey(VirtualKey.Keys key)
         {
             // 引数の押下するキーが、「Shift」「Ctrl」「Alt」「Windowsロゴ」キーである場合
-            return (key == VirtualKey.Keys.VK_CONTROL
+            return key == VirtualKey.Keys.VK_CONTROL
                 || key == VirtualKey.Keys.VK_LCONTROL
-                || key == VirtualKey.Keys.VK_RCONTROL);
+                || key == VirtualKey.Keys.VK_RCONTROL;
         }
 
         /// <summary>
@@ -1190,9 +1190,9 @@
         /// <returns>Altキーの場合：True、Altキーでない場合：False</returns>
         private static bool IsAltKey(VirtualKey.Keys key)
         {
-            return (key == VirtualKey.Keys.VK_MENU
+            return key == VirtualKey.Keys.VK_MENU
                 || key == VirtualKey.Keys.VK_LMENU
-                || key == VirtualKey.Keys.VK_RMENU);
+                || key == VirtualKey.Keys.VK_RMENU;
         }
 
         /// <summary>
@@ -1202,8 +1202,8 @@
         /// <returns>Winキーの場合：True、Winキーでない場合：False</returns>
         private static bool IsWinKey(VirtualKey.Keys key)
         {
-            return (key == VirtualKey.Keys.VK_LWIN
-                || key == VirtualKey.Keys.VK_RWIN);
+            return key == VirtualKey.Keys.VK_LWIN
+                || key == VirtualKey.Keys.VK_RWIN;
         }
 
         /// <summary>

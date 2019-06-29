@@ -15,6 +15,10 @@
     /// <summary>
     /// プロセスの実行に関する情報の設定を行うためのユーザコントロール
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1501",
+        Justification = "元々のUserControlの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
     public partial class StartProcessSetting : UserControl, ISpeechRecognitionSettingControl
     {
         #region コンストラクタ

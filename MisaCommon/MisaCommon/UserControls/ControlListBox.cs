@@ -11,11 +11,15 @@
     using MisaCommon.MessageResources.UserControl;
     using MisaCommon.Utility.ExtendMethod;
 
-    using MessageBox = Utility.StaticMethod.MessageBox;
+    using MessageBox = MisaCommon.Utility.StaticMethod.MessageBox;
 
     /// <summary>
     /// 任意のコントロールをリスト表示するためのユーザコントロール
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1501",
+        Justification = "元々のUserControlの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
     public partial class ControlListBox : UserControl
     {
         #region コンストラクタ
@@ -928,6 +932,10 @@
         /// <summary>
         /// <see cref="PlListTable"/> に設置するラジオボタン
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1501",
+            Justification = "元々のRadioButtonの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
         private class TableRadioButton : RadioButton
         {
             #region コンストラクタ
@@ -1082,6 +1090,10 @@
         /// <summary>
         /// <see cref="PlListTable"/> に設置するコントロールを含むパネル
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1501",
+            Justification = "元々のPanelの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
         private class TableControlPanel : Panel
         {
             #region コンストラクタ

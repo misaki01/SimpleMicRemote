@@ -9,8 +9,8 @@
     using MisaCommon.Exceptions;
     using MisaCommon.Utility.Win32Api.NativeMethod;
 
-    using Win32Api = NativeMethod.Window.NativeMethods;
-    using Win32MessageApi = NativeMethod.Message.NativeMethods;
+    using Win32Api = MisaCommon.Utility.Win32Api.NativeMethod.Window.NativeMethods;
+    using Win32MessageApi = MisaCommon.Utility.Win32Api.NativeMethod.Message.NativeMethods;
 
     /// <summary>
     /// Win32APIの機能を使用してウィンドウに対する操作を行うクラス
@@ -86,7 +86,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウ列挙処理を呼び出し列挙を行う
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.EnumWindows(CallBackDelegate, callBackValue);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -97,7 +97,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.EnumWindows);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -178,7 +178,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、最前面のウィンドウのハンドルを取得する
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 // 最前面のウィンドウのハンドルを取得
                 IntPtr windowHandle = Win32Api.GetForegroundWindow();
@@ -198,7 +198,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetForegroundWindow);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
             IntPtr handle = (IntPtr)result.ReturnValue;
 
             // 例外発生フラグが立っている場合、取得成功か判定
@@ -256,7 +256,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ディスクトップウィンドウのハンドルを取得する
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 // ディスクトップウィンドウのハンドルを取得
                 IntPtr windowHandle = Win32Api.GetDesktopWindow();
@@ -268,7 +268,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetDesktopWindow);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
             IntPtr handle = (IntPtr)result.ReturnValue;
 
             // 例外発生フラグが立っている場合、取得成功か判定
@@ -302,7 +302,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの存在チェック処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32ReturnValue = Win32Api.IsWindow(windowHandle);
 
@@ -312,7 +312,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.IsWindow);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 取得したウインドウハンドルを返却
             return (bool)result.ReturnValue;
@@ -334,7 +334,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの有効無効チェック処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32ReturnValue = Win32Api.IsWindowEnabled(windowHandle);
 
@@ -344,7 +344,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.IsWindowEnabled);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 取得したウインドウハンドルを返却
             return (bool)result.ReturnValue;
@@ -366,7 +366,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの表示有無チェック処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32ReturnValue = Win32Api.IsWindowVisible(windowHandle);
 
@@ -376,7 +376,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.IsWindowVisible);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 取得したウインドウハンドルを返却
             return (bool)result.ReturnValue;
@@ -398,7 +398,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの最小化チェック処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32ReturnValue = Win32Api.IsIconic(windowHandle);
 
@@ -408,7 +408,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.IsIconic);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 取得したウインドウハンドルを返却
             return (bool)result.ReturnValue;
@@ -436,7 +436,7 @@
         {
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、スレッドID、プロセスIDの取得処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 int threadId = Win32Api.GetWindowThreadProcessId(windowHandle, out int processId);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -449,7 +449,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetWindowThreadProcessId);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -496,7 +496,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、上下左右の座標情報の取得処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.GetWindowRect(windowHandle, out Win32Api.RECT rect);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -513,7 +513,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetWindowRect);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -561,7 +561,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、上下左右の座標情報の取得処理を呼び出す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.GetClientRect(windowHandle, out Win32Api.RECT rect);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -578,7 +578,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.GetClientRect);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -618,7 +618,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウを最小化する
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.CloseWindow(windowHandle);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -629,7 +629,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.CloseWindow);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -663,7 +663,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウの最小化状態を元に戻す
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 bool win32Result = Win32Api.OpenIcon(windowHandle);
                 int win32ErrorCode = Marshal.GetLastWin32Error();
@@ -674,7 +674,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.OpenIcon);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -723,7 +723,7 @@
 
             // Win32Apiの実行処理
             // Win32ApiのWindou共通の呼び出し機能を用いて、ウィンドウのサイズ、位置を変更する
-            Win32ApiResult function()
+            Win32ApiResult Function()
             {
                 // 実行
                 bool win32Result = Win32Api.SetWindowPos(
@@ -742,7 +742,7 @@
             // 実行
             string dllName = "user32.dll";
             string methodName = nameof(Win32Api.SetWindowPos);
-            Win32ApiResult result = Win32ApiCommon.Run(function, dllName, methodName);
+            Win32ApiResult result = Win32ApiCommon.Run(Function, dllName, methodName);
 
             // 正常終了したかチェック
             if (!result.Result && result.ErrorCode != (int)ErrorCode.NO_ERROR)
@@ -887,8 +887,8 @@
             MessageOperate.SendMessage(
                 windowHandle: windowHandle,
                 message: message,
-                wParam: paramW,
-                lParam: paramL,
+                wparam: paramW,
+                lparam: paramL,
                 isSucessFunc: isSucessFunc,
                 isThrowExceptionCloseFail: isThrowExceptionCloseFail,
                 isExcludeTimeoutExceptions: isExcludeTimeoutExceptions);

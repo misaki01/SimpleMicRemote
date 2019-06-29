@@ -19,6 +19,10 @@
     /// <summary>
     /// 簡易版の音声認識リモコンFormコントロール
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Design",
+        "CA1501",
+        Justification = "元々のFormの継承が深過ぎであり、自作クラスにおいては深い継承はしていないため抑止")]
     public partial class SimpleForm : Form
     {
         #region クラス変数・定数

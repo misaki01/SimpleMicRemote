@@ -131,7 +131,7 @@
                 {
                     float barWidth = (window.SizeWidth - client.SizeWidth) / 2;
                     windowSizePoint = new SizePoint(
-                        sizeWidth: window.SizeWidth - (int)((barWidth * 2)),
+                        sizeWidth: window.SizeWidth - (int)(barWidth * 2),
                         sizeHeight: window.SizeHeight - (int)Math.Floor(barWidth + 1),
                         positionX: window.PositionX + (int)Math.Floor(barWidth),
                         positionY: window.PositionY + 1);

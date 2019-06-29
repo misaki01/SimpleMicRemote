@@ -242,14 +242,14 @@
                     InputKey inputKey = GetSettingPropertyValue<InputKey>(setting, propertyName);
                     return inputKey.ConvertToString(inputKey);
                 },
-                (property) => summaryText(new InputKey(property)),
+                (property) => SummaryText(new InputKey(property)),
                 (property) => CheckKeyInputProperty(property),
                 (property) => InputOperate.MouseKeybordInput(new InputKey(property)));
 
             // ラベルに表示するための概要文字列を取得するローカル関数
             // 引数１：概要文字を生成するInputKeyオブジェクト
             // 戻り値：概要文字
-            string summaryText(InputKey inputKey)
+            string SummaryText(InputKey inputKey)
             {
                 // 文字列に変換し返却
                 StringBuilder convertValue = new StringBuilder();

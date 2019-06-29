@@ -129,13 +129,7 @@
         /// </summary>
         [ReadOnly(true)]
         [Browsable(false)]
-        public string StartStartupModeString
-        {
-            get
-            {
-                return Enum.GetName(typeof(StartupMode), StartStartupMode);
-            }
-        }
+        public string StartStartupModeString => Enum.GetName(typeof(StartupMode), StartStartupMode);
 
         /// <summary>
         /// アプリケーション起動の際の入力モードを取得・設定する
@@ -149,13 +143,7 @@
         /// </summary>
         [ReadOnly(true)]
         [Browsable(false)]
-        public string StartInputModeString
-        {
-            get
-            {
-                return Enum.GetName(typeof(InputMode), StartInputMode);
-            }
-        }
+        public string StartInputModeString => Enum.GetName(typeof(InputMode), StartInputMode);
 
         /// <summary>
         /// 音声認識で使用するChromeウィンドウのサイズと位置を取得・設定する

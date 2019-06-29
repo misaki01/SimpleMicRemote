@@ -1115,7 +1115,7 @@
                 // 末端データを設定
                 byte[] lastData = new byte[lastCount];
                 long lastIndex = 0;
-                for (long i = (headerCount + blockCount); i < (headerCount + blockCount + lastCount); i++)
+                for (long i = headerCount + blockCount; i < (headerCount + blockCount + lastCount); i++)
                 {
                     lastData[lastIndex] = frameData[i];
                     lastIndex++;

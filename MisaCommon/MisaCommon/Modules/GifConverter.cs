@@ -76,14 +76,10 @@
         /// <summary>
         /// 変換処理が実行中かどうかを示すフラグを取得する
         /// </summary>
-        public bool IsRunning
-        {
-            get
-            {
-                // 変換処理が増える度にORで繋げる
-                return IsRunningCombineImages;
-            }
-        }
+        /// <remarks>
+        /// 変換処理が増える度にORで繋げる
+        /// </remarks>
+        public bool IsRunning => IsRunningCombineImages;
 
         /// <summary>
         /// 変換処理で生成したGifファイルの保存先パスを取得する
